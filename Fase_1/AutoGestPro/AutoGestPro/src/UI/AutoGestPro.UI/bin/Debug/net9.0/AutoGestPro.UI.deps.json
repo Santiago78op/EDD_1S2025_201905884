@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "AutoGestPro.UI/1.0.0": {
+        "runtime": {
+          "AutoGestPro.UI.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AutoGestPro.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

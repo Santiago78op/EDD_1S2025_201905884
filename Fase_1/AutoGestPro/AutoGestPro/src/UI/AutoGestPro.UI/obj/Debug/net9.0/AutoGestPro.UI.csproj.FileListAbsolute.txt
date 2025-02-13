@@ -1,0 +1,14 @@
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/bin/Debug/net9.0/AutoGestPro.UI
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/bin/Debug/net9.0/AutoGestPro.UI.deps.json
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/bin/Debug/net9.0/AutoGestPro.UI.runtimeconfig.json
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/bin/Debug/net9.0/AutoGestPro.UI.dll
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/bin/Debug/net9.0/AutoGestPro.UI.pdb
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.GeneratedMSBuildEditorConfig.editorconfig
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.AssemblyInfoInputs.cache
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.AssemblyInfo.cs
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.csproj.CoreCompileInputs.cache
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.dll
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/refint/AutoGestPro.UI.dll
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.pdb
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/AutoGestPro.UI.genruntimeconfig.cache
+/home/julian/RiderProjects/AutoGestPro/AutoGestPro/src/UI/AutoGestPro.UI/obj/Debug/net9.0/ref/AutoGestPro.UI.dll
