@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jT3TG9ay2Yo=",
+  "dgSpecHash": "6mMi1VgBLUc=",
   "success": true,
-  "projectFilePath": "/home/julian/RiderProjects/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
+  "projectFilePath": "/home/julian/Documentos/EDD/Fase_1/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
   "expectedPackageFiles": [
     "/home/julian/.nuget/packages/atksharp/3.24.24.117-develop/atksharp.3.24.24.117-develop.nupkg.sha512",
     "/home/julian/.nuget/packages/cairosharp/3.24.24.117-develop/cairosharp.3.24.24.117-develop.nupkg.sha512",
