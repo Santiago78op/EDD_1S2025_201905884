@@ -32,22 +32,11 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
      * Constructor de la lista enlazada
      * @param persona Dato a almacenar en el nodo
      */
-    public Linked_List(T estudiante)
+    public Linked_List()
     {
-        /* Se reserva memoria para el nuevo nodo */
-        NodeLinked<T>* newNodeLinked = (NodeLinked<T>*)Marshal.AllocHGlobal(sizeof(NodeLinked<T>));
-        if (newNodeLinked == null)
-        {
-            throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
-        }
-
-        /* Se asigna el dato al nuevo nodo */
-        *newNodeLinked = new NodeLinked<T>(estudiante);
-        newNodeLinked->_next = null;
-
-        _head = newNodeLinked; // El primer nodo es el nuevo nodo
-        _tail = newNodeLinked; // El ultimo nodo es el nuevo nodo
-        length = 1; // La lista tiene un solo nodo
+        _head = null;
+        _tail = null;
+        length = 0;
     }
 
     /**
@@ -60,20 +49,20 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
      * @exception Ninguna
      * @test_cases
      */
-    public void append(T persona)
+    public void append(T data)
     {
-        // Agregar un nuevo nodo al final de la lista
+        /* Se reserva memoria para el nuevo nodo */
         NodeLinked<T>* newNodeLinked = (NodeLinked<T>*)Marshal.AllocHGlobal(sizeof(NodeLinked<T>));
-
-        // Se asigna el dato al nuevo nodo
-        *newNodeLinked = new NodeLinked<T>(persona);
-        newNodeLinked->_next = null;
+        if (newNodeLinked == null)
+        {
+            throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
+        }
 
         // Se asigna el dato al nuevo nodo
         if (length == 0)
         {
-            _head = newNodeLinked;
-            _tail = newNodeLinked;
+            _head = newNodeLinked; // El primer nodo es el nuevo nodo
+            _tail = newNodeLinked; // El ultimo nodo es el nuevo nodo
         }
         else
         {
@@ -177,5 +166,26 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
     ~Linked_List()
     {
         Dispose();
+    }
+
+    /**
+     * Metodo para obtener un nodo de la lista
+     * @param index Indice del nodo a obtener
+     * @return Nodo de la lista
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Ninguna
+     * @exception Ninguna
+     * @test_cases
+     */
+    public NodeLinked<T>* GetNode(int index)
+    {
+        NodeLinked<T>* temp = _head;
+        for (int i = 0; i < index; i++)
+        {
+            temp = temp->_next;
+        }
+
+        return temp;
     }
 }

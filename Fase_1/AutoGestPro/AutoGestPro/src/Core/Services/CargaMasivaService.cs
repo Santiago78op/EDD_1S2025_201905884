@@ -8,12 +8,9 @@ namespace AutoGestPro.Core.Services;
 
 public class CargaMasivaService
 {
-    public Linked_List<Cliente> CargarUsuariosDesdeCSV(string rutaArchivo)
+    public Linked_List<Cliente> CargarCleintesDesdeCSV(string rutaArchivo)
         {   
-            
-            Cliente cliente_1 = new Cliente(0, "Nombre", "Apellido", "Email", "Telefono");
-            Linked_List<Cliente> clientes = new Linked_List<Cliente>(cliente_1);
-            clientes.remove(cliente_1);
+            Linked_List<Cliente> clientes = new Linked_List<Cliente>();
             
             try
             {
@@ -48,9 +45,9 @@ public class CargaMasivaService
             return clientes;
         }
 
-        public List<Vehiculo> CargarVehiculosDesdeCSV(string rutaArchivo)
+        public Double_List<Vehiculo> CargarVehiculosDesdeCSV(string rutaArchivo)
         {
-            List<Vehiculo> vehiculos = new List<Vehiculo>();
+            Double_List<Vehiculo> vehiculos = new Double_List<Vehiculo>();
 
             try
             {
@@ -72,10 +69,10 @@ public class CargaMasivaService
                             datos[4]
                         );
 
-                        vehiculos.Add(vehiculo);
+                        vehiculos.append(vehiculo);
                     }
                 }
-                Console.WriteLine($"✅ {vehiculos.Count} vehículos cargados correctamente.");
+                Console.WriteLine($"✅ {vehiculos.Length} vehículos cargados correctamente.");
             }
             catch (Exception ex)
             {
@@ -85,9 +82,9 @@ public class CargaMasivaService
             return vehiculos;
         }
 
-        public List<Repuesto> CargarRepuestosDesdeCSV(string rutaArchivo)
+        public RingList<Repuesto> CargarRepuestosDesdeCSV(string rutaArchivo)
         {
-            List<Repuesto> repuestos = new List<Repuesto>();
+            RingList<Repuesto> repuestos = new RingList<Repuesto>();
 
             try
             {
@@ -108,10 +105,10 @@ public class CargaMasivaService
                             double.Parse(datos[3])
                         );
 
-                        repuestos.Add(repuesto);
+                        repuestos.append(repuesto);
                     }
                 }
-                Console.WriteLine($"✅ {repuestos.Count} repuestos cargados correctamente.");
+                Console.WriteLine($"✅ {repuestos.Length} repuestos cargados correctamente.");
             }
             catch (Exception ex)
             {

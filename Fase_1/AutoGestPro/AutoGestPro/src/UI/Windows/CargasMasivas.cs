@@ -106,42 +106,93 @@ public unsafe class CargasMasivas : Window
 
             if (entidadSeleccionada == "Usuarios")
             {
-                Linked_List<Cliente> clientes = cargaMasivaService.CargarUsuariosDesdeCSV(rutaArchivo);
-                MostrarDatosEnTreeView(clientes);
+                var clientes = cargaMasivaService.CargarCleintesDesdeCSV(rutaArchivo);
+                MostrarDatosEnTreeViewCliente(clientes);
             }
             else if (entidadSeleccionada == "Vehículos")
             {
-                Linked_List<Cliente> clientes = cargaMasivaService.CargarUsuariosDesdeCSV(rutaArchivo);
-                MostrarDatosEnTreeView(clientes);
+                var vehiculos = cargaMasivaService.CargarVehiculosDesdeCSV(rutaArchivo);
+                MostrarDatosEnTreeViewVehiculo(vehiculos);
             }
             else if (entidadSeleccionada == "Repuestos")
             {
-                Linked_List<Cliente> clientes = cargaMasivaService.CargarUsuariosDesdeCSV(rutaArchivo);
-                MostrarDatosEnTreeView(clientes);
+                var repuestos = cargaMasivaService.CargarRepuestosDesdeCSV(rutaArchivo);
+                MostrarDatosEnTreeViewRepuesto(repuestos);
             }
         }
 
         fileChooser.Destroy();
     }
-
-    private void MostrarDatosEnTreeView<T>(Linked_List<T> lista) where T : class
+    
+    public void MostrarDatosEnTreeViewCliente(Linked_List<Cliente> clientes)
     {
         listStore.Clear();
 
-        // 🔥 Modificamos el bucle para iterar sobre Linked_List<T>
-        var nodoActual = lista.Head;  // Acceder al primer nodo
-        while (nodoActual != null)
+        for (int i = 0; i < clientes.Length; i++)
         {
-            T item = nodoActual->_data;
-
-            if (item is Cliente cliente)
+            if (clientes.GetNode(i)->_data is Cliente cliente)
+            {
                 listStore.AppendValues(cliente.Id, cliente.Nombre, cliente.Apellido);
-            else if (item is Vehiculo vehiculo)
-                listStore.AppendValues(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo);
-            else if (item is Repuesto repuesto)
-                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Costo);
+            }
+            else
+            {
+                throw new Exception("Error al mostrar datos en el TreeView");
+            }
+        }
+    }
+    
+    public void MostrarDatosEnTreeViewRepuesto(RingList<Repuesto> repuestos)
+    {
+        listStore.Clear();
 
-            nodoActual = nodoActual->_next;  // Avanzar al siguiente nodo
+        for (int i = 0; i < repuestos.Length; i++)
+        {
+            if (repuestos.GetNode(i)->_data is Repuesto repuesto)
+            {
+                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Costo);
+            }
+            else
+            {
+                throw new Exception("Error al mostrar datos en el TreeView");
+            }
+        }
+    }
+    
+    public void MostrarDatosEnTreeViewVehiculo(Double_List<Vehiculo> vehiculos)
+    {
+        listStore.Clear();
+
+        for (int i = 0; i < vehiculos.Length; i++)
+        {
+            if (vehiculos.GetNode(i)->_data is Vehiculo vehiculo)
+            {
+                listStore.AppendValues(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo);
+            }
+            else
+            {
+                throw new Exception("Error al mostrar datos en el TreeView");
+            }
+        }
+    }
+
+    private void MostrarDatosEnTreeView<T>(IEnumerable<T> lista) where T : class
+    {
+        listStore.Clear();
+
+        foreach (var item in lista)
+        {
+            if (item is Cliente cliente)
+            {
+                listStore.AppendValues(cliente.Id, cliente.Nombre, cliente.Apellido);
+            }
+            else if (item is Vehiculo vehiculo)
+            {
+                listStore.AppendValues(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo);
+            }
+            else if (item is Repuesto repuesto)
+            {
+                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Costo);
+            }
         }
     }
 }
