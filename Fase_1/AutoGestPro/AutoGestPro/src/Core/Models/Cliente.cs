@@ -3,16 +3,16 @@ namespace AutoGestPro.Core.Models;
 public class Cliente
 {
     private int _id;
-    private string _nombre;
-    private string _apellido;
+    private string _nombres;
+    private string _apellidos;
     private string _correo;
     private string _contrasenia;
 
-    public Cliente(int id, string nombre, string apellido, string correo, string contrasenia)
+    public Cliente(int id, string nombres, string apellidos, string correo, string contrasenia)
     {
         _id = id;
-        _nombre = nombre;
-        _apellido = apellido;
+        _nombres = nombres;
+        _apellidos = apellidos;
         _correo = correo;
         _contrasenia = contrasenia;
     }
@@ -25,14 +25,14 @@ public class Cliente
 
     public string Nombre
     {
-        get => _nombre;
-        set => _nombre = value ?? throw new ArgumentNullException(nameof(value));
+        get => _nombres;
+        set => _nombres = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Apellido
     {
-        get => _apellido;
-        set => _apellido = value ?? throw new ArgumentNullException(nameof(value));
+        get => _apellidos;
+        set => _apellidos = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string Correo

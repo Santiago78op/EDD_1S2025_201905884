@@ -11,13 +11,13 @@
     <ItemGroup>
       <PackageReference Include="GtkSharp" Version="3.24.24.117-develop" />
       <PackageReference Include="GtkSharp.Dependencies" Version="1.1.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="assets\" />
       <Folder Include="docs\" />
       <Folder Include="src\Core\Graphs\" />
-      <Folder Include="src\Core\Utils\" />
     </ItemGroup>
 
 </Project>

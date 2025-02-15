@@ -57,7 +57,11 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
         {
             throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
         }
-
+        
+        /* Se asigna el dato al nuevo nodo */
+        *newNodeLinked = new NodeLinked<T>(data);
+        newNodeLinked->_next = null;
+        
         // Se asigna el dato al nuevo nodo
         if (length == 0)
         {

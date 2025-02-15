@@ -12393,3 +12393,4 @@
 /home/julian/Documentos/EDD/Fase_1/AutoGestPro/AutoGestPro/obj/Debug/net9.0/AutoGestPro.pdb
 /home/julian/Documentos/EDD/Fase_1/AutoGestPro/AutoGestPro/obj/Debug/net9.0/AutoGestPro.genruntimeconfig.cache
 /home/julian/Documentos/EDD/Fase_1/AutoGestPro/AutoGestPro/obj/Debug/net9.0/ref/AutoGestPro.dll
+/home/julian/Documentos/EDD/Fase_1/AutoGestPro/AutoGestPro/bin/Debug/net9.0/Newtonsoft.Json.dll

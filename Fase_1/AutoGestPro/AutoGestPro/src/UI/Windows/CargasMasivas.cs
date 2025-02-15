@@ -54,7 +54,7 @@ public unsafe class CargasMasivas : Window
     {
         listStore = entidad switch
         {
-            "Usuarios" => new ListStore(typeof(int), typeof(string), typeof(string)),
+            "Usuarios" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(string)),
             "Vehículos" => new ListStore(typeof(int), typeof(string), typeof(string)),
             "Repuestos" => new ListStore(typeof(int), typeof(string), typeof(decimal)),
             _ => throw new Exception("Entidad no reconocida")
@@ -72,7 +72,9 @@ public unsafe class CargasMasivas : Window
         {
             treeView.AppendColumn("ID", new CellRendererText(), "text", 0);
             treeView.AppendColumn("Nombre", new CellRendererText(), "text", 1);
-            treeView.AppendColumn("Rol", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Apellido", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Correo", new CellRendererText(), "text", 3);
+            treeView.AppendColumn("Contraseña", new CellRendererText(), "text", 4);
         }
         else if (entidad == "Vehículos")
         {
@@ -132,7 +134,7 @@ public unsafe class CargasMasivas : Window
         {
             if (clientes.GetNode(i)->_data is Cliente cliente)
             {
-                listStore.AppendValues(cliente.Id, cliente.Nombre, cliente.Apellido);
+                listStore.AppendValues(cliente.Id, cliente.Nombre, cliente.Apellido, cliente.Correo, cliente.Contrasenia);
             }
             else
             {

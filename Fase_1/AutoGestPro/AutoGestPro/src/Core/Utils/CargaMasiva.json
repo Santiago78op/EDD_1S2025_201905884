@@ -1,0 +1,51 @@
+## Usuario
+[
+  {
+    "ID": 1,
+    "Nombre": "Juan",
+    "Apellido": "Pérez",
+    "Correo": "juan.perez@mail.com",
+    "Contrasenia": "123456"
+  },
+  {
+    "ID": 2,
+    "Nombres": "María",
+    "Apellidos": "Gómez",
+    "Correo": "maria.gomez@mail.com",
+    "Contrasenia": "password123"
+  }
+]
+
+## Vehículos
+[
+  {
+    "ID": 1,
+    "ID_Usuario": 1,
+    "Marca": "Toyota",
+    "Modelo": "Corolla",
+    "Placa": "ABC123"
+  },
+  {
+    "ID": 2,
+    "ID_Usuario": 2,
+    "Marca": "Ford",
+    "Modelo": "Focus",
+    "Placa": "XYZ456"
+  }
+]
+
+## Repuestos
+[
+  {
+    "ID": 1,
+    "Repuesto": "Filtro de aceite",
+    "Detalles": "Filtro de aceite para motor 1.8L",
+    "Costo": 15.75
+  },
+  {
+    "ID": 2,
+    "Repuesto": "Bujías",
+    "Detalles": "Juego de bujías para motor 2.0L",
+    "Costo": 30.50
+  }
+]

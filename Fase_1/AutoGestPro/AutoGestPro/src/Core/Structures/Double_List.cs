@@ -52,6 +52,11 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
           {
                throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
           }
+          
+          /* Se asigna el dato al nuevo nodo */
+          *newNode = new NodeDouble<T>(data);
+          newNode->_next = null;
+          newNode->_prev = null;
 
           if (length == 0)
           {

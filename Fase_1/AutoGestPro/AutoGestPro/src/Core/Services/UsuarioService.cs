@@ -10,10 +10,11 @@ namespace AutoGestPro.Core.Services;
  */
 public unsafe class UsuarioService
 {
-    private readonly Linked_List<Usuario> _usuarios;
+    // Lista enlazada de usuarios - readonly para evitar modificaciones
+    private Linked_List<Usuario> _usuarios;
         
     public UsuarioService()
-    {
+    {   
         _usuarios = new Linked_List<Usuario>();
         _usuarios.append(new Usuario("root", "root"));
     }

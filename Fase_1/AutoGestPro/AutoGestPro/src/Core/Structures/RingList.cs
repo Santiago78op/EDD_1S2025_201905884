@@ -55,6 +55,10 @@ public unsafe class RingList<T> : IRingList<T>, IDisposable where T : class
         {
             throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
         }
+        
+        /* Se asigna el dato al nuevo nodo */
+        *newNodeRing = new NodeRing<T>(data);
+        newNodeRing->_next = null;
 
         if (length == 0)
         {
