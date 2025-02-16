@@ -3,15 +3,15 @@ namespace AutoGestPro.Core.Models;
 public class Vehiculo
 {
     private int _id;
-    private int _idUsuario;
+    private int _id_usuario;
     private string _marca;
     private string _modelo;
-    private String _placa;
+    private string _placa;
 
     public Vehiculo(int id, int idUsuario, string marca, string modelo, string placa)
     {
         _id = id;
-        _idUsuario = idUsuario;
+        _id_usuario = idUsuario;
         _marca = marca;
         _modelo = modelo;
         _placa = placa;
@@ -23,10 +23,10 @@ public class Vehiculo
         set => _id = value;
     }
 
-    public int IdUsuario
+    public int Id_Usuario
     {
-        get => _idUsuario;
-        set => _idUsuario = value;
+        get => _id_usuario;
+        set => _id_usuario = value;
     }
 
     public string Marca

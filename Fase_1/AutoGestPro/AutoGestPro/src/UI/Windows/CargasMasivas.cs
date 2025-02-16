@@ -31,6 +31,7 @@ public unsafe class CargasMasivas : Window
         comboEntidades.AppendText("Vehículos");
         comboEntidades.AppendText("Repuestos");
         comboEntidades.Active = 0; // Predeterminado en "Usuarios"
+        comboEntidades.Changed += OnComboEntidadesChanged;
 
         Button btnSeleccionarArchivo = new Button("Seleccionar Archivo CSV");
         btnSeleccionarArchivo.Clicked += OnSeleccionarArchivoClicked;
@@ -49,14 +50,20 @@ public unsafe class CargasMasivas : Window
         Add(vbox);
         ShowAll();
     }
+    
+    private void OnComboEntidadesChanged(object sender, EventArgs e)
+    {
+        string entidadSeleccionada = comboEntidades.ActiveText;
+        CrearColumnasTreeView(entidadSeleccionada);
+    }
 
     private void CrearColumnasTreeView(string entidad)
     {
         listStore = entidad switch
         {
             "Usuarios" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(string)),
-            "Vehículos" => new ListStore(typeof(int), typeof(string), typeof(string)),
-            "Repuestos" => new ListStore(typeof(int), typeof(string), typeof(decimal)),
+            "Vehículos" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(string)),
+            "Repuestos" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(double)),
             _ => throw new Exception("Entidad no reconocida")
         };
 
@@ -79,14 +86,17 @@ public unsafe class CargasMasivas : Window
         else if (entidad == "Vehículos")
         {
             treeView.AppendColumn("ID", new CellRendererText(), "text", 0);
-            treeView.AppendColumn("Marca", new CellRendererText(), "text", 1);
-            treeView.AppendColumn("Modelo", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Usuario", new CellRendererText(), "text", 1);
+            treeView.AppendColumn("Marca", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Modelo", new CellRendererText(), "text", 3);
+            treeView.AppendColumn("Placa", new CellRendererText(), "text", 4);
         }
         else if (entidad == "Repuestos")
         {
             treeView.AppendColumn("ID", new CellRendererText(), "text", 0);
-            treeView.AppendColumn("Nombre", new CellRendererText(), "text", 1);
-            treeView.AppendColumn("Precio", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Repuesto", new CellRendererText(), "text", 1);
+            treeView.AppendColumn("Detalle", new CellRendererText(), "text", 2);
+            treeView.AppendColumn("Costo", new CellRendererText(), "text", 3);
         }
     }
 
@@ -109,6 +119,8 @@ public unsafe class CargasMasivas : Window
             if (entidadSeleccionada == "Usuarios")
             {
                 var clientes = cargaMasivaService.CargarCleintesDesdeCSV(rutaArchivo);
+                // funcion para mostrar datos en el treeview
+                
                 MostrarDatosEnTreeViewCliente(clientes);
             }
             else if (entidadSeleccionada == "Vehículos")
@@ -143,23 +155,6 @@ public unsafe class CargasMasivas : Window
         }
     }
     
-    public void MostrarDatosEnTreeViewRepuesto(RingList<Repuesto> repuestos)
-    {
-        listStore.Clear();
-
-        for (int i = 0; i < repuestos.Length; i++)
-        {
-            if (repuestos.GetNode(i)->_data is Repuesto repuesto)
-            {
-                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Costo);
-            }
-            else
-            {
-                throw new Exception("Error al mostrar datos en el TreeView");
-            }
-        }
-    }
-    
     public void MostrarDatosEnTreeViewVehiculo(Double_List<Vehiculo> vehiculos)
     {
         listStore.Clear();
@@ -168,7 +163,7 @@ public unsafe class CargasMasivas : Window
         {
             if (vehiculos.GetNode(i)->_data is Vehiculo vehiculo)
             {
-                listStore.AppendValues(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo);
+                listStore.AppendValues(vehiculo.Id, vehiculo.Id_Usuario, vehiculo.Marca, vehiculo.Modelo, vehiculo.Placa);
             }
             else
             {
@@ -176,24 +171,20 @@ public unsafe class CargasMasivas : Window
             }
         }
     }
-
-    private void MostrarDatosEnTreeView<T>(IEnumerable<T> lista) where T : class
+    
+    public void MostrarDatosEnTreeViewRepuesto(RingList<Repuesto> repuestos)
     {
         listStore.Clear();
 
-        foreach (var item in lista)
+        for (int i = 0; i < repuestos.Length; i++)
         {
-            if (item is Cliente cliente)
+            if (repuestos.GetNode(i)->_data is Repuesto repuesto)
             {
-                listStore.AppendValues(cliente.Id, cliente.Nombre, cliente.Apellido);
+                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Detalle ,repuesto.Costo);
             }
-            else if (item is Vehiculo vehiculo)
+            else
             {
-                listStore.AppendValues(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo);
-            }
-            else if (item is Repuesto repuesto)
-            {
-                listStore.AppendValues(repuesto.Id, repuesto.Repuesto1, repuesto.Costo);
+                throw new Exception("Error al mostrar datos en el TreeView");
             }
         }
     }

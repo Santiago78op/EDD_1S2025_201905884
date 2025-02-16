@@ -7,12 +7,15 @@ using Newtonsoft.Json;
 
 namespace AutoGestPro.Core.Services;
 
-public class CargaMasivaService
-{
+public unsafe class CargaMasivaService
+{   
+    public static Linked_List<Cliente> clientes = new Linked_List<Cliente>();
+    public static Double_List<Vehiculo> vehiculos = new Double_List<Vehiculo>();
+    public static RingList<Repuesto> repuestos = new RingList<Repuesto>();
+    public static ListQueue<Servicio> servicios = new ListQueue<Servicio>();
+    
     public Linked_List<Cliente> CargarCleintesDesdeCSV(string rutaArchivo)
     {
-        Linked_List<Cliente> clientes = new Linked_List<Cliente>();
-
         try
         {
             string json = File.ReadAllText(rutaArchivo);
@@ -38,7 +41,10 @@ public class CargaMasivaService
                     {
                         foreach (var cliente in listaClientes)
                         {
-                            clientes.append(cliente);
+                            if (!clienteExiste(cliente))
+                            {
+                                clientes.append(cliente);
+                            }
                         }
                     }
                 }
@@ -56,8 +62,6 @@ public class CargaMasivaService
 
     public Double_List<Vehiculo> CargarVehiculosDesdeCSV(string rutaArchivo)
     {
-        Double_List<Vehiculo> vehiculos = new Double_List<Vehiculo>();
-
         try
         {
             string json = File.ReadAllText(rutaArchivo);
@@ -67,33 +71,36 @@ public class CargaMasivaService
             // Recorrer cada sección
             foreach (var seccion in secciones)
             {
-                // Si la sección comienza con "Usuario", se cargan los usuarios
+                // Si la sección comienza con "Vehiculos", se cargan los usuarios
                 if (seccion.StartsWith("Vehículos"))
                 {
                     // Extraer el JSON de la sección de la sigueitne forma
                     /*
                      * Formato de la sección:
-                     * Usuario: [{...}, {...}, {...}]
+                     * Vehiculos: [{...}, {...}, {...}]
                      */
-                    var jsonUsuarios = seccion.Substring("Vehículos".Length).Trim();
-                    // Deserializar el JSON a una lista de objetos Cliente
-                    var listaClientes = JsonConvert.DeserializeObject<List<Vehiculo>>(jsonUsuarios);
+                    var jsonVehiculos = seccion.Substring("Vehículos".Length).Trim();
+                    // Deserializar el JSON a una lista de objetos Vehiculo
+                    var listaCVehiculos = JsonConvert.DeserializeObject<List<Vehiculo>>(jsonVehiculos);
 
-                    if (listaClientes != null)
+                    if (listaCVehiculos != null)
                     {
-                        foreach (var cliente in listaClientes)
+                        foreach (var vehiculo in listaCVehiculos)
                         {
-                            vehiculos.append(cliente);
+                            if (!vehiculoExiste(vehiculo))
+                            {
+                                vehiculos.append(vehiculo);
+                            }
                         }
                     }
                 }
             }
 
-            Console.WriteLine($"✅ {vehiculos.Length} usuarios cargados correctamente.");
+            Console.WriteLine($"✅ {vehiculos.Length} vehiculos cargados correctamente.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error al cargar usuarios: {ex.Message}");
+            Console.WriteLine($"❌ Error al cargar vehiculos: {ex.Message}");
         }
 
         return vehiculos;
@@ -101,28 +108,37 @@ public class CargaMasivaService
 
     public RingList<Repuesto> CargarRepuestosDesdeCSV(string rutaArchivo)
     {
-        RingList<Repuesto> repuestos = new RingList<Repuesto>();
-
         try
         {
-            using (var reader = new StreamReader(rutaArchivo))
+            string json = File.ReadAllText(rutaArchivo);
+            // Dividir el archivo en secciones
+            var secciones = json.Split(new[] { "## " }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Recorrer cada sección
+            foreach (var seccion in secciones)
             {
-                string linea;
-                while ((linea = reader.ReadLine()) != null)
+                // Si la sección comienza con "Repuesto", se cargan los usuarios
+                if (seccion.StartsWith("Repuestos"))
                 {
-                    string[] datos = linea.Split(',');
+                    // Extraer el JSON de la sección de la sigueitne forma
+                    /*
+                     * Formato de la sección:
+                     * Repuesto: [{...}, {...}, {...}]
+                     */
+                    var jsonRepuestos = seccion.Substring("Repuestos".Length).Trim();
+                    // Deserializar el JSON a una lista de objetos Repuesto
+                    var listaRepuestos = JsonConvert.DeserializeObject<List<Repuesto>>(jsonRepuestos);
 
-                    if (datos.Length < 3) continue;
-
-                    Repuesto repuesto = new Repuesto
-                    (
-                        int.Parse(datos[0]),
-                        datos[1],
-                        datos[2],
-                        double.Parse(datos[3])
-                    );
-
-                    repuestos.append(repuesto);
+                    if (listaRepuestos != null)
+                    {
+                        foreach (var repuesto in listaRepuestos)
+                        {
+                            if (!repuestoExiste(repuesto))
+                            {
+                                repuestos.append(repuesto);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -134,5 +150,53 @@ public class CargaMasivaService
         }
 
         return repuestos;
+    }
+    
+    private bool clienteExiste(Cliente cliente)
+    {
+        for (int i = 0; i < clientes.Length; i++)
+        {
+            if (clientes.GetNode(i)->_data is Cliente c)
+            {
+                if (c.Equals(cliente))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    private bool vehiculoExiste(Vehiculo vehiculo)
+    {
+        for (int i = 0; i < vehiculos.Length; i++)
+        {
+            if (vehiculos.GetNode(i)->_data is Vehiculo v)
+            {
+                if (v.Equals(vehiculo))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    private bool repuestoExiste(Repuesto repuesto)
+    {
+        for (int i = 0; i < repuestos.Length; i++)
+        {
+            if (repuestos.GetNode(i)->_data is Repuesto r)
+            {
+                if (r.Equals(repuesto))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

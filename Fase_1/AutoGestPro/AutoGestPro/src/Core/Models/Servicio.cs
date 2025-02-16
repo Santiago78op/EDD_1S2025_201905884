@@ -1,16 +1,18 @@
 namespace AutoGestPro.Core.Models;
 
-public class Repuesto
+public class Servicio
 {
     private int _id;
-    private string _repuesto;
+    private int id_repuesto;
+    private int id_vehiculo;
     private string _detalles;
     private double _costo;
 
-    public Repuesto(int id, string repuesto, string detalles, double costo)
+    public Servicio(int id, int idRepuesto, int idVehiculo, string detalles, double costo)
     {
         _id = id;
-        _repuesto = repuesto;
+        id_repuesto = idRepuesto;
+        id_vehiculo = idVehiculo;
         _detalles = detalles;
         _costo = costo;
     }
@@ -21,10 +23,16 @@ public class Repuesto
         set => _id = value;
     }
 
-    public string Repuesto1
+    public int Id_Repuesto
     {
-        get => _repuesto;
-        set => _repuesto = value ?? throw new ArgumentNullException(nameof(value));
+        get => id_repuesto;
+        set => id_repuesto = value;
+    }
+
+    public int Id_Vehiculo
+    {
+        get => id_vehiculo;
+        set => id_vehiculo = value;
     }
 
     public string Detalle

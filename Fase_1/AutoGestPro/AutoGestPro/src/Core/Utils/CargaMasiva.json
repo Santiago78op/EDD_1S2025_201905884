@@ -27,6 +27,13 @@
   },
   {
     "ID": 2,
+    "ID_Usuario": 1,
+    "Marca": "Mazda",
+    "Modelo": "3",
+    "Placa": "DEF789"
+  },
+  {
+    "ID": 3,
     "ID_Usuario": 2,
     "Marca": "Ford",
     "Modelo": "Focus",

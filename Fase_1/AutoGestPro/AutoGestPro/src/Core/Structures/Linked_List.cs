@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -183,7 +184,7 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
      * @test_cases
      */
     public NodeLinked<T>* GetNode(int index)
-    {
+    {   
         NodeLinked<T>* temp = _head;
         for (int i = 0; i < index; i++)
         {
@@ -192,4 +193,83 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
 
         return temp;
     }
+    
+    /**
+     * Metodo para Modificar un nodo de la lista
+     * @param id Identificador del nodo a modificar
+     * @param data Dato a modificar
+     * @return bool
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Ninguna
+     * @exception Ninguna
+     * @test_cases
+     */
+    public bool ModifyNode(int id, T data)
+    {
+        NodeLinked<T>* temp = _head;
+        while (temp != null)
+        {
+            if (data is Cliente c && temp->_data is Cliente c2 && c.Id == c2.Id)
+            {
+                temp->_data = data;
+                return true;
+            }
+            temp = temp->_next;
+        }
+        return false;
+    } 
+    
+    /**
+     * Metodo para Eliminar un nodo de la lista
+     * @param id Identificador del nodo a eliminar
+     * @return bool
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Ninguna
+     * @exception Ninguna
+     * @test_cases
+     */
+    public bool DeleteNode(int id)
+    {
+        NodeLinked<T>* temp = _head;
+        NodeLinked<T>* prev = null;
+        while (temp != null)
+        {
+            if (temp->_data is Cliente c && c.Id == id)
+            {
+                if (prev == null)
+                {
+                    _head = temp->_next;
+                }
+                else
+                {
+                    prev->_next = temp->_next;
+                }
+
+                length--;
+                Marshal.FreeHGlobal((IntPtr)temp);
+                return true;
+            }
+
+            prev = temp;
+            temp = temp->_next;
+        }
+        return false;
+    }
+    
+    public NodeLinked<T>* SearchNode(int id)
+    {
+        NodeLinked<T>* temp = _head;
+        while (temp != null)
+        {
+            if (temp->_data is Cliente c && c.Id == id)
+            {
+                return temp;
+            }
+            temp = temp->_next;
+        }
+        return null;
+    }
+    
 }
