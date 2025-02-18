@@ -180,4 +180,10 @@ public unsafe class ListQueue<T> : IQueue<T>, IDisposable where T : class
 
         return temp;
     }
+    
+    public NodeQueue<T>* searchNode(int id)
+    {
+        // Metodo de busqueda para la lista circular
+        
+    }
 }

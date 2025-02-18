@@ -11,4 +11,5 @@ public unsafe interface IQueue<T> where T : class
     void dequeue(); // Elimina un nodo de la cola
     void printQueue(); // Imprime la cola
     NodeQueue<T>* GetNode(int index); // Obtiene un nodo de la cola
+    NodeQueue<T>* searchNode(int id); // Busca un nodo en la cola
 }

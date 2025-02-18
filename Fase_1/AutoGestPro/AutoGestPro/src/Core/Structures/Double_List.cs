@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -197,6 +198,32 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
                }
                temp = temp->_next;
                i++;
+          }
+          
+          return null;
+     }
+     
+     /**
+      * Metodo para buscar un nodo en la lista
+      * @param id Identificador del nodo a buscar
+      * @return NodeDouble<T> Nodo de la lista
+      * @complexity O(n)
+      * @precondition Ninguna
+      * @postcondition Ninguna
+      * @exception Ninguna
+      * @test_cases
+      */
+     public NodeDouble<T>* searchNode(int id)
+     {
+          NodeDouble<T>* temp = _head;
+          
+          while (temp != null)
+          {
+               if (temp->_data is Vehiculo v && v.Id == id)
+               {
+                    return temp;
+               }
+               temp = temp->_next;
           }
           
           return null;
