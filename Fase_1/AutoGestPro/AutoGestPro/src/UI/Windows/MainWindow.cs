@@ -21,10 +21,10 @@ public class MainWindow : Window
         vbox.PackStart(new MenuButton("Cargas Masivas", OnCargasMasivasClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Ingreso Individual", OnIngresoIndividualClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked), false, false, 5);
-        
-        /**
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked), false, false, 5);
+        
+        /**
         vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked), false, false, 5);
         */
         
@@ -42,10 +42,10 @@ public class MainWindow : Window
     private void OnCargasMasivasClicked(object sender, EventArgs e) => new CargasMasivas().Show();
     private void OnIngresoIndividualClicked(object sender, EventArgs e) => new IngresoIndividual().Show();
     private void OnGestionUsuariosClicked(object sender, EventArgs e) => new GestionUsuarios().Show();
-    
-    /**
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
+    
+    /**
     private void OnGenerarReportesClicked(object sender, EventArgs e) => new Reportes().Show();
     */
     

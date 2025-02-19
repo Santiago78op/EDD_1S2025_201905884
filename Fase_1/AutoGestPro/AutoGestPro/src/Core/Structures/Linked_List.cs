@@ -258,6 +258,16 @@ public unsafe class Linked_List<T> : ILinkedList<T>, IDisposable where T : class
         return false;
     }
     
+    /**
+     * Metodo para buscar un nodo en la lista
+     * @param id Identificador del nodo a buscar
+     * @return Nodo de la lista
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Ninguna
+     * @exception Ninguna
+     * @test_cases
+     */
     public NodeLinked<T>* SearchNode(int id)
     {
         NodeLinked<T>* temp = _head;

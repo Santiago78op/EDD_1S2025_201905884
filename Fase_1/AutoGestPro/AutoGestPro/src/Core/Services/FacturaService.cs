@@ -1,3 +1,5 @@
+using AutoGestPro.Core.Models;
+
 namespace AutoGestPro.Core.Services;
 
 public class FacturaService
@@ -5,16 +7,11 @@ public class FacturaService
     private Stack<Factura> pilaFacturas = new Stack<Factura>();
     private int contadorID = 1;
 
-    public void GenerarFactura(int idOrden, decimal costoServicio, decimal costoRepuesto)
+    public void GenerarFactura(int idOrden, double costoServicio, double costoRepuesto)
     {
-        decimal total = costoServicio + costoRepuesto;
+        double total = costoServicio + costoRepuesto;
 
-        Factura nuevaFactura = new Factura
-        {
-            ID = contadorID++,
-            ID_Orden = idOrden,
-            Total = total
-        };
+        Factura nuevaFactura = new Factura(contadorID++, idOrden, total);
 
         pilaFacturas.Push(nuevaFactura);
         System.Console.WriteLine($"✅ Factura Generada: {nuevaFactura}");

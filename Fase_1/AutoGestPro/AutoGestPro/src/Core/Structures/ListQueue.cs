@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -181,9 +182,30 @@ public unsafe class ListQueue<T> : IQueue<T>, IDisposable where T : class
         return temp;
     }
     
+    /**
+     * Metodo para buscar un nodo en la cola
+     * @param id Identificador del nodo a buscar
+     * @return NodeQueue<T> Nodo de la cola
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Se busca un nodo en la cola
+     * @exception Ninguna
+     * @test_cases
+     */
     public NodeQueue<T>* searchNode(int id)
     {
-        // Metodo de busqueda para la lista circular
+        NodeQueue<T>* temp = _head;
+        while (temp != null)
+        {
+            if (temp->_data is Servicio s && s.Id == id)
+            {
+                return temp;
+            }
+
+            temp = temp->_next;
+        }
+
+        return null;
         
     }
 }

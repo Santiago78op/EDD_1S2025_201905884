@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -192,5 +193,33 @@ public unsafe class RingList<T> : IRingList<T>, IDisposable where T : class
         }
         
         return current;
+    }
+    
+    /**
+     * Metodo para modificar un nodo de la lista
+     * @param id Identificador del nodo a modificar
+     * @param data Dato a modificar
+     * @return bool
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Ninguna
+     * @exception Ninguna
+     * @test_cases
+     */
+    public NodeRing<T>* searchNode(int id)
+    {
+        NodeRing<T>* current = _head;
+        
+        do
+        {
+            if (current->_data is Repuesto r && r.Id == id)
+            {
+                return current;
+            }
+            
+            current = current->_next;
+        } while (current != _head);
+        
+        return null;
     }
 }
