@@ -5,6 +5,7 @@ namespace AutoGestPro.Core.Services;
 
 public unsafe class FacturaService
 {
+    // Acceso a la lista
     public static StackList<Factura> pilaFacturas = new StackList<Factura>();
     private int contadorID = 1;
 
