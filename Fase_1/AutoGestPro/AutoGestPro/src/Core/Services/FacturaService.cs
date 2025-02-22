@@ -1,10 +1,11 @@
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Structures;
 
 namespace AutoGestPro.Core.Services;
 
-public class FacturaService
+public unsafe class FacturaService
 {
-    private Stack<Factura> pilaFacturas = new Stack<Factura>();
+    public static StackList<Factura> pilaFacturas = new StackList<Factura>();
     private int contadorID = 1;
 
     public void GenerarFactura(int idOrden, double costoServicio, double costoRepuesto)
@@ -13,22 +14,22 @@ public class FacturaService
 
         Factura nuevaFactura = new Factura(contadorID++, idOrden, total);
 
-        pilaFacturas.Push(nuevaFactura);
+        pilaFacturas.push(nuevaFactura);
         System.Console.WriteLine($"✅ Factura Generada: {nuevaFactura}");
     }
 
     public Factura ObtenerUltimaFactura()
     {
-        return pilaFacturas.Count > 0 ? pilaFacturas.Peek() : null;
+        return pilaFacturas.Height > 0 ? pilaFacturas.peek()->_data : null;
     }
 
     public Factura RetirarFactura()
     {
-        return pilaFacturas.Count > 0 ? pilaFacturas.Pop() : null;
+        return pilaFacturas.Height > 0 ? pilaFacturas.pop()->_data : null;
     }
 
     public int ObtenerTotalFacturas()
     {
-        return pilaFacturas.Count;
+        return pilaFacturas.Height;
     }
 }

@@ -61,17 +61,23 @@ public unsafe class StackList<T> : IStackList<T>, IDisposable where T : class
      * @exception Ninguna
      * @test_cases
      */
-    public void pop()
+    public NodeStack<T>* pop()
     {
-        if (height == 0)
+        if (_top == null)
         {
             throw new InvalidOperationException("La pila está vacía");
         }
 
         NodeStack<T>* temp = _top;
         _top = _top->_next;
-        Marshal.FreeHGlobal((IntPtr)temp);
         height--;
+        return temp;
+    }
+    
+    
+    public NodeStack<T>* peek()
+    {
+        return _top;
     }
     
     /**

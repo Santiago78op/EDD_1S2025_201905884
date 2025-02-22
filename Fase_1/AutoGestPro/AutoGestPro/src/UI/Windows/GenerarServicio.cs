@@ -78,7 +78,7 @@ public unsafe class GenerarServicio : Window
         try
         {
             int servicioId, repuestoId, vehiculoId;
-            double costoServicio;
+            decimal costoServicio;
 
             if (string.IsNullOrWhiteSpace(entryServicioId.Text) ||
                 string.IsNullOrWhiteSpace(entryVehiculoId.Text) ||
@@ -98,7 +98,7 @@ public unsafe class GenerarServicio : Window
                 return;
             }
 
-            if (!double.TryParse(entryCosto.Text, out costoServicio))
+            if (!decimal.TryParse(entryCosto.Text, out costoServicio))
             {
                 MostrarMensaje("Error", "Ingrese un costo de servicio válido.");
                 return;
@@ -129,7 +129,7 @@ public unsafe class GenerarServicio : Window
                 repuestoId,
                 vehiculoId,
                 entryDescripcion.Text,
-                costoServicio
+                Convert.ToDouble(costoServicio)
             );
 
             servicioService.RegistrarServicio(nuevoServicio, repuesto.Costo);
