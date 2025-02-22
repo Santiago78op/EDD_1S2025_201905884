@@ -174,6 +174,7 @@ public unsafe class ListQueue<T> : IQueue<T>, IDisposable where T : class
         }
 
         NodeQueue<T>* temp = _head;
+        
         for (int i = 0; i < index; i++)
         {
             temp = temp->_next;

@@ -23,10 +23,8 @@ public class MainWindow : Window
         vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked), false, false, 5);
-        
-        /**
         vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked), false, false, 5);
-        */
+        
         
         // 📌 Botón para cerrar sesión
         Button btnCerrarSesion = new Button("Cerrar Sesión");
@@ -44,10 +42,7 @@ public class MainWindow : Window
     private void OnGestionUsuariosClicked(object sender, EventArgs e) => new GestionUsuarios().Show();
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
-    
-    /**
-    private void OnGenerarReportesClicked(object sender, EventArgs e) => new Reportes().Show();
-    */
+    private void OnGenerarReportesClicked(object sender, EventArgs e) => new GenerarReportes().Show();
     
     // 📌 Función para cerrar sesión
     private void OnCerrarSesionClicked(object sender, EventArgs e)

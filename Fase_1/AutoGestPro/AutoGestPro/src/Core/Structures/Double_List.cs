@@ -187,20 +187,21 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
       */
      public NodeDouble<T>* GetNode(int index)
      {
-          NodeDouble<T>* temp = _head;
-          int i = 0;
-          
-          while (temp != null)
-          {
-               if (i == index)
-               {
-                    return temp;
+          if (index < 0 || index >= Length) return null;
+
+          NodeDouble<T>*temp = _head;
+
+          if (index < Length/2){
+               for (int i = 0; i < index; ++i) {
+                    temp = temp->_next;
                }
-               temp = temp->_next;
-               i++;
+          } else {
+               temp = _tail;
+               for (int i = Length - 1; i > index; --i) {
+                    temp = temp->_prev;
+               }
           }
-          
-          return null;
+          return temp;
      }
      
      /**

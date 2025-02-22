@@ -19,33 +19,17 @@ public unsafe class CargaMasivaService
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            // Dividir el archivo en secciones
-            var secciones = json.Split(new[] { "## " }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Recorrer cada sección
-            foreach (var seccion in secciones)
+            
+            // Procesar Json sin secciones
+            var listaClientes = JsonConvert.DeserializeObject<Cliente[]>(json);
+            
+            if (clientes != null)
             {
-                // Si la sección comienza con "Usuario", se cargan los usuarios
-                if (seccion.StartsWith("Usuario"))
+                foreach (var cliente in listaClientes)
                 {
-                    // Extraer el JSON de la sección de la sigueitne forma
-                    /*
-                     * Formato de la sección:
-                     * Usuario: [{...}, {...}, {...}]
-                     */
-                    var jsonUsuarios = seccion.Substring("Usuario".Length).Trim();
-                    // Deserializar el JSON a una lista de objetos Cliente
-                    var listaClientes = JsonConvert.DeserializeObject<List<Cliente>>(jsonUsuarios);
-
-                    if (listaClientes != null)
+                    if (!clienteExiste(cliente))
                     {
-                        foreach (var cliente in listaClientes)
-                        {
-                            if (!clienteExiste(cliente))
-                            {
-                                clientes.append(cliente);
-                            }
-                        }
+                        clientes.append(cliente);
                     }
                 }
             }
@@ -65,33 +49,17 @@ public unsafe class CargaMasivaService
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            // Dividir el archivo en secciones
-            var secciones = json.Split(new[] { "## " }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Recorrer cada sección
-            foreach (var seccion in secciones)
+            
+            // Procesar Json sin secciones
+            var listaVehiculos = JsonConvert.DeserializeObject<Vehiculo[]>(json);
+            
+            if (vehiculos != null)
             {
-                // Si la sección comienza con "Vehiculos", se cargan los usuarios
-                if (seccion.StartsWith("Vehículos"))
+                foreach (var vehiculo in listaVehiculos)
                 {
-                    // Extraer el JSON de la sección de la sigueitne forma
-                    /*
-                     * Formato de la sección:
-                     * Vehiculos: [{...}, {...}, {...}]
-                     */
-                    var jsonVehiculos = seccion.Substring("Vehículos".Length).Trim();
-                    // Deserializar el JSON a una lista de objetos Vehiculo
-                    var listaCVehiculos = JsonConvert.DeserializeObject<List<Vehiculo>>(jsonVehiculos);
-
-                    if (listaCVehiculos != null)
+                    if (!vehiculoExiste(vehiculo))
                     {
-                        foreach (var vehiculo in listaCVehiculos)
-                        {
-                            if (!vehiculoExiste(vehiculo))
-                            {
-                                vehiculos.append(vehiculo);
-                            }
-                        }
+                        vehiculos.append(vehiculo);
                     }
                 }
             }
@@ -111,33 +79,17 @@ public unsafe class CargaMasivaService
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            // Dividir el archivo en secciones
-            var secciones = json.Split(new[] { "## " }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Recorrer cada sección
-            foreach (var seccion in secciones)
+            
+            // Procesar Json sin secciones
+            var listaRepuestos = JsonConvert.DeserializeObject<Repuesto[]>(json);
+            
+            if (repuestos != null)
             {
-                // Si la sección comienza con "Repuesto", se cargan los usuarios
-                if (seccion.StartsWith("Repuestos"))
+                foreach (var repuesto in listaRepuestos)
                 {
-                    // Extraer el JSON de la sección de la sigueitne forma
-                    /*
-                     * Formato de la sección:
-                     * Repuesto: [{...}, {...}, {...}]
-                     */
-                    var jsonRepuestos = seccion.Substring("Repuestos".Length).Trim();
-                    // Deserializar el JSON a una lista de objetos Repuesto
-                    var listaRepuestos = JsonConvert.DeserializeObject<List<Repuesto>>(jsonRepuestos);
-
-                    if (listaRepuestos != null)
+                    if (!repuestoExiste(repuesto))
                     {
-                        foreach (var repuesto in listaRepuestos)
-                        {
-                            if (!repuestoExiste(repuesto))
-                            {
-                                repuestos.append(repuesto);
-                            }
-                        }
+                        repuestos.append(repuesto);
                     }
                 }
             }

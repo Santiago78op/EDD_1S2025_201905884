@@ -1,6 +1,7 @@
 using AutoGestPro.Core.Services;
 using Gtk;
 using System;
+using System.Globalization;
 using AutoGestPro.Core.Models;
 
 namespace AutoGestPro.UI.Windows;
@@ -78,7 +79,7 @@ public unsafe class GenerarServicio : Window
         try
         {
             int servicioId, repuestoId, vehiculoId;
-            decimal costoServicio;
+            double costoServicio;
 
             if (string.IsNullOrWhiteSpace(entryServicioId.Text) ||
                 string.IsNullOrWhiteSpace(entryVehiculoId.Text) ||
@@ -98,11 +99,12 @@ public unsafe class GenerarServicio : Window
                 return;
             }
 
-            if (!decimal.TryParse(entryCosto.Text, out costoServicio))
+            if (!double.TryParse(entryCosto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out costoServicio))
             {
                 MostrarMensaje("Error", "Ingrese un costo de servicio válido.");
                 return;
             }
+            costoServicio = Math.Round(costoServicio, 2);
 
             if (CargaMasivaService.vehiculos.searchNode(vehiculoId) == null)
             {
@@ -129,7 +131,7 @@ public unsafe class GenerarServicio : Window
                 repuestoId,
                 vehiculoId,
                 entryDescripcion.Text,
-                Convert.ToDouble(costoServicio)
+                costoServicio
             );
 
             servicioService.RegistrarServicio(nuevoServicio, repuesto.Costo);

@@ -1,0 +1,9 @@
+digraph G {
+node [shape=box];
+rankdir=LR;
+S1 [label="ID: 1\nID_Vehículo: 1\nID_Repuesto: 1\nDetalles: ee\nCosto: 12"];
+S2 [label="ID: 2\nID_Vehículo: 1\nID_Repuesto: 2\nDetalles: ep\nCosto: 145"];
+S1 -> S2;
+S3 [label="ID: 3\nID_Vehículo: 1\nID_Repuesto: 4\nDetalles: es\nCosto: 145,44"];
+S2 -> S3;
+}

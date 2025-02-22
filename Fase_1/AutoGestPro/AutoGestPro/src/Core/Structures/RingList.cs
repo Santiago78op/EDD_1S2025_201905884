@@ -64,14 +64,14 @@ public unsafe class RingList<T> : IRingList<T>, IDisposable where T : class
         if (length == 0)
         {
             _head = newNodeRing;
-            _tail = newNodeRing;
-            _tail->_next = _head;
+            _head->_next = _head;
+            _tail = _head;
         }
         else
         {
             _tail->_next = newNodeRing;
+            newNodeRing->_next = _head;
             _tail = newNodeRing;
-            _tail->_next = _head;
         }
         
         length++;
@@ -185,13 +185,15 @@ public unsafe class RingList<T> : IRingList<T>, IDisposable where T : class
      */
     public NodeRing<T>* GetNode(int index)
     {
+        if (index < 0 || index >= length) return null;
+
         NodeRing<T>* current = _head;
-        
+
         for (int i = 0; i < index; i++)
         {
             current = current->_next;
         }
-        
+
         return current;
     }
     
