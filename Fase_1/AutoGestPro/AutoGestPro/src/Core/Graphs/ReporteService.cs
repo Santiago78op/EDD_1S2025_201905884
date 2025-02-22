@@ -186,13 +186,13 @@ public unsafe class ReporteService
         return dot;
     }
 
-    public IEnumerable GetTopVehiculosConMasServicios(int i)
+    public StackList<Servicio> GetTopVehiculosConMasServicios(int i)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable GetTopVehiculosMasAntiguos(int i)
+    public Double_List<Vehiculo> GetTopVehiculosMasAntiguos(int i)
     {
-        throw new NotImplementedException();
+        return _vehiculoService.GetTopVehiculosMasAntiguos(i);
     }
 }

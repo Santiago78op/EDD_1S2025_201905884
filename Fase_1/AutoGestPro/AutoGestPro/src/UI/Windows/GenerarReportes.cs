@@ -1,9 +1,11 @@
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Services;
+using AutoGestPro.Core.Structures;
 using Gtk;
 
 namespace AutoGestPro.UI.Windows;
 
-public class GenerarReportes : Window
+public unsafe class GenerarReportes : Window 
 {
         private ReporteService reporteService;
         private ComboBoxText comboEntidades;
@@ -86,22 +88,25 @@ public class GenerarReportes : Window
         private void OnTopVehiculosClicked(object sender, EventArgs e)
         {
             
-            var topVehiculosServicios = reporteService.GetTopVehiculosConMasServicios(5);
-            var topVehiculosAntiguos = reporteService.GetTopVehiculosMasAntiguos(5);
-
+            //StackList<Servicio> topVehiculosServicios = reporteService.GetTopVehiculosConMasServicios(5);
+            Double_List<Vehiculo> topVehiculosAntiguos = reporteService.GetTopVehiculosMasAntiguos(5);
             string mensaje = "Top 5 Vehículos con más servicios:\n";
+            /**
             foreach (var vehiculo in topVehiculosServicios)
             {
                 mensaje += $"ID: {vehiculo.Id}, Marca: {vehiculo.Marca}, Modelo: {vehiculo.Modelo}, Servicios: {vehiculo.Servicios.Count}\n";
             }
-
+            */
+            
             mensaje += "\nTop 5 Vehículos más antiguos:\n";
-            foreach (var vehiculo in topVehiculosAntiguos)
+            
+            for ( int i = 0; i < topVehiculosAntiguos.Length; i++)
             {
-                mensaje += $"ID: {vehiculo.Id}, Marca: {vehiculo.Marca}, Modelo: {vehiculo.Modelo}, Año: {vehiculo.Año}\n";
+                Vehiculo vehiculo = topVehiculosAntiguos.GetNode(i)->_data;
+                mensaje += $"ID: {vehiculo.Id}, Usuario: {vehiculo.Id_Usuario} Marca: {vehiculo.Marca}, Modelo: {vehiculo.Modelo} Placa: {vehiculo.Placa}\n";
             }
             
-            MostrarMensaje("Top 5 Vehículos", "");
+            MostrarMensaje("Top 5 Vehículos", mensaje);
         }
 
         private void MostrarMensaje(string titulo, string mensaje)

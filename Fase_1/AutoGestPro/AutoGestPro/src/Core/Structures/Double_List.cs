@@ -229,4 +229,47 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
           
           return null;
      }
+     
+     // Sort asendente de la Lista Doble
+     public void Sort()
+     {
+          NodeDouble<T>* temp = _head;
+          NodeDouble<T>* temp2 = null;
+          T data;
+          
+          while (temp != null)
+          {
+               temp2 = temp->_next;
+               while (temp2 != null)
+               {
+                    if (temp->_data is Vehiculo v1 && temp2->_data is Vehiculo v2)
+                    {
+                         if (v1.Modelo > v2.Modelo)
+                         {
+                              data = temp->_data;
+                              temp->_data = temp2->_data;
+                              temp2->_data = data;
+                         }
+                    }
+                    temp2 = temp2->_next;
+               }
+               temp = temp->_next;
+          }
+     }
+
+     public Double_List<Vehiculo> GetTopVehiculosMasAntiguos(int i)
+     {
+          Sort();
+          Double_List<Vehiculo> topVehiculos = new Double_List<Vehiculo>();
+          
+          NodeDouble<Vehiculo>* temp = (NodeDouble<Vehiculo>*)_head;
+          for (int j = 0; j < i; j++)
+          {
+               if (temp == null) break;
+               topVehiculos.append(temp->_data);
+               temp = temp->_next;
+          }
+          
+          return topVehiculos;
+     }
 }

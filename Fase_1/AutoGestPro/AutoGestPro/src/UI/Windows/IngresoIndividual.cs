@@ -96,7 +96,7 @@ public class IngresoIndividual : Window
                 int.Parse(txtId.Text),
                 int.Parse(txtUsuario.Text),
                 txtMarca.Text,
-                txtModelo.Text,
+                int.Parse(txtModelo.Text),
                 txtPlaca.Text
             );
 
