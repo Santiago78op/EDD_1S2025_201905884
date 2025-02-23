@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 using AutoGestPro.Core.Structures;
 
 namespace AutoGestPro.Core.Services;
@@ -12,6 +13,7 @@ public unsafe class ReporteService
     private RingList<Repuesto> _repuestoService;
     private ListQueue<Servicio> _servicioService;
     private StackList<Factura> _facturaService;
+    private MatrizDispersa<int> _matrizDispersa;
 
     public ReporteService()
     {
@@ -20,6 +22,7 @@ public unsafe class ReporteService
         _repuestoService = CargaMasivaService.repuestos;
         _servicioService = CargaMasivaService.servicios;
         _facturaService = FacturaService.pilaFacturas;
+        _matrizDispersa = new MatrizDispersa<int>(1);
     }
 
     public bool GenerarReporteGraphviz(string entidad, string rutaSalida)
@@ -180,6 +183,9 @@ public unsafe class ReporteService
                     }
                 }
             }
+        } else if (entidad == "Bitacora")
+        {
+            dot += GenerarDotMatrizDispersa(_matrizDispersa);
         }
 
         dot += "}";
@@ -194,5 +200,45 @@ public unsafe class ReporteService
     public Double_List<Vehiculo> GetTopVehiculosMasAntiguos(int i)
     {
         return _vehiculoService.GetTopVehiculosMasAntiguos(i);
+    }
+    
+    private string GenerarDotMatrizDispersa<T>(MatrizDispersa<T> matriz) where T : unmanaged
+    {
+        string dot = "digraph G {\nnode [shape=box];\n";
+
+        // Add nodes of the matrix
+        NodoEncabezado<int>* fila = matriz.filas.primero;
+        while (fila != null)
+        {
+            NodoInterno<int>* interno = fila->Acceso;
+            while (interno != null)
+            {
+                dot += $"N{interno->coordenadaX}_{interno->coordenadaY} [label=\"{interno->Nombre}\"];\n";
+                interno = interno->Derecha;
+            }
+            fila = fila->Siguiente;
+        }
+
+        // Add connections between nodes
+        fila = matriz.filas.primero;
+        while (fila != null)
+        {
+            NodoInterno<int>* interno = fila->Acceso;
+            while (interno != null)
+            {
+                if (interno->Derecha != null)
+                {
+                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->Derecha->coordenadaX}_{interno->Derecha->coordenadaY};\n";
+                }
+                if (interno->Abajo != null)
+                {
+                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->Abajo->coordenadaX}_{interno->Abajo->coordenadaY};\n";
+                }
+                interno = interno->Derecha;
+            }
+            fila = fila->Siguiente;
+        }
+
+        return dot;
     }
 }
