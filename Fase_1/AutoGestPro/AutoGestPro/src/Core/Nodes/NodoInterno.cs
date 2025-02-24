@@ -1,5 +1,7 @@
 namespace AutoGestPro.Core.Nodes;
 
+// Definición de una estructura genérica NodoInterno
+// Esta estructura usa el tipo de dato T, que debe ser un tipo no administrado (unmanaged)
 public unsafe struct NodoInterno<T> where T : unmanaged
 {
     public T id;               // Identificador de tipo T. Al ser genérico, puede ser cualquier tipo no administrado.

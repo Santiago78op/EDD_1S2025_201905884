@@ -1,6 +1,7 @@
 namespace AutoGestPro.Core.Nodes;
 
 // Estructura genérica NodoEncabezado para manejar enlaces en una lista o matriz
+// Estructura genérica NodoEncabezado para manejar enlaces en una lista o matriz
 public unsafe struct NodoEncabezado<T> where T : unmanaged
 {
     public T id; // Identificador del nodo, de tipo genérico T.
@@ -11,5 +12,4 @@ public unsafe struct NodoEncabezado<T> where T : unmanaged
         
     // Puntero a un NodoInterno, usado para acceder a una ubicación específica de la matriz
     public NodoInterno<T>* acceso; // Puntero al nodo interno de la matriz.
-
 }

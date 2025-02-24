@@ -1,19 +1,26 @@
 using AutoGestPro.Core.Structures;
+using AutoGestPro.UI.Windows;
 
 namespace AutoGestPro.Core.Services;
 
 public class BitacoraService
 {
-    public static MatrizDispersa<int> matriz = new MatrizDispersa<int>(0);
+    public static MatrizDispersa<int> MatrizDispersa { get; private set; }
+
+    public BitacoraService()
+    {
+        if (MatrizDispersa == null)
+            MatrizDispersa = new MatrizDispersa<int>(0);
+    }
     
     public void InsertarRelacion(int idVehiculo, int idRepuesto, string detalle)
     {
         
-        matriz.insert(idVehiculo, idRepuesto,  detalle);
+        MatrizDispersa.insert(idVehiculo, idRepuesto,  detalle);
     }
     
     public void mostrarBitacora()
     {
-        matriz.mostrar();
+        MatrizDispersa.mostrar();
     }
 }
