@@ -31,6 +31,7 @@ public unsafe class GenerarReportes : Window
             comboEntidades.AppendText("Repuestos");
             comboEntidades.AppendText("Servicios");
             comboEntidades.AppendText("Facturación");
+            comboEntidades.AppendText("Bitácora");
             comboEntidades.Active = 0;
 
             vbox.PackStart(comboEntidades, false, false, 5);

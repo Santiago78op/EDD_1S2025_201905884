@@ -19,8 +19,6 @@ public class IngresoIndividual : Window
         notebook.AppendPage(CrearFormularioClientes(), new Label("Usuarios"));
         notebook.AppendPage(CrearFormularioVehiculos(), new Label("Vehículos"));
         notebook.AppendPage(CrearFormularioRepuestos(), new Label("Repuestos"));
-        notebook.AppendPage(CrearFormularioServicios(), new Label("Servicios"));
-        
 
         Add(notebook);
         ShowAll();
@@ -150,50 +148,6 @@ public class IngresoIndividual : Window
         vbox.PackStart(txtNombre, false, false, 5);
         vbox.PackStart(txtDescripcion, false, false, 5);
         vbox.PackStart(txtPrecio, false, false, 5);
-        vbox.PackStart(btnGuardar, false, false, 5);
-        
-        return vbox;
-    }
-    
-    public VBox CrearFormularioServicios()
-    {
-        VBox vbox = new VBox();
-
-        Entry txtId = new Entry { PlaceholderText = "ID" };
-        Entry txtRepuesto = new Entry { PlaceholderText = "ID Repuesto" };
-        Entry txtVehiculo = new Entry { PlaceholderText = "ID Vehículo" };
-        Entry txtDetalle = new Entry { PlaceholderText = "Detalle" };
-        Entry txtCosto = new Entry { PlaceholderText = "Costo" };
-        Button btnGuardar = new Button("Guardar Servicio");
-        
-        btnGuardar.Clicked += (sender, e) =>
-        {
-            if (string.IsNullOrEmpty(txtVehiculo.Text) || string.IsNullOrEmpty(txtRepuesto.Text))
-            {
-                MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Todos los campos son obligatorios.");
-                errorDialog.Run();
-                errorDialog.Destroy();
-                return;
-            }
-
-            Servicio servicio = new Servicio
-            (
-                int.Parse(txtId.Text),
-                int.Parse(txtRepuesto.Text),
-                int.Parse(txtVehiculo.Text),
-                txtDetalle.Text,
-                double.Parse(txtCosto.Text)
-            );
-
-            CargaMasivaService.servicios.enqueue(servicio);
-            Console.WriteLine($"✅ Servicio {servicio.Id} agregado correctamente.");
-        };
-        
-        vbox.PackStart(txtId, false, false, 5);
-        vbox.PackStart(txtRepuesto, false, false, 5);
-        vbox.PackStart(txtVehiculo, false, false, 5);
-        vbox.PackStart(txtDetalle, false, false, 5);
-        vbox.PackStart(txtCosto, false, false, 5);
         vbox.PackStart(btnGuardar, false, false, 5);
         
         return vbox;

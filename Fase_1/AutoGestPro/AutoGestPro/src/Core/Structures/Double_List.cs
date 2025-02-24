@@ -83,7 +83,7 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
       * @exception Ninguna
       * @test_cases
       */
-     public void remove(T data)
+     public void remove(Vehiculo data)
      {
           NodeDouble<T>* temp = _head;
           NodeDouble<T>* prev = null;
@@ -271,5 +271,25 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
           }
           
           return topVehiculos;
+     }
+     
+     // Elimanar todos los Vehiclos de un Usuario
+     public bool RemoveVehiculosUsuario(int id)
+     {
+          NodeDouble<Vehiculo>* temp = (NodeDouble<Vehiculo>*)_head;
+          NodeDouble<Vehiculo>* next = null;
+          
+          while (temp != null)
+          {
+               next = temp->_next;
+               if (temp->_data.Id_Usuario == id)
+               {
+                    remove(temp->_data);
+                    return true;
+               }
+               temp = next;
+          }
+          
+          return false;
      }
 }

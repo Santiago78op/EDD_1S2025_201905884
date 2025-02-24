@@ -190,6 +190,10 @@ public  unsafe class GestionUsuarios : Window
 
         if (CargaMasivaService.clientes.DeleteNode(id))
         {
+            if (CargaMasivaService.vehiculos.RemoveVehiculosUsuario(id))
+            {
+                MostrarMensaje("Éxito", "Vehículos eliminados correctamente.");
+            }
             MostrarMensaje("Éxito", "Usuario eliminado correctamente.");
             RefrescarUsuarios();
         }

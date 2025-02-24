@@ -66,7 +66,7 @@ public unsafe class ReporteService
                 if (cliente != null)
                 {
                     dot +=
-                        $"C{cliente.Id} [label=\"ID: {cliente.Id}\\nNombre: {cliente.Nombre}\\nApellido: {cliente.Apellido}\\nCorreo: {cliente.Correo}\"];\n";
+                        $"C{cliente.Id} [label=\"ID: {cliente.Id}\\nnombre: {cliente.Nombre}\\nApellido: {cliente.Apellido}\\nCorreo: {cliente.Correo}\"];\n";
                     if (i > 0)
                     {
                         dot += $"C{_clientesServicie.GetNode(i - 1)->_data.Id} -> C{cliente.Id};\n";
@@ -210,33 +210,33 @@ public unsafe class ReporteService
         NodoEncabezado<int>* fila = matriz.filas.primero;
         while (fila != null)
         {
-            NodoInterno<int>* interno = fila->Acceso;
+            NodoInterno<int>* interno = fila->acceso;
             while (interno != null)
             {
-                dot += $"N{interno->coordenadaX}_{interno->coordenadaY} [label=\"{interno->Nombre}\"];\n";
-                interno = interno->Derecha;
+                dot += $"N{interno->coordenadaX}_{interno->coordenadaY} [label=\"{interno->nombre}\"];\n";
+                interno = interno->derecha;
             }
-            fila = fila->Siguiente;
+            fila = fila->siguiente;
         }
 
         // Add connections between nodes
         fila = matriz.filas.primero;
         while (fila != null)
         {
-            NodoInterno<int>* interno = fila->Acceso;
+            NodoInterno<int>* interno = fila->acceso;
             while (interno != null)
             {
-                if (interno->Derecha != null)
+                if (interno->derecha != null)
                 {
-                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->Derecha->coordenadaX}_{interno->Derecha->coordenadaY};\n";
+                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->derecha->coordenadaX}_{interno->derecha->coordenadaY};\n";
                 }
-                if (interno->Abajo != null)
+                if (interno->abajo != null)
                 {
-                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->Abajo->coordenadaX}_{interno->Abajo->coordenadaY};\n";
+                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->abajo->coordenadaX}_{interno->abajo->coordenadaY};\n";
                 }
-                interno = interno->Derecha;
+                interno = interno->derecha;
             }
-            fila = fila->Siguiente;
+            fila = fila->siguiente;
         }
 
         return dot;

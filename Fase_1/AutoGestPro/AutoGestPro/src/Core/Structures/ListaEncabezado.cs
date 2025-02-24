@@ -28,10 +28,10 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
         if (nuevo == null) throw new InvalidOperationException("No se pudo asignar memoria para el nuevo nodo.");
 
         // Asignar valores iniciales al nuevo nodo
-        nuevo->Id = id; // Asigna el ID al nodo
-        nuevo->Siguiente = null; // Inicializa el puntero siguiente a null
-        nuevo->Anterior = null; // Inicializa el puntero anterior a null
-        nuevo->Acceso = null; // Inicializa el puntero acceso a null
+        nuevo->id = id; // Asigna el ID al nodo
+        nuevo->siguiente = null; // Inicializa el puntero siguiente a null
+        nuevo->anterior = null; // Inicializa el puntero anterior a null
+        nuevo->acceso = null; // Inicializa el puntero acceso a null
 
         size++; // Incrementa el tamaño de la lista
 
@@ -44,16 +44,16 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
         else
         {
             // Insertar el nodo de manera ordenada
-            if (nuevo->Id < primero->Id) // Si el ID es menor que el primero
+            if (nuevo->id < primero->id) // Si el ID es menor que el primero
             {
-                nuevo->Siguiente = primero; // El siguiente del nuevo es el primero
-                primero->Anterior = nuevo; // El anterior del primero es el nuevo
+                nuevo->siguiente = primero; // El siguiente del nuevo es el primero
+                primero->anterior = nuevo; // El anterior del primero es el nuevo
                 primero = nuevo; // El nuevo nodo ahora es el primero
             }
-            else if (nuevo->Id > ultimo->Id) // Si el ID es mayor que el último
+            else if (nuevo->id > ultimo->id) // Si el ID es mayor que el último
             {
-                ultimo->Siguiente = nuevo; // El siguiente del último es el nuevo
-                nuevo->Anterior = ultimo; // El anterior del nuevo es el último
+                ultimo->siguiente = nuevo; // El siguiente del último es el nuevo
+                nuevo->anterior = ultimo; // El anterior del nuevo es el último
                 ultimo = nuevo; // El nuevo nodo ahora es el último
             }
             else
@@ -63,17 +63,17 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
                 while (tmp != null)
                 {
                     // Insertar entre nodos si el ID es menor que el actual
-                    if (nuevo->Id < tmp->Id)
+                    if (nuevo->id < tmp->id)
                     {
-                        nuevo->Siguiente = tmp; // El siguiente del nuevo es el actual
-                        nuevo->Anterior = tmp->Anterior; // El anterior del nuevo es el anterior del actual
-                        tmp->Anterior->Siguiente = nuevo; // El siguiente del anterior apunta al nuevo
-                        tmp->Anterior = nuevo; // El anterior del actual apunta al nuevo
+                        nuevo->siguiente = tmp; // El siguiente del nuevo es el actual
+                        nuevo->anterior = tmp->anterior; // El anterior del nuevo es el anterior del actual
+                        tmp->anterior->siguiente = nuevo; // El siguiente del anterior apunta al nuevo
+                        tmp->anterior = nuevo; // El anterior del actual apunta al nuevo
                         break; // Terminamos la inserción
                     }
                     else
                     {
-                        tmp = tmp->Siguiente; // Continuar buscando
+                        tmp = tmp->siguiente; // Continuar buscando
                     }
                 }
             }
@@ -93,8 +93,8 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
         NodoEncabezado<int>* tmp = primero;
         while (tmp != null)
         {
-            Console.WriteLine("Encabezado " + tipo + " " + Convert.ToString(tmp->Id)); // Mostrar ID
-            tmp = tmp->Siguiente; // Avanzar al siguiente nodo
+            Console.WriteLine("Encabezado " + tipo + " " + Convert.ToString(tmp->id)); // Mostrar ID
+            tmp = tmp->siguiente; // Avanzar al siguiente nodo
         }
     }
 
@@ -104,13 +104,13 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
         NodoEncabezado<int>* tmp = primero;
         while (tmp != null)
         {
-            if (id == tmp->Id) return tmp; // Si encontramos el nodo, lo retornamos
-            tmp = tmp->Siguiente; // Si no, seguimos al siguiente nodo
+            if (id == tmp->id) return tmp; // Si encontramos el nodo, lo retornamos
+            tmp = tmp->siguiente; // Si no, seguimos al siguiente nodo
         }
 
         return null; // Si no encontramos el nodo, retornamos null
     }
-    
+
     public void Dispose()
     {
         if (primero == null) return; // Si la lista ya está vacía, no hacemos nada
@@ -118,8 +118,8 @@ public unsafe class ListaEncabezado<T> : IDisposable where T : unmanaged
         // Liberar cada nodo de la lista
         while (primero != null)
         {
-            NodoEncabezado<int>* tmp = primero;  // Apuntar al primer nodo
-            primero = primero->Siguiente;  // Avanzar al siguiente nodo
+            NodoEncabezado<int>* tmp = primero; // Apuntar al primer nodo
+            primero = primero->siguiente; // Avanzar al siguiente nodo
             Marshal.FreeHGlobal((IntPtr)tmp); // Liberar la memoria del nodo actual
         }
     }

@@ -1,9 +1,5 @@
 digraph G {
 node [shape=box];
 rankdir=TB;
-F3 [label="ID: 3\nID_Orden: 3\nTotal: 165,44"];
-F2 [label="ID: 2\nID_Orden: 2\nTotal: 175,5"];
-F3 -> F2;
-F1 [label="ID: 1\nID_Orden: 1\nTotal: 27,75"];
-F2 -> F1;
+F1 [label="ID: 1\nID_Orden: 5\nTotal: 350,74"];
 }

@@ -1,11 +1,11 @@
 digraph G {
 node [shape=box];
 rankdir=LR;
-V1 [label="ID: 1\nMarca: Toyota\nModelo: Corolla\nPlaca: ABC123"];
-V2 [label="ID: 2\nMarca: Mazda\nModelo: 3\nPlaca: DEF789"];
+V1 [label="ID: 1\nIdUsuario: 1\nMarca: sd\nModelo: 3990\nPlaca: sdasd"];
+V2 [label="ID: 2\nIdUsuario: 2\nMarca: sd\nModelo: 3990\nPlaca: sdasd"];
 V1 -> V2;
 V2 -> V1;
-V3 [label="ID: 3\nMarca: Ford\nModelo: Focus\nPlaca: XYZ456"];
+V3 [label="ID: 3\nIdUsuario: 1\nMarca: sd\nModelo: 3990\nPlaca: sdasd"];
 V2 -> V3;
 V3 -> V2;
 }

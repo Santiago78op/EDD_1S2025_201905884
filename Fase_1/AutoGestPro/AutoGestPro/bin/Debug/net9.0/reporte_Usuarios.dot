@@ -1,7 +1,9 @@
 digraph G {
 node [shape=box];
 rankdir=LR;
-C1 [label="ID: 1\nNombre: Juan\nApellido: Pérez\nCorreo: juan.perez@mail.com"];
-C2 [label="ID: 2\nNombre: María\nApellido: Gómez\nCorreo: maria.gomez@mail.com"];
+C1 [label="ID: 1\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
+C2 [label="ID: 2\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
 C1 -> C2;
+C3 [label="ID: 3\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
+C2 -> C3;
 }

@@ -17,6 +17,6 @@ public class ServicioService
         CargaMasivaService.servicios.enqueue(servicio);
 
         // 🔥 Genera la Factura Automáticamente
-        facturaService.GenerarFactura(servicio.Id, servicio.Costo, costoRepuesto); // Simulación del costo del servicio
+        facturaService.GenerarFactura(servicio.Id, servicio.Costo, costoRepuesto, servicio.Id_Vehiculo, servicio.Id_Repuesto, servicio.Detalle); // Simulación del costo del servicio
     }
 }

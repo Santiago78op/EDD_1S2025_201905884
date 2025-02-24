@@ -22,14 +22,19 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
     {
         // Creación de un nuevo nodo interno que será insertado en la matriz
         NodoInterno<int>* nuevo = (NodoInterno<int>*)Marshal.AllocHGlobal(sizeof(NodoInterno<int>));
-        nuevo->Id = 1; // Asigna un ID al nodo
-        nuevo->Nombre = nombre; // Asigna el nombre proporcionado al nodo
+        if (nuevo == null)
+        {
+            throw new OutOfMemoryException("No se pudo reservar memoria para el nuevo nodo");
+        }
+        
+        nuevo->id = 1; // Asigna un ID al nodo
+        nuevo->nombre = nombre; // Asigna el nombre proporcionado al nodo
         nuevo->coordenadaX = pos_x; // Asigna la coordenada X (fila)
         nuevo->coordenadaY = pos_y; // Asigna la coordenada Y (columna)
-        nuevo->Arriba = null;
-        nuevo->Abajo = null;
-        nuevo->Derecha = null;
-        nuevo->Izquierda = null;
+        nuevo->arriba = null;
+        nuevo->abajo = null;
+        nuevo->derecha = null;
+        nuevo->izquierda = null;
 
         // Verificar si ya existen los encabezados para la fila y columna en la matriz
         NodoEncabezado<int>* nodo_X = filas.getEncabezado(pos_x); // Obtener el encabezado de la fila
@@ -56,23 +61,23 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
         }
 
         // Insertar el nuevo nodo en la fila correspondiente
-        if (nodo_X->Acceso == null)
+        if (nodo_X->acceso == null)
         {
-            nodo_X->Acceso = nuevo; // Si la fila está vacía, asignamos el nuevo nodo como el primer acceso
+            nodo_X->acceso = nuevo; // Si la fila está vacía, asignamos el nuevo nodo como el primer acceso
         }
         else
         {
             // Si ya hay nodos en la fila, buscamos el lugar adecuado para insertar el nuevo nodo
-            NodoInterno<int>* tmp = nodo_X->Acceso;
+            NodoInterno<int>* tmp = nodo_X->acceso;
             while (tmp != null)
             {
                 // Si la columna del nuevo nodo es menor que la columna del nodo actual, insertamos el nuevo nodo antes
                 if (nuevo->coordenadaY < tmp->coordenadaY)
                 {
-                    nuevo->Derecha = tmp;
-                    nuevo->Izquierda = tmp->Izquierda;
-                    tmp->Izquierda->Derecha = nuevo;
-                    tmp->Izquierda = nuevo;
+                    nuevo->derecha = tmp;
+                    nuevo->izquierda = tmp->izquierda;
+                    tmp->izquierda->derecha = nuevo;
+                    tmp->izquierda = nuevo;
                     break;
                 }
                 else if (nuevo->coordenadaX == tmp->coordenadaX && nuevo->coordenadaY == tmp->coordenadaY)
@@ -83,38 +88,38 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
                 else
                 {
                     // Si no hemos encontrado el lugar, seguimos buscando
-                    if (tmp->Derecha == null)
+                    if (tmp->derecha == null)
                     {
-                        tmp->Derecha = nuevo; // Insertamos el nodo al final de la fila
-                        nuevo->Izquierda = tmp;
+                        tmp->derecha = nuevo; // Insertamos el nodo al final de la fila
+                        nuevo->izquierda = tmp;
                         break;
                     }
                     else
                     {
-                        tmp = tmp->Derecha; // Avanzamos al siguiente nodo en la fila
+                        tmp = tmp->derecha; // Avanzamos al siguiente nodo en la fila
                     }
                 }
             }
         }
 
         // Insertar el nuevo nodo en la columna correspondiente
-        if (nodo_Y->Acceso == null)
+        if (nodo_Y->acceso == null)
         {
-            nodo_Y->Acceso = nuevo; // Si la columna está vacía, asignamos el nuevo nodo como el primer acceso
+            nodo_Y->acceso = nuevo; // Si la columna está vacía, asignamos el nuevo nodo como el primer acceso
         }
         else
         {
             // Si ya hay nodos en la columna, buscamos el lugar adecuado para insertar el nuevo nodo
-            NodoInterno<int>* tmp2 = nodo_Y->Acceso;
+            NodoInterno<int>* tmp2 = nodo_Y->acceso;
             while (tmp2 != null)
             {
                 // Si la fila del nuevo nodo es menor que la fila del nodo actual, insertamos el nuevo nodo antes
                 if (nuevo->coordenadaX < tmp2->coordenadaX)
                 {
-                    nuevo->Abajo = tmp2;
-                    nuevo->Arriba = tmp2->Arriba;
-                    tmp2->Arriba->Abajo = nuevo;
-                    tmp2->Arriba = nuevo;
+                    nuevo->abajo = tmp2;
+                    nuevo->arriba = tmp2->arriba;
+                    tmp2->arriba->abajo = nuevo;
+                    tmp2->arriba = nuevo;
                     break;
                 }
                 else if (nuevo->coordenadaX == tmp2->coordenadaX && nuevo->coordenadaY == tmp2->coordenadaY)
@@ -125,15 +130,15 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
                 else
                 {
                     // Si no hemos encontrado el lugar, seguimos buscando
-                    if (tmp2->Abajo == null)
+                    if (tmp2->abajo == null)
                     {
-                        tmp2->Abajo = nuevo; // Insertamos el nodo al final de la columna
-                        nuevo->Arriba = tmp2;
+                        tmp2->abajo = nuevo; // Insertamos el nodo al final de la columna
+                        nuevo->arriba = tmp2;
                         break;
                     }
                     else
                     {
-                        tmp2 = tmp2->Abajo; // Avanzamos al siguiente nodo en la columna
+                        tmp2 = tmp2->abajo; // Avanzamos al siguiente nodo en la columna
                     }
                 }
             }
@@ -150,8 +155,8 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
         // Imprimir los IDs de las columnas
         while (y_columna != null)
         {
-            Console.Write(y_columna->Id + "\t"); // Imprimir el encabezado de cada columna
-            y_columna = y_columna->Siguiente;
+            Console.Write(y_columna->id + "\t"); // Imprimir el encabezado de cada columna
+            y_columna = y_columna->siguiente;
         }
 
         Console.WriteLine(); // Salto de línea después de las cabeceras de las columnas
@@ -161,19 +166,19 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
         while (x_fila != null)
         {
             // Imprimir el encabezado de la fila
-            Console.Write(x_fila->Id + "\t");
+            Console.Write(x_fila->id + "\t");
 
             // Imprimir los valores de la fila
-            NodoInterno<int>* interno = x_fila->Acceso;
+            NodoInterno<int>* interno = x_fila->acceso;
             NodoEncabezado<int>* y_columna_iter = columnas.primero;
 
             // Imprimir los valores de las columnas de la fila
             while (y_columna_iter != null)
             {
-                if (interno != null && interno->coordenadaY == y_columna_iter->Id)
+                if (interno != null && interno->coordenadaY == y_columna_iter->id)
                 {
-                    Console.Write(interno->Nombre + "\t"); // Si el nodo interno existe, mostrar su nombre
-                    interno = interno->Derecha; // Mover al siguiente nodo en la fila
+                    Console.Write(interno->nombre + "\t"); // Si el nodo interno existe, mostrar su nombre
+                    interno = interno->derecha; // Mover al siguiente nodo en la fila
                 }
                 else
                 {
@@ -181,11 +186,11 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
                         "0\t"); // Si no hay nodo, mostrar 0 (representa la ausencia de un valor en esa posición)
                 }
 
-                y_columna_iter = y_columna_iter->Siguiente; // Avanzar a la siguiente columna
+                y_columna_iter = y_columna_iter->siguiente; // Avanzar a la siguiente columna
             }
 
             Console.WriteLine(); // Salto de línea después de imprimir una fila
-            x_fila = x_fila->Siguiente; // Avanzar a la siguiente fila
+            x_fila = x_fila->siguiente; // Avanzar a la siguiente fila
         }
     }
 
@@ -197,11 +202,11 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
         while (x_fila != null)
         {
             // Liberar los nodos internos de la fila
-            NodoInterno<int>* interno = x_fila->Acceso;
+            NodoInterno<int>* interno = x_fila->acceso;
             while (interno != null)
             {
                 NodoInterno<int>* tmp = interno;
-                interno = interno->Derecha;
+                interno = interno->derecha;
                 if (tmp != null)
                 {
                     Marshal.FreeHGlobal((IntPtr)tmp);
@@ -210,7 +215,7 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
 
             // Liberar el encabezado de fila
             NodoEncabezado<int>* tmp_fila = x_fila;
-            x_fila = x_fila->Siguiente;
+            x_fila = x_fila->siguiente;
             if (tmp_fila != null)
             {
                 Marshal.FreeHGlobal((IntPtr)tmp_fila);
@@ -222,11 +227,11 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
         while (x_columna != null)
         {
             // Liberar los nodos internos de la columna
-            NodoInterno<int>* interno = x_columna->Acceso;
+            NodoInterno<int>* interno = x_columna->acceso;
             while (interno != null)
             {
                 NodoInterno<int>* tmp = interno;
-                interno = interno->Abajo;
+                interno = interno->abajo;
                 if (tmp != null)
                 {
                     Marshal.FreeHGlobal((IntPtr)tmp);
@@ -235,7 +240,7 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
 
             // Liberar el encabezado de columna
             NodoEncabezado<int>* tmp_columna = x_columna;
-            x_columna = x_columna->Siguiente;
+            x_columna = x_columna->siguiente;
             if (tmp_columna != null)
             {
                 Marshal.FreeHGlobal((IntPtr)tmp_columna);

@@ -1,33 +1,15 @@
 namespace AutoGestPro.Core.Nodes;
 
-public unsafe class NodoInterno<T> where T : unmanaged
+public unsafe struct NodoInterno<T> where T : unmanaged
 {
-    // Propiedad que representa el id del nodo.
-    public int Id { get; set; }
-    // Propiedad que representa el nombre del nodo.
-    public string Nombre { get; set; }
-    
-    // Coordenadas del nodo.
-    public int coordenadaX { get; set; }
-    public int coordenadaY { get; set; }
-
-    // Referencias a los nodos vecinos.
-    public NodoInterno<T>* Arriba { get; set; }
-    public NodoInterno<T>* Abajo { get; set; }
-    public NodoInterno<T>* Derecha { get; set; }
-    public NodoInterno<T>* Izquierda { get; set; }
-
-    // Constructor que inicializa el nodo con sus coordenadas y el carácter.
-    public NodoInterno(int x, int y, int id, string nombre)
-    {
-        coordenadaX = x;
-        coordenadaY = y;
-        Id = id;
-        Nombre = nombre;
-
-        Arriba = null;
-        Abajo = null;
-        Derecha = null;
-        Izquierda = null;
-    }
+    public T id;               // Identificador de tipo T. Al ser genérico, puede ser cualquier tipo no administrado.
+    public string nombre;       // Nombre del nodo, un valor de tipo string.
+    public int coordenadaX;     
+    public int coordenadaY;     
+        
+    // Punteros a otros nodos que forman la estructura de la matriz
+    public NodoInterno<T>* arriba;      // Puntero al nodo superior 
+    public NodoInterno<T>* abajo;       // Puntero al nodo inferior 
+    public NodoInterno<T>* derecha;     // Puntero al nodo siguiente
+    public NodoInterno<T>* izquierda;   // Puntero al nodo anterior 
 }

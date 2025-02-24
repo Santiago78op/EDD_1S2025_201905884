@@ -1,28 +1,10 @@
 digraph G {
 node [shape=box];
 rankdir=LR;
-R1 [label="ID: 1\nRepuesto: Filtro de aceite\nDetalles: Filtro de aceite para motor 1.8L\nCosto: 15,75"];
-R2 [label="ID: 2\nRepuesto: Bujías\nDetalles: Juego de bujías para motor 2.0L\nCosto: 30,5"];
+R1 [label="ID: 1\nRepuesto: asdasd\nDetalles: adsad\nCosto: 2344"];
+R2 [label="ID: 2\nRepuesto: asdasd\nDetalles: adsad\nCosto: 9077"];
 R1 -> R2;
-R3 [label="ID: 3\nRepuesto: Filtro de aire\nDetalles: Filtro de aire para motor 1.8L\nCosto: 10,25"];
+R3 [label="ID: 3\nRepuesto: ddf\nDetalles: dsf\nCosto: 4477"];
 R2 -> R3;
-R4 [label="ID: 4\nRepuesto: Filtro de combustible\nDetalles: Filtro de combustible para motor 2.0L\nCosto: 20"];
-R3 -> R4;
-R5 [label="ID: 5\nRepuesto: Pastillas de freno\nDetalles: Juego de pastillas de freno para eje delantero\nCosto: 45"];
-R4 -> R5;
-R6 [label="ID: 6\nRepuesto: Discos de freno\nDetalles: Juego de discos de freno para eje delantero\nCosto: 60"];
-R5 -> R6;
-R7 [label="ID: 7\nRepuesto: Amortiguadores\nDetalles: Par de amortiguadores para eje delantero\nCosto: 100"];
-R6 -> R7;
-R8 [label="ID: 8\nRepuesto: Kit de embrague\nDetalles: Kit de embrague para motor 1.8L\nCosto: 150"];
-R7 -> R8;
-R9 [label="ID: 9\nRepuesto: Correa de distribución\nDetalles: Correa de distribución para motor 2.0L\nCosto: 80"];
-R8 -> R9;
-R10 [label="ID: 10\nRepuesto: Bomba de agua\nDetalles: Bomba de agua para motor 1.8L\nCosto: 45"];
-R9 -> R10;
-R11 [label="ID: 11\nRepuesto: Radiador\nDetalles: Radiador para motor 2.0L\nCosto: 120"];
-R10 -> R11;
-R12 [label="ID: 12\nRepuesto: Termostato\nDetalles: Termostato para motor 1.8L\nCosto: 25"];
-R11 -> R12;
-R12 -> R1;
+R3 -> R1;
 }
