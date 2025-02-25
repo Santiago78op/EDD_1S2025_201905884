@@ -5,13 +5,7 @@ namespace AutoGestPro.Core.Services;
 
 public class BitacoraService
 {
-    public static MatrizDispersa<int> MatrizDispersa { get; private set; }
-
-    public BitacoraService()
-    {
-        if (MatrizDispersa == null)
-            MatrizDispersa = new MatrizDispersa<int>(0);
-    }
+    public static MatrizDispersa<int> MatrizDispersa = MatrizDispersa = new MatrizDispersa<int>(0);
     
     public void InsertarRelacion(int idVehiculo, int idRepuesto, string detalle)
     {

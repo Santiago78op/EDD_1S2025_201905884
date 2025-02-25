@@ -14,4 +14,17 @@ public unsafe struct NodoInterno<T> where T : unmanaged
     public NodoInterno<T>* abajo;       // Puntero al nodo inferior 
     public NodoInterno<T>* derecha;     // Puntero al nodo siguiente
     public NodoInterno<T>* izquierda;   // Puntero al nodo anterior 
+    
+    // Constructor de la estructura NodoInterno
+    public NodoInterno(T id, string nombre, int x, int y)
+    {
+        this.id = id;           // Asigna el ID proporcionado al nodo
+        this.nombre = nombre;   // Asigna el nombre proporcionado al nodo
+        this.coordenadaX = x;   // Asigna la coordenada X proporcionada al nodo
+        this.coordenadaY = y;   // Asigna la coordenada Y proporcionada al nodo
+        this.arriba = null;     // Inicializa el puntero arriba a null
+        this.abajo = null;      // Inicializa el puntero abajo a null
+        this.derecha = null;    // Inicializa el puntero derecha a null
+        this.izquierda = null;  // Inicializa el puntero izquierda a null
+    }
 }
