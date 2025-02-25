@@ -22,7 +22,7 @@ public unsafe class ReporteService
         _repuestoService = CargaMasivaService.repuestos;
         _servicioService = CargaMasivaService.servicios;
         _facturaService = FacturaService.pilaFacturas;
-        _matrizDispersa = new MatrizDispersa<int>(1);
+        _matrizDispersa = BitacoraService.MatrizDispersa;
     }
 
     public bool GenerarReporteGraphviz(string entidad, string rutaSalida)
@@ -204,41 +204,162 @@ public unsafe class ReporteService
     
     private string GenerarDotMatrizDispersa<T>(MatrizDispersa<T> matriz) where T : unmanaged
     {
-        string dot = "digraph G {\nnode [shape=box];\n";
-
-        // Add nodes of the matrix
-        NodoEncabezado<int>* fila = matriz.filas.primero;
-        while (fila != null)
+        // -- lo primero es settear los valores que nos preocupan
+        String grafo = "digraph T{ \nnode[shape=box fontname=\"Arial\" fillcolor=\"white\" style=filled ]";
+        grafo += "\nroot[label = \"capa: " + matriz.capa + "\", group=1]\n";
+        grafo += "label = \"MATRIZ DISPERSA\" \nfontname=\"Arial Black\" \nfontsize=\"15pt\" \n\n";
+        
+        // --- lo siguiente es escribir los nodos encabezados, empezamos con las filas, los nodos tendran el foramto Fn
+        NodoEncabezado<int>* x_fila = matriz.filas.primero;
+        while (x_fila != null)
         {
-            NodoInterno<int>* interno = fila->acceso;
-            while (interno != null)
+            grafo += $"V{x_fila->id}[label=\"V{x_fila->id}\",fillcolor=\"plum\",group=1];\n";
+            x_fila = x_fila->siguiente;
+        }
+        
+        // --- apuntamos los nodos F entre ellos
+        x_fila = matriz.filas.primero;
+        while (x_fila != null)
+        {
+            if (x_fila->siguiente != null)
             {
-                dot += $"N{interno->coordenadaX}_{interno->coordenadaY} [label=\"{interno->nombre}\"];\n";
-                interno = interno->derecha;
+                grafo += $"V{x_fila->id}->V{x_fila->siguiente->id};\n";
+                grafo += $"V{x_fila->siguiente->id}->V{x_fila->id};\n";
             }
-            fila = fila->siguiente;
+            x_fila = x_fila->siguiente;
+        }
+        
+        // --- Luego de los nodos encabezados fila, seguimos con las columnas, los nodos tendran el foramto Cn
+        NodoEncabezado<int>* y_columna = matriz.columnas.primero;
+        while (y_columna != null)
+        {
+            int group = y_columna->id + 1;
+            grafo += $"R{y_columna->id}[label=\"R{y_columna->id}\",fillcolor=\"powderblue\",group={group}];\n";
+            y_columna = y_columna->siguiente;
+        }
+        
+        // --- apuntamos los nodos C entre ellos
+        int cont = 0;
+        y_columna = matriz.columnas.primero;
+        while (y_columna != null)
+        {
+            if (y_columna->siguiente != null)
+            {
+                grafo += $"R{y_columna->id}->R{y_columna->siguiente->id};\n";
+                grafo += $"R{y_columna->siguiente->id}->R{y_columna->id};\n";
+            }
+            cont++;
+            y_columna = y_columna->siguiente;
+        }
+        
+        // --- luego que hemos escrito todos los nodos encabezado, apuntamos el nodo root hacua ellos
+        y_columna = matriz.columnas.primero;
+        x_fila = matriz.filas.primero;
+        grafo += $"root->V{x_fila->id};\n root->R{y_columna->id};\n";
+        grafo += "{rank=same;root;";
+        cont = 0;
+        y_columna = matriz.columnas.primero;
+        
+        while (y_columna != null)
+        {
+            grafo += $"R{y_columna->id};";
+            cont++;
+            y_columna = y_columna->siguiente;
+        }
+        
+        grafo += "}\n";
+        
+        NodoEncabezado<int>* aux = matriz.filas.primero;
+        NodoInterno<int>* aux2 = aux->acceso;
+        cont = 0;
+        
+        while (aux != null)
+        {
+            cont += 1;
+            while (aux2 != null)
+            {
+                grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}[label=\"{aux2->nombre}\",group=\"{aux2->coordenadaY + 1}\", fillcolor=\"yellow\"];\n";
+                aux2 = aux2->derecha;
+            }
+            
+            aux = aux->siguiente;
+            if(aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+        }
+        
+        aux = matriz.filas.primero;
+        aux2 = aux->acceso;
+        cont = 0;
+
+        while (aux != null)
+        {
+            String rank = $"{{rank = same;V{aux->id};";
+            cont = 0;
+
+            while (aux2 != null)
+            {
+                if ( cont == 0)
+                {
+                    grafo += $"V{aux->id}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->V{aux->id};\n";
+                    cont += 1;
+                }
+
+                if (aux2->derecha != null)
+                {
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->N{aux2->derecha->coordenadaX}_{aux2->derecha->coordenadaY};\n";
+                    grafo += $"N{aux2->derecha->coordenadaX}_{aux2->derecha->coordenadaY}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                }
+
+                rank += $"N{aux2->coordenadaX}_{aux2->coordenadaY};";
+                aux2 = aux2->derecha;
+            }
+            
+            aux = aux->siguiente;
+            if (aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+            
+            grafo += rank+"}\n";
         }
 
-        // Add connections between nodes
-        fila = matriz.filas.primero;
-        while (fila != null)
-        {
-            NodoInterno<int>* interno = fila->acceso;
-            while (interno != null)
-            {
-                if (interno->derecha != null)
-                {
-                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->derecha->coordenadaX}_{interno->derecha->coordenadaY};\n";
-                }
-                if (interno->abajo != null)
-                {
-                    dot += $"N{interno->coordenadaX}_{interno->coordenadaY} -> N{interno->abajo->coordenadaX}_{interno->abajo->coordenadaY};\n";
-                }
-                interno = interno->derecha;
-            }
-            fila = fila->siguiente;
-        }
+        aux = matriz.columnas.primero;
+        aux2 = aux->acceso;
+        cont = 0;
 
-        return dot;
+        while (aux != null)
+        {
+            cont = 0;
+            grafo += "";
+            
+            while (aux2 != null)
+            {
+                if (cont == 0)
+                {
+                    grafo += $"R{aux->id}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->R{aux->id};\n";
+                    cont += 1;
+                }
+
+                if (aux2->abajo != null)
+                {
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->N{aux2->abajo->coordenadaX}_{aux2->abajo->coordenadaY};\n";
+                    grafo += $"N{aux2->abajo->coordenadaX}_{aux2->abajo->coordenadaY}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                }
+
+                aux2 = aux2->abajo;
+            }
+            
+            aux = aux->siguiente;
+            if (aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+        }
+        
+        return grafo;
     }
 }
