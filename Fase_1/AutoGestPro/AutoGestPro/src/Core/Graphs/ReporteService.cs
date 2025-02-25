@@ -22,7 +22,7 @@ public unsafe class ReporteService
         _repuestoService = CargaMasivaService.repuestos;
         _servicioService = CargaMasivaService.servicios;
         _facturaService = FacturaService.pilaFacturas;
-        _matrizDispersa = BitacoraService.MatrizDispersa;
+        _matrizDispersa = BitacoraService.matrizDispersa;
     }
 
     public bool GenerarReporteGraphviz(string entidad, string rutaSalida)

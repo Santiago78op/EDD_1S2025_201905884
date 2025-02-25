@@ -5,16 +5,17 @@ namespace AutoGestPro.Core.Services;
 
 public class BitacoraService
 {
-    public static MatrizDispersa<int> MatrizDispersa = MatrizDispersa = new MatrizDispersa<int>(0);
+    public static MatrizDispersa<int> matrizDispersa = new MatrizDispersa<int>(0);
     
     public void InsertarRelacion(int idVehiculo, int idRepuesto, string detalle)
     {
         
-        MatrizDispersa.insert(idVehiculo, idRepuesto,  detalle);
+        matrizDispersa.insert(idVehiculo, idRepuesto,  detalle);
+        mostrarBitacora();
     }
     
     public void mostrarBitacora()
     {
-        MatrizDispersa.mostrar();
+        matrizDispersa.mostrar();
     }
 }
