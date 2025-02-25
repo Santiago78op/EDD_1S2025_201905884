@@ -1,5 +1,23 @@
 digraph G {
 node [shape=box];
 rankdir=TB;
-F1 [label="ID: 1\nID_Orden: 5\nTotal: 350,74"];
+F6 [label="ID: 6\nID_Orden: 10\nTotal: 63,01"];
+F5 [label="ID: 5\nID_Orden: 9\nTotal: 57,51"];
+F6 -> F5;
+F4 [label="ID: 4\nID_Orden: 8\nTotal: 167,26"];
+F5 -> F4;
+F3 [label="ID: 3\nID_Orden: 7\nTotal: 63,01"];
+F4 -> F3;
+F2 [label="ID: 2\nID_Orden: 6\nTotal: 468,51"];
+F3 -> F2;
+F1 [label="ID: 1\nID_Orden: 5\nTotal: 558,26"];
+F2 -> F1;
+F4 [label="ID: 4\nID_Orden: 4\nTotal: 90,36"];
+F1 -> F4;
+F3 [label="ID: 3\nID_Orden: 3\nTotal: 61,11"];
+F4 -> F3;
+F2 [label="ID: 2\nID_Orden: 2\nTotal: 55,61"];
+F3 -> F2;
+F1 [label="ID: 1\nID_Orden: 1\nTotal: 145,36"];
+F2 -> F1;
 }

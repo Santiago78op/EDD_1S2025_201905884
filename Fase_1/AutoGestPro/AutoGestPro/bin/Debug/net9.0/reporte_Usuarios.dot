@@ -1,9 +1,23 @@
 digraph G {
 node [shape=box];
 rankdir=LR;
-C1 [label="ID: 1\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
-C2 [label="ID: 2\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
+C1 [label="ID: 1\nnombre: Carlos Alberto\nApellido: Gomez Martinez\nCorreo: carlos.alberto@usac.com"];
+C2 [label="ID: 2\nnombre: Ana Lucia\nApellido: Martinez Lopez\nCorreo: ana.lucia@usac.com"];
 C1 -> C2;
-C3 [label="ID: 3\nnombre: Santiago\nApellido: Barrera\nCorreo: adsfjs@dsf.com"];
+C3 [label="ID: 3\nnombre: Luis Enrique\nApellido: Perez Ramirez\nCorreo: luis.enrique@usac.com"];
 C2 -> C3;
+C4 [label="ID: 4\nnombre: Marta Isabel\nApellido: Lopez Perez\nCorreo: marta.isabel@usac.com"];
+C3 -> C4;
+C5 [label="ID: 5\nnombre: Juan Carlos\nApellido: Hernandez Lopez\nCorreo: juan.carlos@usac.com"];
+C4 -> C5;
+C6 [label="ID: 6\nnombre: Maria Fernanda\nApellido: Garcia Lopez\nCorreo: maria.fernanda@usac.com"];
+C5 -> C6;
+C7 [label="ID: 7\nnombre: Pedro Pablo\nApellido: Rodriguez Torres\nCorreo: pedro.pablo@usac.com"];
+C6 -> C7;
+C8 [label="ID: 8\nnombre: Laura Isabel\nApellido: Sanchez Morales\nCorreo: laura.isabel@usac.com"];
+C7 -> C8;
+C9 [label="ID: 9\nnombre: Rafael Alejandro\nApellido: Ramirez Diaz\nCorreo: rafael.alejandro@usac.com"];
+C8 -> C9;
+C10 [label="ID: 10\nnombre: Isabel Cristina\nApellido: Diaz Lopez\nCorreo: isabel.cristina@usac.com"];
+C9 -> C10;
 }

@@ -11,7 +11,6 @@ public class BitacoraService
     {
         
         matrizDispersa.insert(idVehiculo, idRepuesto,  detalle);
-        mostrarBitacora();
     }
     
     public void mostrarBitacora()

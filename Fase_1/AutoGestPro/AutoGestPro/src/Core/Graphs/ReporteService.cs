@@ -183,7 +183,7 @@ public unsafe class ReporteService
                     }
                 }
             }
-        } else if (entidad == "Bitacora")
+        } else if (entidad == "Bitácora")
         {
             dot += GenerarDotMatrizDispersa(_matrizDispersa);
         }
