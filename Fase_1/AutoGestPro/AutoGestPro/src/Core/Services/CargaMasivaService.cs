@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 using AutoGestPro.Core.Structures;
 using Newtonsoft.Json;
 
@@ -27,7 +28,7 @@ public unsafe class CargaMasivaService
             {
                 foreach (var cliente in listaClientes)
                 {
-                    if (!clienteExiste(cliente))
+                    if (clienteExiste(cliente))
                     {
                         clientes.append(cliente);
                     }
@@ -104,20 +105,15 @@ public unsafe class CargaMasivaService
         return repuestos;
     }
     
-    private bool clienteExiste(Cliente cliente)
+    private bool clienteExiste(Cliente newCliente)
     {
-        for (int i = 0; i < clientes.Length; i++)
+        NodeLinked<Cliente>* cliente = clientes.SearchNode(newCliente.Id);
+        
+        if(cliente != null && cliente->_data is Cliente c && c.Id == newCliente.Id)
         {
-            if (clientes.GetNode(i)->_data is Cliente c)
-            {
-                if (c.Equals(cliente))
-                {
-                    return true;
-                }
-            }
+            return false;
         }
-
-        return false;
+        return true;
     }
     
     private bool vehiculoExiste(Vehiculo vehiculo)
