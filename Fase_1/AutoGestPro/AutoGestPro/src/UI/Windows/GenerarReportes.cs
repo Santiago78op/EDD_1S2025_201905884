@@ -89,15 +89,18 @@ public unsafe class GenerarReportes : Window
         private void OnTopVehiculosClicked(object sender, EventArgs e)
         {
             
-            //StackList<Servicio> topVehiculosServicios = reporteService.GetTopVehiculosConMasServicios(5);
+            Dictionary<int,int> topVehiculosServicios = reporteService.GetTopVehiculosConMasServicios(5);
             Double_List<Vehiculo> topVehiculosAntiguos = reporteService.GetTopVehiculosMasAntiguos(5);
             string mensaje = "Top 5 Vehículos con más servicios:\n";
-            /**
+            
             foreach (var vehiculo in topVehiculosServicios)
             {
-                mensaje += $"ID: {vehiculo.Id}, Marca: {vehiculo.Marca}, Modelo: {vehiculo.Modelo}, Servicios: {vehiculo.Servicios.Count}\n";
+                Vehiculo vc = CargaMasivaService.vehiculos.GetNode(vehiculo.Key)->_data;
+                if (vc != null)
+                {
+                    mensaje += $"ID: {vc.Id}, Marca: {vc.Marca}, Modelo: {vc.Modelo}, Servicios: {vehiculo.Value}\n";
+                }
             }
-            */
             
             mensaje += "\nTop 5 Vehículos más antiguos:\n";
             

@@ -192,9 +192,9 @@ public unsafe class ReporteService
         return dot;
     }
 
-    public StackList<Servicio> GetTopVehiculosConMasServicios(int i)
+    public Dictionary<int,int> GetTopVehiculosConMasServicios(int i)
     {
-        throw new NotImplementedException();
+        return _matrizDispersa.GetTopVehiculosConMasServicios();
     }
 
     public Double_List<Vehiculo> GetTopVehiculosMasAntiguos(int i)

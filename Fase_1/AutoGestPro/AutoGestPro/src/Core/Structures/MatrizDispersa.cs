@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -194,6 +195,45 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
             Console.WriteLine(); // Salto de línea después de imprimir una fila
             x_fila = x_fila->siguiente; // Avanzar a la siguiente fila
         }
+    }
+    
+    // Top 5 de Vehiculos con mas Servicios
+    public Dictionary<int,int> GetTopVehiculosConMasServicios()
+    {
+        // Diccionario para los objetos Vehiculo
+        Dictionary<int, int> diccionario = new Dictionary<int, int>();
+        
+        // Recorrer la lista de encabezados de filas
+        NodoEncabezado<int>* fila = filas.primero;
+        
+        // Numero de Servicios
+        int numServicios = 0;
+
+        while (fila != null)
+        {
+            NodoInterno<int>* listaInterna = fila->acceso;
+            NodoEncabezado<int>* columna = columnas.primero;
+
+            while (columna != null)
+            {
+                if (listaInterna != null && listaInterna->coordenadaY == listaInterna->id)
+                {
+                    numServicios += 1;
+                }
+                columna = columna->siguiente;
+            }
+            
+            // Agregar el numero de servicios al diccionario
+            diccionario.Add(fila->id, numServicios);
+            fila = fila->siguiente;
+        }
+        
+        // Ordenar el diccionario por el numero de servicios del mas alto al mas pequeño
+        diccionario = diccionario.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        
+        // Retornar el diccionario
+        return diccionario;
+        
     }
 
     // Destructor para liberar la memoria de los nodos internos y encabezados
