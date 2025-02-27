@@ -3,6 +3,7 @@ using Gtk;
 using System;
 using System.Globalization;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.UI.Windows;
 
@@ -134,14 +135,33 @@ public unsafe class GenerarServicio : Window
                 costoServicio
             );
 
-            servicioService.RegistrarServicio(nuevoServicio, repuesto.Costo);
-            MostrarMensaje("Éxito", "Servicio y factura generados correctamente.");
+            if (servicioExiste(nuevoServicio))
+            {
+                servicioService.RegistrarServicio(nuevoServicio, repuesto.Costo);
+                MostrarMensaje("Éxito", "Servicio y factura generados correctamente.");
+            }
+            else
+            {
+                MostrarMensaje("Error", "El servicio ya existe.");
+            }
         }
         catch (Exception exception)
         {
             Console.WriteLine(exception);
             throw;
         }
+    }
+
+    private bool servicioExiste(Servicio newServicio)
+    {
+        NodeQueue<Servicio>* servicio = CargaMasivaService.servicios.searchNode(newServicio.Id);
+
+        if (servicio != null)
+        {
+            return false;
+        }
+        
+        return true;
     }
 
     // ✅ Muestra un mensaje

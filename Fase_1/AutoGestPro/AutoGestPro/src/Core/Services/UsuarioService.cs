@@ -16,7 +16,7 @@ public unsafe class UsuarioService
     public UsuarioService()
     {   
         _usuarios = new Linked_List<Usuario>();
-        _usuarios.append(new Usuario("root", "root"));
+        _usuarios.append(new Usuario("root@gmail.com", "root123"));
     }
     
     public bool ValidarCredenciales(string nombreUsuario, string contrasena)
