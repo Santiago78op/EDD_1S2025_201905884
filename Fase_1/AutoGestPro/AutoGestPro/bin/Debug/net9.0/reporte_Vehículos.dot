@@ -44,4 +44,7 @@ V14 -> V13;
 V15 [label="ID: 15\nIdUsuario: 10\nMarca: Mazda CX-5\nModelo: 2017\nPlaca: VWL3P0D"];
 V14 -> V15;
 V15 -> V14;
+V20 [label="ID: 20\nIdUsuario: 2\nMarca: sd\nModelo: 2014\nPlaca: 454"];
+V15 -> V20;
+V20 -> V15;
 }

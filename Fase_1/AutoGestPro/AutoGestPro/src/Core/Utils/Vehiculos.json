@@ -103,5 +103,19 @@
     "Marca": "Mazda CX-5",
     "Modelo": 2017,
     "Placa": "VWL3P0D"
+  },
+  {
+    "ID": 16,
+    "ID_Usuario": 45,
+    "Marca": "Toyota Corolla",
+    "Modelo": 2010,
+    "Placa": "JKS8T5A"
+  },
+  {
+    "ID": 17,
+    "ID_Usuario": 10,
+    "Marca": "Toyota Corolla",
+    "Modelo": 2010,
+    "Placa": "JKS8T5A"
   }
 ]

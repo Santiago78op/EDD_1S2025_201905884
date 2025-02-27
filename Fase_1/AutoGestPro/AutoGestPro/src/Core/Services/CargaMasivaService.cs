@@ -9,21 +9,21 @@ using Newtonsoft.Json;
 namespace AutoGestPro.Core.Services;
 
 public unsafe class CargaMasivaService
-{   
+{
     public static Linked_List<Cliente> clientes = new Linked_List<Cliente>();
     public static Double_List<Vehiculo> vehiculos = new Double_List<Vehiculo>();
     public static RingList<Repuesto> repuestos = new RingList<Repuesto>();
     public static ListQueue<Servicio> servicios = new ListQueue<Servicio>();
-    
+
     public Linked_List<Cliente> CargarCleintesDesdeCSV(string rutaArchivo)
     {
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            
+
             // Procesar Json sin secciones
             var listaClientes = JsonConvert.DeserializeObject<Cliente[]>(json);
-            
+
             if (clientes != null)
             {
                 foreach (var cliente in listaClientes)
@@ -50,17 +50,35 @@ public unsafe class CargaMasivaService
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            
+
             // Procesar Json sin secciones
             var listaVehiculos = JsonConvert.DeserializeObject<Vehiculo[]>(json);
-            
+
             if (vehiculos != null)
             {
                 foreach (var vehiculo in listaVehiculos)
                 {
-                    if (!vehiculoExiste(vehiculo))
+                    if (clientes.Length > 0)
                     {
-                        vehiculos.append(vehiculo);
+                        NodeLinked<Cliente>* cliente = clientes.SearchNode(vehiculo.Id_Usuario);
+
+                        if (cliente != null)
+                        {
+                            if (vehiculoExiste(vehiculo))
+                            {
+                                vehiculos.append(vehiculo);
+                            }
+                        } 
+                        else
+                        {
+                            Console.WriteLine($"❌ No se pueden cargar el Vehiculo al Usuario {vehiculo.Id}.");
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"❌ No se pueden cargar vehiculos sin usuarios.");
+                        break;
                     }
                 }
             }
@@ -80,15 +98,15 @@ public unsafe class CargaMasivaService
         try
         {
             string json = File.ReadAllText(rutaArchivo);
-            
+
             // Procesar Json sin secciones
             var listaRepuestos = JsonConvert.DeserializeObject<Repuesto[]>(json);
-            
+
             if (repuestos != null)
             {
                 foreach (var repuesto in listaRepuestos)
                 {
-                    if (!repuestoExiste(repuesto))
+                    if (repuestoExiste(repuesto))
                     {
                         repuestos.append(repuesto);
                     }
@@ -104,47 +122,40 @@ public unsafe class CargaMasivaService
 
         return repuestos;
     }
-    
+
     private bool clienteExiste(Cliente newCliente)
     {
         NodeLinked<Cliente>* cliente = clientes.SearchNode(newCliente.Id);
-        
-        if(cliente != null && cliente->_data is Cliente c && c.Id == newCliente.Id)
+
+        if (cliente != null)
         {
             return false;
         }
+
         return true;
     }
-    
-    private bool vehiculoExiste(Vehiculo vehiculo)
+
+    private bool vehiculoExiste(Vehiculo newVehiculo)
     {
-        for (int i = 0; i < vehiculos.Length; i++)
+        NodeDouble<Vehiculo>* vehiculo = vehiculos.searchNode(newVehiculo.Id);
+
+        if (vehiculo != null)
         {
-            if (vehiculos.GetNode(i)->_data is Vehiculo v)
-            {
-                if (v.Equals(vehiculo))
-                {
-                    return true;
-                }
-            }
+            return false;
         }
 
-        return false;
+        return true;
     }
-    
+
     private bool repuestoExiste(Repuesto repuesto)
     {
-        for (int i = 0; i < repuestos.Length; i++)
+        NodeRing<Repuesto>* repuestoNode = repuestos.searchNode(repuesto.Id);
+
+        if (repuestoNode != null)
         {
-            if (repuestos.GetNode(i)->_data is Repuesto r)
-            {
-                if (r.Equals(repuesto))
-                {
-                    return true;
-                }
-            }
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

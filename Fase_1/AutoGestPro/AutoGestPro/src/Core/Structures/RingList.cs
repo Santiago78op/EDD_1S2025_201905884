@@ -211,14 +211,19 @@ public unsafe class RingList<T> : IRingList<T>, IDisposable where T : class
     public NodeRing<T>* searchNode(int id)
     {
         NodeRing<T>* current = _head;
+
+        if (current == null)
+        {
+            return null;
+        }
         
         do
         {
-            if (current->_data is Repuesto r && r.Id == id)
+            if (current != null && current->_data is Repuesto r && r.Id == id)
             {
                 return current;
             }
-            
+
             current = current->_next;
         } while (current != _head);
         

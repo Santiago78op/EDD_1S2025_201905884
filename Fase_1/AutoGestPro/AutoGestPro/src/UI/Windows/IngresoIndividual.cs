@@ -1,11 +1,12 @@
 using System;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 using AutoGestPro.Core.Services;
 using Gtk;
 
 namespace AutoGestPro.UI.Windows;
 
-public class IngresoIndividual : Window
+public unsafe class IngresoIndividual : Window
 {
     private Notebook notebook;
     
@@ -54,8 +55,17 @@ public class IngresoIndividual : Window
                 txtContrasenia.Text
             );
 
-            CargaMasivaService.clientes.append(cliente);
-            Console.WriteLine($"✅ Usuario {cliente.Nombre} agregado correctamente.");
+            if (clienteExiste(cliente))
+            {
+                CargaMasivaService.clientes.append(cliente);
+                Console.WriteLine($"✅ Usuario {cliente.Nombre} agregado correctamente.");
+            }
+            else
+            {
+                MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El usuario ya existe.");
+                errorDialog.Run();
+                errorDialog.Destroy();
+            }
         };
         
         vbox.PackStart(txtId, false, false, 5);
@@ -98,8 +108,39 @@ public class IngresoIndividual : Window
                 txtPlaca.Text
             );
 
-            CargaMasivaService.vehiculos.append(vehiculo);
-            Console.WriteLine($"✅ Vehículo {vehiculo.Marca} agregado correctamente.");
+            if (CargaMasivaService.clientes.Length > 0)
+            {
+                NodeLinked<Cliente>* cliente = CargaMasivaService.clientes.SearchNode(vehiculo.Id_Usuario);
+
+                if (cliente != null)
+                {
+                    if (vehiculoExiste(vehiculo))
+                    {
+                        CargaMasivaService.vehiculos.append(vehiculo);
+                        Console.WriteLine($"✅ Vehículo {vehiculo.Marca} agregado correctamente.");
+                    }
+                    else
+                    {
+                        MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El vehículo ya existe.");
+                        errorDialog.Run();
+                        errorDialog.Destroy();
+                    }
+                }
+                else
+                {
+                    MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error,
+                        ButtonsType.Ok, "El usuario no existe.");
+                    errorDialog.Run();
+                    errorDialog.Destroy();
+                }
+            }
+            else
+            {
+                MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "No hay usuarios registrados.");
+                errorDialog.Run();
+                errorDialog.Destroy();
+            }
+
         };
         
         vbox.PackStart(txtId, false, false, 5);
@@ -139,9 +180,19 @@ public class IngresoIndividual : Window
                 txtDescripcion.Text,
                 double.Parse(txtPrecio.Text)
             );
-
-            CargaMasivaService.repuestos.append(repuesto);
-            Console.WriteLine($"✅ Repuesto {repuesto.Repuesto1} agregado correctamente.");
+            
+            if (repuestoExiste(repuesto))
+            {
+                CargaMasivaService.repuestos.append(repuesto);
+                Console.WriteLine($"✅ Repuesto {repuesto.Repuesto1} agregado correctamente.");
+            }
+            else
+            {
+                MessageDialog errorDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El repuesto ya existe.");
+                errorDialog.Run();
+                errorDialog.Destroy();
+            }
+            
         };
         
         vbox.PackStart(txtId, false, false, 5);
@@ -151,6 +202,41 @@ public class IngresoIndividual : Window
         vbox.PackStart(btnGuardar, false, false, 5);
         
         return vbox;
+    }
+    
+    private bool clienteExiste(Cliente newCliente)
+    {
+        NodeLinked<Cliente>* cliente = CargaMasivaService.clientes.SearchNode(newCliente.Id);
+        
+        if(cliente != null)
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    private bool vehiculoExiste(Vehiculo newVehiculo)
+    {
+        NodeDouble<Vehiculo>* vehiculo = CargaMasivaService.vehiculos.searchNode(newVehiculo.Id);
+
+        if (vehiculo != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool repuestoExiste(Repuesto repuesto)
+    {
+        NodeRing<Repuesto>* repuestoNode = CargaMasivaService.repuestos.searchNode(repuesto.Id);
+
+        if (repuestoNode != null)
+        {
+            return false;
+        }
+
+        return true;
     }
 
 }
