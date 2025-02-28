@@ -5,80 +5,36 @@ label = "MATRIZ DISPERSA"
 fontname="Arial Black" 
 fontsize="15pt" 
 
-V1[label="V1",fillcolor="plum",group=1];
-V2[label="V2",fillcolor="plum",group=1];
 V3[label="V3",fillcolor="plum",group=1];
-V1->V2;
-V2->V1;
-V2->V3;
-V3->V2;
-R1[label="R1",fillcolor="powderblue",group=2];
 R3[label="R3",fillcolor="powderblue",group=4];
 R7[label="R7",fillcolor="powderblue",group=8];
 R10[label="R10",fillcolor="powderblue",group=11];
-R11[label="R11",fillcolor="powderblue",group=12];
-R1->R3;
-R3->R1;
 R3->R7;
 R7->R3;
 R7->R10;
 R10->R7;
-R10->R11;
-R11->R10;
-root->V1;
- root->R1;
-{rank=same;root;R1;R3;R7;R10;R11;}
-N1_1[label="1",group="2", fillcolor="yellow"];
-N1_3[label="1",group="4", fillcolor="yellow"];
-N1_7[label="1",group="8", fillcolor="yellow"];
-N2_1[label="cambio de tren delantero",group="2", fillcolor="yellow"];
-N2_3[label="1",group="4", fillcolor="yellow"];
-N2_11[label="Cambio Bijia",group="12", fillcolor="yellow"];
-N3_1[label="1",group="2", fillcolor="yellow"];
+root->V3;
+ root->R3;
+{rank=same;root;R3;R7;R10;}
 N3_3[label="1",group="4", fillcolor="yellow"];
-N3_7[label="Cambio de aceite",group="8", fillcolor="yellow"];
+N3_7[label="Cambio acite",group="8", fillcolor="yellow"];
 N3_10[label="1",group="11", fillcolor="yellow"];
-V1->N1_1;
-N1_1->V1;
-N1_1->N1_3;
-N1_3->N1_1;
-N1_3->N1_7;
-N1_7->N1_3;
-{rank = same;V1;N1_1;N1_3;N1_7;}
-V2->N2_1;
-N2_1->V2;
-N2_1->N2_3;
-N2_3->N2_1;
-N2_3->N2_11;
-N2_11->N2_3;
-{rank = same;V2;N2_1;N2_3;N2_11;}
-V3->N3_1;
-N3_1->V3;
-N3_1->N3_3;
-N3_3->N3_1;
+N3_10[label="1",group="11", fillcolor="yellow"];
+V3->N3_3;
+N3_3->V3;
 N3_3->N3_7;
 N3_7->N3_3;
 N3_7->N3_10;
 N3_10->N3_7;
-{rank = same;V3;N3_1;N3_3;N3_7;N3_10;}
-R1->N1_1;
-N1_1->R1;
-N1_1->N2_1;
-N2_1->N1_1;
-N2_1->N3_1;
-N3_1->N2_1;
-R3->N1_3;
-N1_3->R3;
-N1_3->N2_3;
-N2_3->N1_3;
-N2_3->N3_3;
-N3_3->N2_3;
-R7->N1_7;
-N1_7->R7;
-N1_7->N3_7;
-N3_7->N1_7;
+N3_10->N3_10;
+N3_10->N3_10;
+{rank = same;V3;N3_3;N3_7;N3_10;N3_10;}
+R3->N3_3;
+N3_3->R3;
+R7->N3_7;
+N3_7->R7;
 R10->N3_10;
 N3_10->R10;
-R11->N2_11;
-N2_11->R11;
+N3_10->N3_10;
+N3_10->N3_10;
 }

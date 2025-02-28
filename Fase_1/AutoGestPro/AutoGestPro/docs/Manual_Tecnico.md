@@ -21,7 +21,7 @@ Este documento proporciona detalles técnicos sobre la arquitectura, tecnología
     - **Windows:** Descargar desde [graphviz.org](https://graphviz.org/)
 4. Clonar el repositorio:
    ```sh
-   git clone https://github.com/tu-repositorio
+   git clone https://github.com/Santiago78op/EDD_1S2025_201905884.git
    cd tu-repositorio
    dotnet build
    dotnet run

@@ -20,7 +20,7 @@ Este sistema permite la gestión de usuarios, vehículos, repuestos, servicios y
    - **Windows:** Descarga desde [graphviz.org](https://graphviz.org/)
 4. Clona el repositorio y ejecuta el sistema con:
    ```sh
-   git clone https://github.com/tu-repositorio
+   git clone https://github.com/Santiago78op/EDD_1S2025_201905884.git
    cd tu-repositorio
    dotnet run
    ```

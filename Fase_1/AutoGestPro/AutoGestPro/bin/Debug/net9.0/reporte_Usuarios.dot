@@ -20,4 +20,14 @@ C9 [label="ID: 9\nnombre: Rafael Alejandro\nApellido: Ramirez Diaz\nCorreo: rafa
 C8 -> C9;
 C10 [label="ID: 10\nnombre: Isabel Cristina\nApellido: Diaz Lopez\nCorreo: isabel.cristina@usac.com"];
 C9 -> C10;
+C12 [label="ID: 12\nnombre: Sofia Andrea\nApellido: Mendez Ruiz\nCorreo: sofia.andrea@usac.com"];
+C10 -> C12;
+C13 [label="ID: 13\nnombre: Jorge Luis\nApellido: Castillo Morales\nCorreo: jorge.luis@usac.com"];
+C12 -> C13;
+C14 [label="ID: 14\nnombre: Valeria Isabel\nApellido: Ortiz Gomez\nCorreo: valeria.isabel@usac.com"];
+C13 -> C14;
+C15 [label="ID: 15\nnombre: Pepe\nApellido: Guardiola\nCorreo: pepe.guardiola@usac.com"];
+C14 -> C15;
+C16 [label="ID: 16\nnombre: Marcos\nApellido: Viona\nCorreo: marcos.viona@usac.com"];
+C15 -> C16;
 }

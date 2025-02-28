@@ -70,5 +70,65 @@
       "Repuesto": "Termostato",
       "Detalles": "Termostato para motor 1.8L",
       "Costo": 25.00
+  },
+  {
+    "ID": 12,
+    "Repuesto": "Termostato",
+    "Detalles": "Termostato para motor 1.8L",
+    "Costo": 25.00
+  },
+  {
+      "ID": 13,
+      "Repuesto": "Filtro de aire",
+      "Detalles": "Filtro de aire para motor 2.0L",
+      "Costo": 12.00
+  },
+  {
+      "ID": 14,
+      "Repuesto": "Filtro de combustible",
+      "Detalles": "Filtro de combustible para motor 1.8L",
+      "Costo": 18.00
+  },
+  {
+      "ID": 15,
+      "Repuesto": "Pastillas de freno",
+      "Detalles": "Juego de pastillas de freno para eje trasero",
+      "Costo": 40.00
+  },
+  {
+      "ID": 16,
+      "Repuesto": "Discos de freno",
+      "Detalles": "Juego de discos de freno para eje trasero",
+      "Costo": 55.00
+  },
+  {
+      "ID": 17,
+      "Repuesto": "Amortiguadores",
+      "Detalles": "Par de amortiguadores para eje trasero",
+      "Costo": 90.00
+  },
+  {
+      "ID": 1,
+      "Repuesto": "Kit de embrague",
+      "Detalles": "Kit de embrague para motor 2.0L",
+      "Costo": 140.00
+  },
+  {
+      "ID": 19,
+      "Repuesto": "Correa de distribución",
+      "Detalles": "Correa de distribución para motor 1.8L",
+      "Costo": 75.00
+  },
+  {
+      "ID": 20,
+      "Repuesto": "Bomba de agua",
+      "Detalles": "Bomba de agua para motor 2.0L",
+      "Costo": 40.00
+  },
+  {
+      "ID": 21,
+      "Repuesto": "Radiador",
+      "Detalles": "Radiador para motor 1.8L",
+      "Costo": 110.00
   }
 ]

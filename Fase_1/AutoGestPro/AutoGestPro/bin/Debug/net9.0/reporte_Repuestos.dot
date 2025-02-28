@@ -24,5 +24,25 @@ R11 [label="ID: 11\nRepuesto: Radiador\nDetalles: Radiador para motor 2.0L\nCost
 R10 -> R11;
 R12 [label="ID: 12\nRepuesto: Termostato\nDetalles: Termostato para motor 1.8L\nCosto: 25"];
 R11 -> R12;
-R12 -> R1;
+R13 [label="ID: 13\nRepuesto: Filtro de aire\nDetalles: Filtro de aire para motor 2.0L\nCosto: 12"];
+R12 -> R13;
+R14 [label="ID: 14\nRepuesto: Filtro de combustible\nDetalles: Filtro de combustible para motor 1.8L\nCosto: 18"];
+R13 -> R14;
+R15 [label="ID: 15\nRepuesto: Pastillas de freno\nDetalles: Juego de pastillas de freno para eje trasero\nCosto: 40"];
+R14 -> R15;
+R16 [label="ID: 16\nRepuesto: Discos de freno\nDetalles: Juego de discos de freno para eje trasero\nCosto: 55"];
+R15 -> R16;
+R17 [label="ID: 17\nRepuesto: Amortiguadores\nDetalles: Par de amortiguadores para eje trasero\nCosto: 90"];
+R16 -> R17;
+R19 [label="ID: 19\nRepuesto: Correa de distribución\nDetalles: Correa de distribución para motor 1.8L\nCosto: 75"];
+R17 -> R19;
+R20 [label="ID: 20\nRepuesto: Bomba de agua\nDetalles: Bomba de agua para motor 2.0L\nCosto: 40"];
+R19 -> R20;
+R21 [label="ID: 21\nRepuesto: Radiador\nDetalles: Radiador para motor 1.8L\nCosto: 110"];
+R20 -> R21;
+R22 [label="ID: 22\nRepuesto: Faja\nDetalles: Faja de tiempo camioneta 1.8L\nCosto: 11258"];
+R21 -> R22;
+R23 [label="ID: 23\nRepuesto: Silvin\nDetalles: Silvin Izquierdo\nCosto: 55258"];
+R22 -> R23;
+R23 -> R1;
 }

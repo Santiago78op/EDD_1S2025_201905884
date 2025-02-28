@@ -274,22 +274,23 @@ public unsafe class Double_List<T> : IDouble_List<T>, IDisposable where T : clas
      }
      
      // Elimanar todos los Vehiclos de un Usuario
-     public bool RemoveVehiculosUsuario(int id)
+public bool RemoveVehiculosUsuario(int id)
+{
+     NodeDouble<Vehiculo>* temp = (NodeDouble<Vehiculo>*)_head;
+     NodeDouble<Vehiculo>* next = null;
+     bool removed = false;
+     
+     while (temp != null)
      {
-          NodeDouble<Vehiculo>* temp = (NodeDouble<Vehiculo>*)_head;
-          NodeDouble<Vehiculo>* next = null;
-          
-          while (temp != null)
+          next = temp->_next;
+          if (temp->_data.Id_Usuario == id)
           {
-               next = temp->_next;
-               if (temp->_data.Id_Usuario == id)
-               {
-                    remove(temp->_data);
-                    return true;
-               }
-               temp = next;
+               remove(temp->_data);
+               removed = true;
           }
-          
-          return false;
+          temp = next;
      }
+     
+     return removed;
+}
 }

@@ -189,6 +189,8 @@ public unsafe class ReporteService
         }
 
         dot += "}";
+        
+        Console.WriteLine(dot);
         return dot;
     }
 

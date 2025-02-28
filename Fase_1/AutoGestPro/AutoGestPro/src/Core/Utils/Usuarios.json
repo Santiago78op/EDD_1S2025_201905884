@@ -68,5 +68,40 @@
     "Apellidos": "Diaz Lopez",
     "Correo": "isabel.cristina@usac.com",
     "Contrasenia": "IsabelLopez"
+  },
+  {
+    "ID": 10,
+    "Nombres": "Isabel Cristina",
+    "Apellidos": "Diaz Lopez",
+    "Correo": "isabel.cristina@usac.com",
+    "Contrasenia": "IsabelLopez"
+  },
+  {
+    "ID": 10,
+    "Nombres": "Carlos Alberto",
+    "Apellidos": "Gomez Martinez",
+    "Correo": "carlos.alberto@usac.com",
+    "Contrasenia": "CarlosMartinez"
+  },
+  {
+    "ID": 12,
+    "Nombres": "Sofia Andrea",
+    "Apellidos": "Mendez Ruiz",
+    "Correo": "sofia.andrea@usac.com",
+    "Contrasenia": "SofiaRuiz"
+  },
+  {
+    "ID": 13,
+    "Nombres": "Jorge Luis",
+    "Apellidos": "Castillo Morales",
+    "Correo": "jorge.luis@usac.com",
+    "Contrasenia": "JorgeMorales"
+  },
+  {
+    "ID": 14,
+    "Nombres": "Valeria Isabel",
+    "Apellidos": "Ortiz Gomez",
+    "Correo": "valeria.isabel@usac.com",
+    "Contrasenia": "ValeriaGomez"
   }
 ]
