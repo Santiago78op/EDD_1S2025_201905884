@@ -40,9 +40,7 @@ R20 [label="ID: 20\nRepuesto: Bomba de agua\nDetalles: Bomba de agua para motor 
 R19 -> R20;
 R21 [label="ID: 21\nRepuesto: Radiador\nDetalles: Radiador para motor 1.8L\nCosto: 110"];
 R20 -> R21;
-R22 [label="ID: 22\nRepuesto: Faja\nDetalles: Faja de tiempo camioneta 1.8L\nCosto: 11258"];
-R21 -> R22;
-R23 [label="ID: 23\nRepuesto: Silvin\nDetalles: Silvin Izquierdo\nCosto: 55258"];
-R22 -> R23;
-R23 -> R1;
+R100 [label="ID: 100\nRepuesto: CALI\nDetalles: EDD\nCosto: 10000"];
+R21 -> R100;
+R100 -> R1;
 }

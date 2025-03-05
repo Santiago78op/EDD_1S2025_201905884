@@ -289,4 +289,166 @@ public unsafe class MatrizDispersa<T> where T : unmanaged
             }
         }
     }
+    
+    // Generar Matriz
+    public String GeneraDotMatrizDispersa()
+    {
+        // -- lo primero es settear los valores que nos preocupan
+        string grafo = "digraph T{ \nnode[shape=box fontname=\"Arial\" fillcolor=\"white\" style=filled ];";
+        grafo += $"\nroot[label = \"capa: {capa}\", group=1];\n";
+        grafo += "label = \"MATRIZ DISPERSA\" \nfontname=\"Arial Black\" \nfontsize=\"15pt\" \n\n";
+
+// --- lo siguiente es escribir los nodos encabezados, empezamos con las filas, los nodos tendran el foramto Fn
+        var x_fila = filas.primero;
+        while (x_fila != null)
+        {
+            grafo += $"F{x_fila->id}[label=\"F{x_fila->id}\",fillcolor=\"plum\",group=1];\n";
+            x_fila = x_fila->siguiente;
+        }
+
+// --- apuntamos los nodos F entre ellos
+        x_fila = filas.primero;
+        while (x_fila != null)
+        {
+            if (x_fila->siguiente != null)
+            {
+                grafo += $"F{x_fila->id}->F{x_fila->siguiente->id};\n";
+                grafo += $"F{x_fila->siguiente->id}->F{x_fila->id};\n";
+            }
+
+            x_fila = x_fila->siguiente;
+        }
+
+// --- Luego de los nodos encabezados fila, seguimos con las columnas, los nodos tendran el foramto Cn
+        var y_columna = columnas.primero;
+        while (y_columna != null)
+        {
+            int group = y_columna->id + 1;
+            grafo += $"C{y_columna->id}[label=\"C{y_columna->id}\",fillcolor=\"powderblue\",group={group.ToString()}];\n";
+            y_columna = y_columna->siguiente;
+        }
+
+// --- apuntamos los nodos C entre ellos
+        int cont = 0;
+        y_columna = columnas.primero;
+        while (y_columna != null)
+        {
+            if (y_columna->siguiente != null)
+            {
+                grafo += $"C{y_columna->id}->C{y_columna->siguiente->id};\n";
+                grafo += $"C{y_columna->siguiente->id}->C{y_columna->id};\n";
+            }
+
+            cont++;
+            y_columna = y_columna->siguiente;
+        }
+
+// --- luego que hemos escrito todos los nodos encabezado, apuntamos el nodo root hacua ellos
+        y_columna = columnas.primero;
+        x_fila = filas.primero;
+        grafo += $"root->F{x_fila->id};\n root->C{y_columna->id};\n";
+        grafo += "{rank=same;root;";
+        cont = 0;
+        y_columna = columnas.primero;
+        while (y_columna != null)
+        {
+            grafo += $"C{y_columna->id};";
+            cont++;
+            y_columna = y_columna->siguiente;
+        }
+
+        grafo += "}\n";
+        var aux = filas.primero;
+        var aux2 = aux->acceso;
+        cont = 0;
+        while (aux != null)
+        {
+            cont++;
+            while (aux2 != null)
+            {
+                // if (aux2.caracter == '-')
+                //    grafo += $"N{aux2.x}_{aux2.y}[label=\" \",group=\"{int.Parse(aux2.y) + 1}\"];\n";
+                // else
+                int group = aux2->coordenadaY + 1;
+                grafo +=
+                    $"N{aux2->coordenadaX}_{aux2->coordenadaY}[label=\"{aux2->nombre}\",group=\"{group}\", fillcolor=\"yellow\"];\n";
+
+                aux2 = aux2->derecha;
+            }
+
+            aux = aux->siguiente;
+            if (aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+        }
+
+        aux = filas.primero;
+        aux2 = aux->acceso;
+        cont = 0;
+        while (aux != null)
+        {
+            string rank = $"{{rank = same;F{aux->id};";
+            cont = 0;
+            while (aux2 != null)
+            {
+                if (cont == 0)
+                {
+                    grafo += $"F{aux->id}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->F{aux->id};\n";
+                    cont++;
+                }
+
+                if (aux2->derecha != null)
+                {
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->N{aux2->derecha->coordenadaX}_{aux2->derecha->coordenadaY};\n";
+                    grafo += $"N{aux2->derecha->coordenadaX}_{aux2->derecha->coordenadaY}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                }
+
+                rank += $"N{aux2->coordenadaX}_{aux2->coordenadaY};";
+                aux2 = aux2->derecha;
+            }
+
+            aux = aux->siguiente;
+            if (aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+
+            grafo += rank + "}\n";
+        }
+
+        aux = columnas.primero;
+        aux2 = aux->acceso;
+        cont = 0;
+        while (aux != null)
+        {
+            cont = 0;
+            grafo += "";
+            while (aux2 != null)
+            {
+                if (cont == 0)
+                {
+                    grafo += $"C{aux->id}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->C{aux->id};\n";
+                    cont++;
+                }
+
+                if (aux2->abajo != null)
+                {
+                    grafo += $"N{aux2->abajo->coordenadaX}_{aux2->abajo->coordenadaY}->N{aux2->coordenadaX}_{aux2->coordenadaY};\n";
+                    grafo += $"N{aux2->coordenadaX}_{aux2->coordenadaY}->N{aux2->abajo->coordenadaX}_{aux2->abajo->coordenadaY};\n";
+                }
+
+                aux2 = aux2->abajo;
+            }
+
+            aux = aux->siguiente;
+            if (aux != null)
+            {
+                aux2 = aux->acceso;
+            }
+        }
+        return grafo;
+    }
 }

@@ -26,8 +26,6 @@ C13 [label="ID: 13\nnombre: Jorge Luis\nApellido: Castillo Morales\nCorreo: jorg
 C12 -> C13;
 C14 [label="ID: 14\nnombre: Valeria Isabel\nApellido: Ortiz Gomez\nCorreo: valeria.isabel@usac.com"];
 C13 -> C14;
-C15 [label="ID: 15\nnombre: Pepe\nApellido: Guardiola\nCorreo: pepe.guardiola@usac.com"];
-C14 -> C15;
-C16 [label="ID: 16\nnombre: Marcos\nApellido: Viona\nCorreo: marcos.viona@usac.com"];
-C15 -> C16;
+C100 [label="ID: 100\nnombre: Calificacion\nApellido: edd\nCorreo: edd.calificacion"];
+C14 -> C100;
 }
