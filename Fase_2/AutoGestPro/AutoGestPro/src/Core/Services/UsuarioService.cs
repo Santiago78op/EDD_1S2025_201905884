@@ -1,3 +1,4 @@
+using AutoGestPro.Core.Global;
 using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 using AutoGestPro.Core.Structures;
@@ -19,7 +20,7 @@ public class UsuarioService
         _usuarios.Append(new Usuario("root@gmail.com", "root123"));
     }
     
-    public bool ValidarCredenciales(string nombreUsuario, string contrasena)
+    public bool ValidarCredencialesUsuario(string nombreUsuario, string contrasena)
     {
         NodeLinked? current = _usuarios.Head;
         
@@ -27,6 +28,24 @@ public class UsuarioService
         {
             Usuario usuario = (Usuario)current.Data;
             if (usuario.NombreUsuario == nombreUsuario && usuario.Contrasenia == contrasena)
+            {
+                return true;
+            }
+            current = current.Next;
+        }
+        
+        return false;
+    }
+    
+    public bool ValidarCredencialesCliente(string nombreUsuario, string contrasena)
+    {
+        // 📌 Recorre la lista de clientes de la estructura global
+        NodeLinked? current = Estructuras.Clientes.Head;
+        
+        while (current != null)
+        {
+            Cliente cliente = (Cliente)current.Data;
+            if (cliente.Nombres == nombreUsuario && cliente.Contrasenia == contrasena)
             {
                 return true;
             }

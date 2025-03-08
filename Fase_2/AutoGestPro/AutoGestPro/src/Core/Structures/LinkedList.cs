@@ -16,7 +16,7 @@ public class LinkedList : ILinkedList, IDisposable
     {
         _head = null;
         _tail = null;
-        this._length = 0;
+        _length = 0;
     }
 
     // Getters y setters

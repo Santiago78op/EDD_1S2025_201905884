@@ -44,16 +44,26 @@ public class LoginWindow:Window
         string usuario = usuarioEntry.Text;
         string contrasena = contrasenaEntry.Text;
 
-        if (usuarioService.ValidarCredenciales(usuario, contrasena))
+        if (usuarioService.ValidarCredencialesUsuario(usuario, contrasena))
         {
             Console.WriteLine("✅ Inicio de sesión exitoso");
 
             // 📌 Cierra la ventana de Login
             Hide();
 
-            // 📌 Abre la ventana principal
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            // 📌 Abre la ventana principal del Administrador
+            MainWindowAdmin mainWindowAdmin = new MainWindowAdmin();
+            mainWindowAdmin.Show();
+        } else if (usuarioService.ValidarCredencialesCliente(usuario, contrasena))
+        {
+            Console.WriteLine("✅ Inicio de sesión exitoso");
+
+            // 📌 Cierra la ventana de Login
+            Hide();
+
+            // 📌 Abre la ventana principal del Cliente
+            MainWindowAdmin mainWindowAdmin = new MainWindowAdmin();
+            mainWindowAdmin.Show();
         }
         else
         {
