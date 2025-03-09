@@ -37,7 +37,7 @@ public class UsuarioService
         return false;
     }
     
-    public bool ValidarCredencialesCliente(string nombreUsuario, string contrasena)
+    public bool ValidarCredencialesCliente(string correoUsuario, string contrasena)
     {
         // 📌 Recorre la lista de clientes de la estructura global
         NodeLinked? current = Estructuras.Clientes.Head;
@@ -45,7 +45,7 @@ public class UsuarioService
         while (current != null)
         {
             Cliente cliente = (Cliente)current.Data;
-            if (cliente.Nombres == nombreUsuario && cliente.Contrasenia == contrasena)
+            if (cliente.Correo == correoUsuario && cliente.Contrasenia == contrasena)
             {
                 return true;
             }

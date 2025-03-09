@@ -20,9 +20,9 @@ public class MainWindowAdmin : Window
 
         // 📌 Usamos los botones desde Components/
         vbox.PackStart(new MenuButton("Cargas Masivas", OnCargasMasivasClicked, "00FF00", "Black"), false, false, 5);
+        vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked, "00FF00", "Black"), false, false, 5);
         /*
-        vbox.PackStart(new MenuButton("Ingreso Individual", OnIngresoIndividualClicked), false, false, 5);
-        vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked), false, false, 5);
+        
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked), false, false, 5);
         vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked), false, false, 5);*/
@@ -56,9 +56,9 @@ public class MainWindowAdmin : Window
         ShowAll();
     }
 
-    private void OnCargasMasivasClicked(object sender, EventArgs e) => new CargasMasivas().Show();
-    /*private void OnIngresoIndividualClicked(object sender, EventArgs e) => new IngresoIndividual().Show();
-    private void OnGestionUsuariosClicked(object sender, EventArgs e) => new GestionUsuarios().Show();
+    private void OnCargasMasivasClicked(object? sender, EventArgs e) => new CargasMasivas().Show();
+    private void OnGestionUsuariosClicked(object? sender, EventArgs e) => new GestionEntidadesWindow().Show();
+    /*
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
     private void OnGenerarReportesClicked(object sender, EventArgs e) => new GenerarReportes().Show();*/

@@ -22,13 +22,13 @@ public class LinkedList : ILinkedList, IDisposable
     // Getters y setters
     public NodeLinked Head
     {
-        get => _head ?? throw new InvalidOperationException("Head is null");
+        get => _head;
         set => _head = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public NodeLinked Tail
     {
-        get => _tail ?? throw new InvalidOperationException("Tail is null");
+        get => _tail;
         set => _tail = value ?? throw new ArgumentNullException(nameof(value));
     }
 
@@ -252,6 +252,34 @@ public class LinkedList : ILinkedList, IDisposable
 
         return null;
     }
+    
+    // Sobrecarga de metodos para buscar un nodo en la lista
+    /**
+     * Metodo para buscar un nodo en la lista
+     * @param correo Correo del nodo a buscar
+     * @return NodeLinked
+     * @complexity O(n)
+     * @precondition Ninguna
+     * @postcondition Se busca un nodo en la lista
+     * @exception Ninguna
+     * @test_cases
+     */
+    public NodeLinked SearchNode(String correo)
+    {
+        NodeLinked? current = _head;
+        while (current != null)
+        {
+            var currentCorreo = current.Data.GetType().GetProperty("Correo")?.GetValue(current.Data);
+            if (currentCorreo != null && currentCorreo.Equals(correo))
+            {
+                return current;
+            }
+
+            current = current.Next;
+        }
+
+        return null;
+    } 
 
     /**
      * Metodo para liberar los recursos de la lista enlazada

@@ -6,8 +6,7 @@ public class MenuButton: Button
 {
     public MenuButton(string texto, EventHandler evento, String bgColor, String fgColor) : base(texto)
     {
-        Button newBtn = new Button(texto);
-        newBtn.Name = "btnName";
+        Name = "btnName";
         var provider = new CssProvider();
         provider.LoadFromData($@"
         #btnName {{
@@ -15,10 +14,10 @@ public class MenuButton: Button
             background-color: #{bgColor};
             color: {fgColor};
             border-radius: 10px;
-            padding: 10px;
+            padding: 5px;
         }}
         ");
-        StyleContext.AddProviderForScreen(Screen, provider, 800);
+        StyleContext.AddProvider(provider, 800);
         Clicked += evento;
     }
 }
