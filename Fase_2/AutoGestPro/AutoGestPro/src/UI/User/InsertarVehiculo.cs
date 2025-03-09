@@ -1,4 +1,6 @@
+using AutoGestPro.Core.Global;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 using AutoGestPro.Core.Services;
 using Gtk;
 
@@ -6,63 +8,96 @@ namespace AutoGestPro.UI.User;
 
 public class InsertarVehiculo : Window
 {
-    private Entry entryMarca, entryModelo, entryPlaca;
-    private Button btnRegistrar;
-    private int usuarioActualId; // ID del usuario autenticado
+    private Entry _entryId , _entryMarca, _entryModelo, _entryPlaca;
+    private Button _btnRegistrar;
+    private int _usuarioActualId; // ID del usuario autenticado
 
     public InsertarVehiculo(int idUsuario) : base("Registrar Vehículo")
     {
-        usuarioActualId = idUsuario;
+        _usuarioActualId = idUsuario;
 
         SetDefaultSize(400, 300);
         SetPosition(WindowPosition.Center);
         DeleteEvent += (o, args) => Hide();
 
         VBox vbox = new VBox(false, 5) { BorderWidth = 10 };
+        
+        Label idVehiculo = new Label("ID:");
+        _entryId = new Entry();
 
         Label lblMarca = new Label("Marca:");
-        entryMarca = new Entry();
+        _entryMarca = new Entry();
 
         Label lblModelo = new Label("Modelo:");
-        entryModelo = new Entry();
+        _entryModelo = new Entry();
 
         Label lblPlaca = new Label("Placa:");
-        entryPlaca = new Entry();
+        _entryPlaca = new Entry();
 
-        btnRegistrar = new Button("Registrar Vehículo");
-        btnRegistrar.Clicked += OnRegistrarVehiculoClicked;
+        _btnRegistrar = new Button("Registrar Vehículo");
+        _btnRegistrar.Clicked += OnRegistrarVehiculoClicked;
 
+        vbox.PackStart(idVehiculo, false, false, 5);
+        vbox.PackStart(_entryId, false, false, 5);
         vbox.PackStart(lblMarca, false, false, 5);
-        vbox.PackStart(entryMarca, false, false, 5);
+        vbox.PackStart(_entryMarca, false, false, 5);
         vbox.PackStart(lblModelo, false, false, 5);
-        vbox.PackStart(entryModelo, false, false, 5);
+        vbox.PackStart(_entryModelo, false, false, 5);
         vbox.PackStart(lblPlaca, false, false, 5);
-        vbox.PackStart(entryPlaca, false, false, 5);
-        vbox.PackStart(btnRegistrar, false, false, 10);
+        vbox.PackStart(_entryPlaca, false, false, 5);
+        vbox.PackStart(_btnRegistrar, false, false, 10);
 
         Add(vbox);
         ShowAll();
     }
 
     // ✅ Método para registrar un vehículo
-    private void OnRegistrarVehiculoClicked(object sender, EventArgs e)
+    private void OnRegistrarVehiculoClicked(object? sender, EventArgs e)
     {
-        string marca = entryMarca.Text.Trim();
-        string modelo = entryModelo.Text.Trim();
-        string placa = entryPlaca.Text.Trim();
+        string marca = _entryMarca.Text.Trim();
+        string placa = _entryPlaca.Text.Trim();
 
-        if (string.IsNullOrEmpty(marca) || string.IsNullOrEmpty(modelo) || string.IsNullOrEmpty(placa))
+        if ( int.TryParse(_entryId.Text, out _) == false 
+             || string.IsNullOrEmpty(marca) 
+             || int.TryParse(_entryModelo.Text, out _) == false 
+             || string.IsNullOrEmpty(placa))
         {
-            MostrarMensaje("Error", "Todos los campos son obligatorios.");
+            MostrarMensaje("Error", "Todos los campos son obligatorios, Id y Modelo deben ser numéricos.");
             return;
         }
+        
+        int id = int.Parse(_entryId.Text.Trim());
+        int modelo = int.Parse(_entryModelo.Text.Trim());
+        
+        // Error si los datos numéricos son negativos
+        if (id < 0 || modelo < 0)
+        {
+            MostrarMensaje("Error", "Los campos numéricos deben ser positivos.");
+            return;
+        }
+        
 
+        // Validar que el ID no exista
+        NodeDouble? current = Estructuras.Vehiculos.Head;
+        
+        while (current != null)
+        {
+            Vehiculo vehiculo = (Vehiculo)current.Data;
+            if (vehiculo.Id == id)
+            {
+                MostrarMensaje("Error", "El ID ya existe.");
+                return;
+            }
+            current = current.Next;
+        }
+        
+        // Crear el vehículo
         // 🔥 Crear un nuevo vehículo
         Vehiculo nuevoVehiculo =
-            new Vehiculo(CargaMasivaService.vehiculos.Length + 1, usuarioActualId, marca, modelo, placa);
+            new Vehiculo(id, _usuarioActualId, marca, modelo, placa);
 
         // 🔥 Insertar en la lista de vehículos
-        CargaMasivaService.vehiculos.Append(nuevoVehiculo);
+        Estructuras.Vehiculos.Append(nuevoVehiculo);
 
         MostrarMensaje("Éxito", "Vehículo registrado correctamente.");
         Hide();

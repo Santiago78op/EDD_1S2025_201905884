@@ -5,10 +5,10 @@ public class Vehiculo
     private int _id;
     private int _id_Usuario;
     private string _marca;
-    private string _modelo;
+    private int _modelo;
     private string _placa;
 
-    public Vehiculo(int id, int idUsuario, string marca, string modelo, string placa)
+    public Vehiculo(int id, int idUsuario, string marca, int modelo, string placa)
     {
         _id = id;
         _id_Usuario = idUsuario;
@@ -35,10 +35,10 @@ public class Vehiculo
         set => _marca = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public string Modelo
+    public int Modelo
     {
         get => _modelo;
-        set => _modelo = value ?? throw new ArgumentNullException(nameof(value));
+        set => _modelo = value;
     }
 
     public string Placa

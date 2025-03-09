@@ -2,6 +2,7 @@ using AutoGestPro.Core.Services;
 using AutoGestPro.UI.Admin;
 using AutoGestPro.UI.User;
 using Gtk;
+using MenuButton = AutoGestPro.UI.Components.MenuButton;
 
 namespace AutoGestPro.UI.Windows;
 
@@ -20,7 +21,7 @@ public class MainWindowUser : Window
         titulo.Valign = Align.Center;
 
         // 📌 Usamos los botones desde Components/
-        vbox.PackStart(new MenuButton("Insertar Vehículo", OnInsertarVehiculoClicked, "00FFFF", "Black"), false, false, 5);
+        vbox.PackStart(new MenuButton("Insertar Vehículo", OnInsertarVehiculoClicked,  "00FFFF", "Black" ), false, false, 5);
         /*
         
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
