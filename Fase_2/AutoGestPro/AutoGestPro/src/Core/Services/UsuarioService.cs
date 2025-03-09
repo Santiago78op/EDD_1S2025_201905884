@@ -13,6 +13,7 @@ public class UsuarioService
 {
     // Lista enlazada de usuarios - readonly para evitar modificaciones
     readonly LinkedList _usuarios;
+    public static Cliente _onLoginCliente;
         
     public UsuarioService()
     {   
@@ -47,6 +48,7 @@ public class UsuarioService
             Cliente cliente = (Cliente)current.Data;
             if (cliente.Correo == correoUsuario && cliente.Contrasenia == contrasena)
             {
+                _onLoginCliente = cliente;
                 return true;
             }
             current = current.Next;

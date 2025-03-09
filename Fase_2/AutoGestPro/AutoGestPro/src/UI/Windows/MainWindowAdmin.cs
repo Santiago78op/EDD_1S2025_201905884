@@ -6,7 +6,7 @@ namespace AutoGestPro.UI.Windows;
 
 public class MainWindowAdmin : Window
 {
-    public MainWindowAdmin() : base("Menú Principal")
+    public MainWindowAdmin() : base("Menú Principal Administrador")
     {
         SetDefaultSize(400, 400);
         SetPosition(WindowPosition.Center);
@@ -21,6 +21,7 @@ public class MainWindowAdmin : Window
         // 📌 Usamos los botones desde Components/
         vbox.PackStart(new MenuButton("Cargas Masivas", OnCargasMasivasClicked, "00FF00", "Black"), false, false, 5);
         vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked, "00FF00", "Black"), false, false, 5);
+        vbox.PackStart(new MenuButton("Control de Logueo", OnControlLogueoClicked, "00FF00", "Black"), false, false, 5);
         /*
         
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
@@ -57,7 +58,8 @@ public class MainWindowAdmin : Window
     }
 
     private void OnCargasMasivasClicked(object? sender, EventArgs e) => new CargasMasivas().Show();
-    private void OnGestionUsuariosClicked(object? sender, EventArgs e) => new GestionEntidadesWindow().Show();
+    private void OnGestionUsuariosClicked(object? sender, EventArgs e) => new GestionEntidades().Show();
+    private void OnControlLogueoClicked(object? sender, EventArgs e) => new ControlLogueo().Show();
     /*
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
@@ -77,6 +79,7 @@ public class MainWindowAdmin : Window
         if (confirmDialog.Run() == (int)ResponseType.Yes)
         {
             confirmDialog.Destroy();
+            ControlLogueo.RegistrarSalida(LoginWindow.UsuarioEntry.Text); // 🔥 Registra la salida
             Hide(); // Oculta la ventana actual
             LoginWindow login = new LoginWindow();
             login.Show();
