@@ -22,11 +22,11 @@ public class MainWindowAdmin : Window
         vbox.PackStart(new MenuButton("Cargas Masivas", OnCargasMasivasClicked, "00FF00", "Black"), false, false, 5);
         vbox.PackStart(new MenuButton("Gestión de Usuarios", OnGestionUsuariosClicked, "00FF00", "Black"), false, false, 5);
         vbox.PackStart(new MenuButton("Control de Logueo", OnControlLogueoClicked, "00FF00", "Black"), false, false, 5);
+        vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked, "00FF00", "Black"), false, false, 5);
         /*
         
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
-        vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked), false, false, 5);
-        vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked), false, false, 5);*/
+        vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked), false, false, 5);*/
 
 
         // 📌 Botón para cerrar sesión 
@@ -60,10 +60,11 @@ public class MainWindowAdmin : Window
     private void OnCargasMasivasClicked(object? sender, EventArgs e) => new CargasMasivas().Show();
     private void OnGestionUsuariosClicked(object? sender, EventArgs e) => new GestionEntidades().Show();
     private void OnControlLogueoClicked(object? sender, EventArgs e) => new ControlLogueo().Show();
+    private void OnGenerarReportesClicked(object sender, EventArgs e) => new GenerarReportes().Show();
     /*
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
-    private void OnGenerarReportesClicked(object sender, EventArgs e) => new GenerarReportes().Show();*/
+    */
 
     // 📌 Función para cerrar sesión
     private void OnCerrarSesionClicked(object? sender, EventArgs e)
