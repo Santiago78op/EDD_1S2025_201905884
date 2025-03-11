@@ -1,0 +1,12 @@
+digraph Usuarios {
+node [shape=box, style=filled, fillcolor=lightblue];
+rankdir=LR;
+C1 [label="ID: 1\nnombre: Carlos Alberto\nApellido: Gomez Martinez\nEdad: 20 \nCorreo: carlos.alberto@usac.com"];
+
+"C1" -> "C2";
+C2 [label="ID: 2\nnombre: Ana Lucia\nApellido: Martinez Lopez\nEdad: 20 \nCorreo: ana.lucia@usac.com"];
+
+"C2" -> "C4";
+C4 [label="ID: 4\nnombre: Juan Carlos\nApellido: Gomez Martinez\nEdad: 28 \nCorreo: juan.gomez@usac.com"];
+
+}
