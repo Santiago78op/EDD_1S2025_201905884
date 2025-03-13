@@ -6,4 +6,5 @@ public class Estructuras
 {
     public static LinkedList Clientes = new LinkedList();
     public static DoubleList Vehiculos = new DoubleList();
+    public static TreeAvl Repuestos = new TreeAvl();
 }

@@ -131,8 +131,8 @@ public class CargasMasivas : Window
             }
             else if (entidadSeleccionada == "Repuestos")
             {
-                //var repuestos = cargaMasivaService.CargarRepuestosDesdeCSV(rutaArchivo);
-                //MostrarDatosEnTreeViewRepuesto(repuestos);
+                _cargaMasivaService.CargarRepuestosJson(rutaArchivo);
+                MostrarDatosEnTreeViewRepuesto();
             }
         }
 
@@ -179,6 +179,30 @@ public class CargasMasivas : Window
 
                 current = current.Next;
             }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Error al mostrar los datos en el TreeView");
+        }
+    }
+    
+    public void MostrarDatosEnTreeViewRepuesto()
+    {
+        try
+        {
+            _listStore.Clear();
+            
+            // 🔥 Recorrer el árbol AVL de repuestos, mostrar los datos en el TreeView
+            Estructuras.Repuestos.InOrder((repuesto) =>
+            {
+                if (repuesto != null)
+                {
+                    Repuesto r = (Repuesto)repuesto;
+                    _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo);
+                }
+            });
+            
         }
         catch (Exception e)
         {

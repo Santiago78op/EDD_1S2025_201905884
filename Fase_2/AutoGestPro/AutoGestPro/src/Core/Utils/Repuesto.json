@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1,
+    "Repuesto": "Filtro de aceite",
+    "Detalles": "Filtra impurezas del aceite del motor.",
+    "Costo": 25.50
+  },
+  {
+    "ID": 2,
+    "Repuesto": "Bujías",
+    "Detalles": "Se usa para laa mezcla de aire y combustible.",
+    "Costo": 15.75
+  },
+  {
+    "ID": 2,
+    "Repuesto": "Radiador",
+    "Detalles": "Se encarga de enfriar el motor.",
+    "Costo": 33.87
+  },
+  {
+    "ID": 3,
+    "Repuesto": "Filtro de aire",
+    "Detalles": "Se encarga de filtrar el aire que entra al motor.",
+    "Costo": 20.00
+  }
+]

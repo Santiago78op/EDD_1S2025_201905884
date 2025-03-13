@@ -133,4 +133,36 @@ public class CargaMasivaService
 
         return true;
     }
+    
+    /**
+     * Método para cargar repuestos desde un archivo JSON
+     * @param path Ruta del archivo JSON
+     */
+    public void CargarRepuestosJson(String path)
+    {
+        // 📌 Cargar repuestos desde un archivo JSON
+        try
+        {
+            string json = File.ReadAllText(path);
+            
+            // 📌 Deserializar el JSON a una lista de repuestos
+            var repuestos = JsonConvert.DeserializeObject<Repuesto[]>(json);
+            
+            // 📌 Guardar los repuestos en la lista simple
+            if (repuestos != null)
+            {
+                foreach (var repuesto in repuestos)
+                {
+                    Estructuras.Repuestos.Insert(repuesto.Id, repuesto);
+                }
+            }
+            
+            Console.WriteLine($"✅ {Estructuras.Repuestos.GetHeight()} repuestos cargados correctamente.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("Error al cargar los repuestos desde el archivo JSON");
+        }
+    }
 }
