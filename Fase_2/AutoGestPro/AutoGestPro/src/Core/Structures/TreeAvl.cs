@@ -362,6 +362,88 @@ public class TreeAvl : ITreeAvl, IDisposable
         return null;
     }
     
+    // Metodo para modificar un nodo en el arbol
+    /**
+     * Metodo para modificar un nodo en el arbol
+     * @param key Llave del nodo a modificar
+     * @param value Valor del nodo a modificar
+     * @return void
+     */
+    public bool Modify(int key, object value)
+    {
+        // Se modifica el nodo en el arbol
+        Root = Modify(Root, key, value);
+        if (Root == null)
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    // Metodo recursivo para modificar un nodo en el arbol
+    /**
+     * Metodo recursivo para modificar un nodo en el arbol
+     * @param node Nodo actual
+     * @param key Llave del nodo a modificar
+     * @param value Valor del nodo a modificar
+     * @return Nodo actualizado
+     */
+    private NodeTreeAvl Modify(NodeTreeAvl node, int key, object value)
+    {
+        // Si el nodo es nulo, se retorna nulo
+        if (node == null)
+        {
+            return null;
+        }
+
+        // Si la llave es menor que la llave del nodo actual, se modifica en el subarbol izquierdo
+        if (key < node.Key)
+        {
+            node.Left = Modify(node.Left, key, value);
+        }
+        // Si la llave es mayor que la llave del nodo actual, se modifica en el subarbol derecho
+        else if (key > node.Key)
+        {
+            node.Right = Modify(node.Right, key, value);
+        }
+        // Si la llave es igual que la llave del nodo actual, se modifica el nodo actual
+        else
+        {
+            node.Value = value;
+        }
+
+        // Se actualiza la altura del nodo
+        node.Height = 1 + Math.Max(Height(node.Left), Height(node.Right));
+
+        // Se calcula el factor de balance del nodo
+        int balance = GetBalance(node);
+
+        // Si el factor de balance es mayor que 1
+        if (balance > 1)
+        {
+            if (GetBalance(node.Left) < 0)
+            {
+                node.Left = LeftRotate(node.Left);
+            }
+
+            return RightRotate(node);
+        }
+
+        // Si el factor de balance es menor que -1
+        if (balance < -1)
+        {
+            if (GetBalance(node.Right) > 0)
+            {
+                node.Right = RightRotate(node.Right);
+            }
+
+            return LeftRotate(node);
+        }
+
+        // Se retorna el nodo actualizado
+        return node;
+    }
+    
     /*
      * Dispose
      */
@@ -433,6 +515,35 @@ public class TreeAvl : ITreeAvl, IDisposable
             InOrder(node.Left, action);
             action(node.Value);
             InOrder(node.Right, action);
+        }
+    }
+    
+    // Metodo para recorrer el arbol en PostOrden
+    /**
+     * Metodo para recorrer el arbol en PostOrden
+     * @param action Accion a realizar
+     * @return void
+     */
+    public void PostOrder(Action<object> action)
+    {
+        // Se recorre el arbol en PostOrden
+        PostOrder(Root, action);
+    }
+    
+    // Metodo recursivo para recorrer el arbol en PostOrden
+    /**
+     * Metodo recursivo para recorrer el arbol en PostOrden
+     * @param node Nodo actual
+     * @param action Accion a realizar
+     * @return void
+     */
+    private void PostOrder(NodeTreeAvl node, Action<object> action)
+    {
+        if (node != null)
+        {
+            PostOrder(node.Left, action);
+            PostOrder(node.Right, action);
+            action(node.Value);
         }
     }
     

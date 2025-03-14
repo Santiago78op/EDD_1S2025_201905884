@@ -5,14 +5,28 @@ namespace AutoGestPro.Core.Nodes;
  */
 public class NodeTreeBinary
 {
-    public NodeTreeBinary Left { get; set; }
-    public NodeTreeBinary Right { get; set; }
+    // Llave del nodo
     public int Key { get; set; }
+    // Valor del nodo
     public object Value { get; set; }
+    // Puntero al hijo izquierdo
+    public NodeTreeBinary Left { get; set; }
+    // Puntero al hijo derecho
+    public NodeTreeBinary Right { get; set; }
+    // Altura del nodo
+    public int Height { get; set; }
 
+    /**
+     * Constructor de la clase
+     * @param key Llave del nodo
+     * @param value Valor del nodo
+     */
     public NodeTreeBinary(int key, object value)
     {
         Key = key;
         Value = value;
+        Left = null;
+        Right = null;
+        Height = 1;
     }
 }
