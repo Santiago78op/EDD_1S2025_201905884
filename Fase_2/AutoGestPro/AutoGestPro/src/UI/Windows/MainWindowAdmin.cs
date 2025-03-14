@@ -25,6 +25,7 @@ public class MainWindowAdmin : Window
         vbox.PackStart(new MenuButton("Visualización de Repuestos", OnVisualizacionRepuestosClicked, "00FF00", "Black"), false, false, 5);
         vbox.PackStart(new MenuButton("Control de Logueo", OnControlLogueoClicked, "00FF00", "Black"), false, false, 5);
         vbox.PackStart(new MenuButton("Generación de Reportes", OnGenerarReportesClicked, "00FF00", "Black"), false, false, 5);
+        vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarReportesClicked, "00FF00", "Black"), false, false, 5);
         /*
         
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
@@ -65,8 +66,8 @@ public class MainWindowAdmin : Window
     private void OnGenerarReportesClicked(object? sender, EventArgs e) => new GenerarReportes().Show();
     private void OnGestionRepuestosClicked(object? sender, EventArgs e) => new GestionRepuestos().Show();
     private void OnVisualizacionRepuestosClicked(object? sender, EventArgs e) => new VisualizacionRepuestos().Show();
-    /*
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
+    /*
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();
     */
 
