@@ -11,6 +11,8 @@ public class GenerarServicio : Window
     private Button btnGenerarServicio;
     private TreeView treeViewServicios;
     private ListStore listStore;
+    
+    private int _contadorFactura = 0;
 
     public GenerarServicio() : base("Generar Servicio")
     {
@@ -120,6 +122,15 @@ public class GenerarServicio : Window
         }
 
         string detalle = _entryDetalle.Text;
+        
+        // Verificar si el servicio ya existe
+        var servicioExistente = Estructuras.Servicios.Search(id);
+        if (servicioExistente != null)
+        {
+            MostrarMensaje("Error", "El servicio ya existe.");
+            return;
+        }
+        
         // Verificar si el vehículo y repuesto existen
         NodeDouble? nodoVehiculo =  Estructuras.Vehiculos.SearchNode(idVehiculo);
         if (nodoVehiculo == null)
@@ -134,11 +145,23 @@ public class GenerarServicio : Window
             MostrarMensaje("Error", "El repuesto no existe.");
             return;
         }
+        
         // 🔥 Crear nuevo servicio
         Servicio nuevoServicio = new Servicio(id ,idVehiculo, idRepuesto, detalle, costo);
         Estructuras.Servicios.Insert(id,nuevoServicio);
         MostrarMensaje("Éxito", "Servicio generado correctamente.");
         RefrescarServicios();
+        
+        // 🔥 Cracion de la factura
+        Repuesto repuesto = (Repuesto)nodoRepuesto;
+        // Calculo del costo total
+        decimal costoTotal = costo + repuesto.Costo;
+        // Incrementar contador de factura
+        _contadorFactura++;
+        // Objeto factura
+        Factura nuevaFactura = new Factura(_contadorFactura , id, costoTotal);
+        Estructuras.Facturas.Insert(_contadorFactura, nuevaFactura);
+        MostrarMensaje("Éxito", "Factura generada correctamente.");
     }
 
     // ✅ Muestra un mensaje
@@ -149,4 +172,4 @@ public class GenerarServicio : Window
         dialog.Run();
         dialog.Destroy();
     }
-}
+} 

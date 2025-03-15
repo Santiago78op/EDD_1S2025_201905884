@@ -64,7 +64,7 @@ public class TreeBinary : ITreeBinary, IDisposable
         // Si la llave es igual a la llave del nodo
         else
         {
-            node.Value = value;
+            return node;
         }
 
         // Se actualiza la altura del nodo

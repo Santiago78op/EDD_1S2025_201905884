@@ -5,9 +5,9 @@ public class Repuesto
     private int _id;
     private string _repuesto;
     private string _detalles;
-    private double _costo;
+    private decimal _costo;
 
-    public Repuesto(int id, string repuesto, string detalles, double costo)
+    public Repuesto(int id, string repuesto, string detalles, decimal costo)
     {
         _id = id;
         _repuesto = repuesto;
@@ -33,7 +33,7 @@ public class Repuesto
         set => _detalles = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public double Costo
+    public decimal Costo
     {
         get => _costo;
         set => _costo = value;

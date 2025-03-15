@@ -57,7 +57,7 @@ public class GestionRepuestos : Window
     // ✅ Crea las columnas para la tabla de repuestos
     private void CrearColumnasRepuestos()
     {
-        _listStore = new ListStore(typeof(int), typeof(string), typeof(string), typeof(double));
+        _listStore = new ListStore(typeof(int), typeof(string), typeof(string), typeof(decimal));
         _treeViewRepuestos.Model = _listStore;
         _treeViewRepuestos.AppendColumn("ID", new CellRendererText(), "text", 0);
         _treeViewRepuestos.AppendColumn("Nombre", new CellRendererText(), "text", 1);
@@ -94,7 +94,7 @@ public class GestionRepuestos : Window
     }
 
     // ✅ Buscar repuesto por ID
-    private void OnBuscarRepuestoClicked(object sender, EventArgs e)
+    private void OnBuscarRepuestoClicked(object? sender, EventArgs e)
     {
         if (!int.TryParse(_entryId.Text, out int id))
         {
@@ -117,7 +117,7 @@ public class GestionRepuestos : Window
     }
 
     // ✅ Actualizar repuesto
-    private void OnActualizarRepuestoClicked(object sender, EventArgs e)
+    private void OnActualizarRepuestoClicked(object? sender, EventArgs e)
     {
         if (!int.TryParse(_entryId.Text, out int id))
         {
@@ -125,7 +125,7 @@ public class GestionRepuestos : Window
             return;
         }
 
-        if (!double.TryParse(_entryCosto.Text, out double costo))
+        if (!decimal.TryParse(_entryCosto.Text, out decimal costo))
         {
             MostrarMensaje("Error", "Ingrese un costo válido.");
             return;
