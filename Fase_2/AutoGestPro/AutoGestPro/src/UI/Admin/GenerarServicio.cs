@@ -82,7 +82,7 @@ public class GenerarServicio : Window
     // ✅ Crea las columnas para la tabla de servicios
     private void CrearColumnasServicios()
     {
-        listStore = new ListStore(typeof(int), typeof(int), typeof(int), typeof(string), typeof(decimal));
+        listStore = new ListStore(typeof(int), typeof(int), typeof(int), typeof(string), typeof(string));
         treeViewServicios.Model = listStore;
         treeViewServicios.AppendColumn("ID", new CellRendererText(), "text", 0);
         treeViewServicios.AppendColumn("ID Vehículo", new CellRendererText(), "text", 1);
@@ -102,7 +102,7 @@ public class GenerarServicio : Window
             if (servicio != null)
             {
                 Servicio s = (Servicio)servicio;
-                listStore.AppendValues(s.Id, s.IdRepuesto, s.IdRepuesto, s.Detalles, s.Costo);
+                listStore.AppendValues(s.Id, s.IdRepuesto, s.IdRepuesto, s.Detalles, s.Costo.ToString());
             }
         }
     }
