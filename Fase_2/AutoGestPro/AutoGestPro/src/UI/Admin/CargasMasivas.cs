@@ -63,7 +63,7 @@ public class CargasMasivas : Window
         {
             "Usuarios" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(int), typeof(string)),
             "Vehículos" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string), typeof(string)),
-            "Repuestos" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(double)),
+            "Repuestos" => new ListStore(typeof(int), typeof(string), typeof(string), typeof(string)),
             _ => throw new Exception("Entidad no reconocida")
         };
 
@@ -199,7 +199,7 @@ public class CargasMasivas : Window
                 if (repuesto != null)
                 {
                     Repuesto r = (Repuesto)repuesto;
-                    _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo);
+                    _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo.ToString());
                 }
             });
             

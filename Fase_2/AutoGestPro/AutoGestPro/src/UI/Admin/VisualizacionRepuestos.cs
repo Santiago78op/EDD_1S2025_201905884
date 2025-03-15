@@ -50,7 +50,7 @@ public class VisualizacionRepuestos : Window
     // ✅ Crea las columnas del TreeView
     private void CrearColumnasRepuestos()
     {
-        _listStore = new ListStore(typeof(int), typeof(string), typeof(string), typeof(double));
+        _listStore = new ListStore(typeof(int), typeof(string), typeof(string), typeof(string));
         _treeViewRepuestos.Model = _listStore;
         _treeViewRepuestos.AppendColumn("ID", new CellRendererText(), "text", 0);
         _treeViewRepuestos.AppendColumn("Nombre", new CellRendererText(), "text", 1);
@@ -72,7 +72,7 @@ public class VisualizacionRepuestos : Window
                     if (repuesto != null)
                     {
                         Repuesto r = (Repuesto)repuesto;
-                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo);
+                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo.ToString());
                     }
                 });
                 break;
@@ -83,7 +83,7 @@ public class VisualizacionRepuestos : Window
                     if (repuesto != null)
                     {
                         Repuesto r = (Repuesto)repuesto;
-                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo);
+                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo.ToString());
                     }
                 });
                 break;
@@ -94,7 +94,7 @@ public class VisualizacionRepuestos : Window
                     if (repuesto != null)
                     {
                         Repuesto r = (Repuesto)repuesto;
-                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo);
+                        _listStore.AppendValues(r.Id, r.Repuesto1, r.Detalles, r.Costo.ToString());
                     }
                 });
                 break;
