@@ -13,12 +13,16 @@ public class GestionEntidades : Window
     private TreeView _treeView;
     private ListStore _listStore;
     private ComboBoxText _comboEntidades;
-    private Button _btnEliminar, _btnBuscar;
+    private Button _btnEliminar, _btnBuscar, _btnModificar;
     private Entry _entryBusqueda;
+    private Entry _entryNombre, _entryApellido, _entryCorreo, _entryEdad, _entryClave;
+    private Entry _entryMarca, _entryModelo, _entryPlaca;
+    private HBox _hboxDatosUsuario, _hboxDatosVehiculo;
+
 
     public GestionEntidades() : base("Gestión de Entidades")
     {
-        SetDefaultSize(600, 450);
+        SetDefaultSize(650, 500);
         SetPosition(WindowPosition.Center);
         DeleteEvent += delegate { Hide(); };
 
@@ -29,7 +33,7 @@ public class GestionEntidades : Window
         _comboEntidades = new ComboBoxText();
         _comboEntidades.AppendText("Usuarios");
         _comboEntidades.AppendText("Vehículos");
-        _comboEntidades.Active = 0; // Predeterminado en "Usuarios"
+        _comboEntidades.Active = 0;
         _comboEntidades.Changed += OnComboEntidadesChanged;
 
         // 🔹 Entrada y Botón de Búsqueda
@@ -40,13 +44,44 @@ public class GestionEntidades : Window
         hboxBusqueda.PackStart(_entryBusqueda, true, true, 5);
         hboxBusqueda.PackStart(_btnBuscar, false, false, 5);
 
-        // 🔹 Botón para eliminar
+        // 🔹 Entrada de Datos para Modificación (Usuarios)
+        _hboxDatosUsuario = new HBox(false, 5);
+        _entryNombre = new Entry { PlaceholderText = "Nombre" };
+        _entryApellido = new Entry { PlaceholderText = "Apellido" };
+        _entryCorreo = new Entry { PlaceholderText = "Correo" };
+        _entryEdad = new Entry { PlaceholderText = "Edad" };
+        _entryClave = new Entry { PlaceholderText = "Contraseña", Visibility = false };
+
+        _hboxDatosUsuario.PackStart(_entryNombre, true, true, 5);
+        _hboxDatosUsuario.PackStart(_entryApellido, true, true, 5);
+        _hboxDatosUsuario.PackStart(_entryCorreo, true, true, 5);
+        _hboxDatosUsuario.PackStart(_entryEdad, true, true, 5);
+        _hboxDatosUsuario.PackStart(_entryClave, true, true, 5);
+
+        // 🔹 Entrada de Datos para Modificación (Vehículos)
+        _hboxDatosVehiculo = new HBox(false, 5);
+        _entryMarca = new Entry { PlaceholderText = "Marca" };
+        _entryModelo = new Entry { PlaceholderText = "Modelo" };
+        _entryPlaca = new Entry { PlaceholderText = "Placa" };
+
+        _hboxDatosVehiculo.PackStart(_entryMarca, true, true, 5);
+        _hboxDatosVehiculo.PackStart(_entryModelo, true, true, 5);
+        _hboxDatosVehiculo.PackStart(_entryPlaca, true, true, 5);
+
+        // 🔹 Botones de Acción
+        HBox hboxBotones = new HBox(false, 5);
+        _btnModificar = new Button("Modificar");
         _btnEliminar = new Button("Eliminar");
+
+        _btnModificar.Clicked += OnModificarClicked;
         _btnEliminar.Clicked += OnEliminarClicked;
+
+        hboxBotones.PackStart(_btnModificar, false, false, 5);
+        hboxBotones.PackStart(_btnEliminar, false, false, 5);
 
         // 🔹 Tabla para mostrar datos
         _treeView = new TreeView();
-        CrearColumnasTreeView("Usuarios"); // Inicia con Usuarios
+        CrearColumnasTreeView("Usuarios");
 
         ScrolledWindow scrollWindow = new ScrolledWindow();
         scrollWindow.Add(_treeView);
@@ -54,11 +89,16 @@ public class GestionEntidades : Window
         vbox.PackStart(lblSeleccion, false, false, 5);
         vbox.PackStart(_comboEntidades, false, false, 5);
         vbox.PackStart(hboxBusqueda, false, false, 5);
+        vbox.PackStart(_hboxDatosUsuario, false, false, 5);
+        vbox.PackStart(_hboxDatosVehiculo, false, false, 5);
         vbox.PackStart(scrollWindow, true, true, 5);
-        vbox.PackStart(_btnEliminar, false, false, 5);
+        vbox.PackStart(hboxBotones, false, false, 5);
 
         Add(vbox);
         ShowAll();
+
+        // 📌 Se actualizan los campos visibles
+        ActualizarCamposVisibles();
     }
 
     // 📌 Se actualiza la vista según la entidad seleccionada
@@ -66,6 +106,16 @@ public class GestionEntidades : Window
     {
         string entidadSeleccionada = _comboEntidades.ActiveText;
         CrearColumnasTreeView(entidadSeleccionada);
+        ActualizarCamposVisibles();
+    }
+    
+    // 📌 Actualiza los campos visibles según la entidad seleccionada
+    private void ActualizarCamposVisibles()
+    {
+        string entidadSeleccionada = _comboEntidades.ActiveText;
+
+        _hboxDatosUsuario.Visible = entidadSeleccionada == "Usuarios";
+        _hboxDatosVehiculo.Visible = entidadSeleccionada == "Vehículos";
     }
 
     // 📌 Crea las columnas y asigna el modelo adecuado al TreeView
@@ -146,6 +196,37 @@ public class GestionEntidades : Window
             vehiculos = vehiculos.Next;
         }
     }
+    
+    // 📌 Modificar Usuario o Vehículo
+    private void OnModificarClicked(object sender, EventArgs e)
+    {
+        TreeIter iter;
+        ITreeModel model;
+        if (_treeView.Selection.GetSelected(out model, out iter))
+        {
+            int id = (int)model.GetValue(iter, 0);
+            string entidadSeleccionada = _comboEntidades.ActiveText;
+
+            if (entidadSeleccionada == "Usuarios")
+            {
+                Cliente cliente = new Cliente(id, _entryNombre.Text, _entryApellido.Text, _entryCorreo.Text, int.Parse(_entryEdad.Text), _entryClave.Text);
+                Estructuras.Clientes.ModifyNode(id, cliente);
+                MostrarUsuarios();
+                MostrarMensaje("Éxito", "Usuario modificado correctamente.");
+            }
+            else if (entidadSeleccionada == "Vehículos")
+            {
+                Vehiculo vehiculo = new Vehiculo(id, int.Parse(_entryBusqueda.Text), _entryMarca.Text, int.Parse(_entryModelo.Text), _entryPlaca.Text);
+                Estructuras.Vehiculos.ModifyNode(id, vehiculo);
+                MostrarVehiculos();
+                MostrarMensaje("Éxito", "Vehículo modificado correctamente.");
+            }
+        }
+        else
+        {
+            MostrarMensaje("Error", "Seleccione un registro para modificar.");
+        }
+    }
 
     // 📌 Buscar Usuario o Vehículo
     private void OnBuscarClicked(object sender, EventArgs e)
@@ -167,6 +248,11 @@ public class GestionEntidades : Window
                 Cliente cliente = (Cliente)nodeCliente.Data;
                 MostrarMensaje("Usuario Encontrado",
                     $"ID: {cliente.Id}\nNombre: {cliente.Nombres}\nApellido: {cliente.Apellidos}\nCorreo: {cliente.Correo}\nEdad: {cliente.Edad}");
+                _entryNombre.Text = cliente.Nombres;
+                _entryApellido.Text = cliente.Apellidos;
+                _entryCorreo.Text = cliente.Correo;
+                _entryEdad.Text = cliente.Edad.ToString();
+                _entryClave.Text = cliente.Contrasenia;
             }
             else
             {
@@ -181,6 +267,11 @@ public class GestionEntidades : Window
                 Vehiculo vehiculo = (Vehiculo)nodeVehiculo.Data;
                 MostrarMensaje("Vehículo Encontrado",
                     $"ID: {vehiculo.Id}\nUsuario: {vehiculo.Id_Usuario}\nMarca: {vehiculo.Marca}\nModelo: {vehiculo.Modelo}\nPlaca: {vehiculo.Placa}");
+                
+                // 📌 Se actualizan los campos de texto
+                _entryMarca.Text = vehiculo.Marca;
+                _entryModelo.Text = vehiculo.Modelo.ToString();
+                _entryPlaca.Text = vehiculo.Placa;
             }
             else
             {
