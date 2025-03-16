@@ -18,7 +18,7 @@ public class UsuarioService
     public UsuarioService()
     {   
         _usuarios = new LinkedList();
-        _usuarios.Append(new Usuario("root@gmail.com", "root123"));
+        _usuarios.Append(new Usuario("admin@usac.com", "admint123"));
     }
     
     public bool ValidarCredencialesUsuario(string nombreUsuario, string contrasena)

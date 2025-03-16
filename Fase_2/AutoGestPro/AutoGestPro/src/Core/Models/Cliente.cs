@@ -1,3 +1,5 @@
+using AutoGestPro.Core.Structures;
+
 namespace AutoGestPro.Core.Models;
 
 public class Cliente
@@ -9,7 +11,10 @@ public class Cliente
     private int _edad;
     private string _contrasenia;
 
-    public Cliente(int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
+    private TreeBinary _Servicios;
+    private TreeB _Facturas;
+
+public Cliente(int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
     {
         _id = id;
         _nombres = nombres;
@@ -17,6 +22,8 @@ public class Cliente
         _correo = correo;
         _edad = edad;
         _contrasenia = contrasenia;
+        _Servicios = new TreeBinary();
+        _Facturas = new TreeB(5);
     }
 
     public int Id
@@ -53,5 +60,17 @@ public class Cliente
     {
         get => _contrasenia;
         set => _contrasenia = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public TreeBinary Servicios
+    {
+        get => _Servicios;
+        set => _Servicios = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public TreeB Facturas
+    {
+        get => _Facturas;
+        set => _Facturas = value ?? throw new ArgumentNullException(nameof(value));
     }
 }

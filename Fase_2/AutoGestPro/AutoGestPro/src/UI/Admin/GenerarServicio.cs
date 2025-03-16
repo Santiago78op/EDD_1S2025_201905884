@@ -146,22 +146,47 @@ public class GenerarServicio : Window
             return;
         }
         
-        // 🔥 Crear nuevo servicio
-        Servicio nuevoServicio = new Servicio(id ,idVehiculo, idRepuesto, detalle, costo);
+        // Id del Propietario del vehículo
+        Vehiculo v = (Vehiculo)nodoVehiculo.Data;
+        int idUsuario = v.Id_Usuario;
+        
+        // 🔥 Crear nuevo servicio y se inserta en el árbol AVL global
+        Servicio nuevoServicio = new Servicio(id , idUsuario ,idVehiculo, idRepuesto, detalle, costo);
         Estructuras.Servicios.Insert(id,nuevoServicio);
+        
+        // 🔥 El Servicio se agrega a la lista de servicios del propietario
+        
+        // ✅ Agregar el servicio al usuario correspondiente
+        Cliente c = (Cliente)Estructuras.Clientes.SearchNode(idUsuario)?.Data as Cliente;
+        if (c != null)
+        {
+            c.Servicios.Insert(id,nuevoServicio);
+            Console.WriteLine($"✅ Servicio agregado al usuario {c.Nombres}");
+            
+            // 🔥 Cracion de la factura
+            Repuesto repuesto = (Repuesto)nodoRepuesto;
+            // Calculo del costo total
+            decimal costoTotal = costo + repuesto.Costo;
+            // Incrementar contador de factura
+            _contadorFactura++;
+            // Objeto factura
+            Factura nuevaFactura = new Factura(_contadorFactura, idUsuario, id, costoTotal);
+            
+            // Insertar factura en la lista de facturas
+            c.Facturas.Insert(_contadorFactura, nuevaFactura);
+            
+            Estructuras.Facturas.Insert(_contadorFactura, nuevaFactura);
+            MostrarMensaje("Éxito", "Factura generada correctamente.");
+        }
+        else
+        {
+            Console.WriteLine($"❌ Error: Usuario no encontrado.");
+            return;
+        }
+
+        
         MostrarMensaje("Éxito", "Servicio generado correctamente.");
         RefrescarServicios();
-        
-        // 🔥 Cracion de la factura
-        Repuesto repuesto = (Repuesto)nodoRepuesto;
-        // Calculo del costo total
-        decimal costoTotal = costo + repuesto.Costo;
-        // Incrementar contador de factura
-        _contadorFactura++;
-        // Objeto factura
-        Factura nuevaFactura = new Factura(_contadorFactura , id, costoTotal);
-        Estructuras.Facturas.Insert(_contadorFactura, nuevaFactura);
-        MostrarMensaje("Éxito", "Factura generada correctamente.");
     }
 
     // ✅ Muestra un mensaje

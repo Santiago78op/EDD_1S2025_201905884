@@ -22,6 +22,10 @@ public class MainWindowUser : Window
 
         // 📌 Usamos los botones desde Components/
         vbox.PackStart(new MenuButton("Insertar Vehículo", OnInsertarVehiculoClicked,  "00FFFF", "Black" ), false, false, 5);
+        vbox.PackStart(new MenuButton("Visualización de Servicios", OnVisualizarServiciosClicked,  "00FFFF", "Black" ), false, false, 5);
+        vbox.PackStart(new MenuButton("Visualización de Facturas", OnVisualizarFacturasClicked,  "00FFFF", "Black" ), false, false, 5);
+        vbox.PackStart(new MenuButton("Cancelar Factura", OnCancelarFacturaClicked, "00FFFF", "Black"), false, false,
+            5);
         /*
         
         vbox.PackStart(new MenuButton("Generar Servicio", OnGenerarServicioClicked), false, false, 5);
@@ -58,6 +62,9 @@ public class MainWindowUser : Window
     }
 
     private void OnInsertarVehiculoClicked(object? sender, EventArgs e) => new InsertarVehiculo(UsuarioService._onLoginCliente.Id).Show();
+    private void OnVisualizarServiciosClicked(object? sender, EventArgs e) => new VisualizarServicios(UsuarioService._onLoginCliente).Show();
+    private void OnVisualizarFacturasClicked(object? sender, EventArgs e) => new VisualizarFacturas(UsuarioService._onLoginCliente).Show();
+    private void OnCancelarFacturaClicked(object? sender, EventArgs e) => new CancelarFacturas(UsuarioService._onLoginCliente).Show();
     /*
     private void OnGenerarServicioClicked(object sender, EventArgs e) => new GenerarServicio().Show();
     private void OnCancelarFacturaClicked(object sender, EventArgs e) => new CancelarFactura().Show();

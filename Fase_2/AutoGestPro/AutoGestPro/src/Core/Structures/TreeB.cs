@@ -525,4 +525,67 @@ public class TreeB : ITreeB, IDisposable
     {
         Dispose();
     }
+    
+    // Metodo para recorrer el arbol en In-orden
+    public List<object> InOrder()
+    {
+        List<object> list = new();
+        InOrder(_root, list);
+        return list;
+    }
+    
+    // Metodo recursivo para recorrer el arbol en In-orden
+    private void InOrder(NodeTreeB node, List<object> list)
+    {
+        if (node == null) return;
+        for (int i = 0; i < node.Count; i++)
+        {
+            InOrder(node.Children[i], list);
+            list.Add(node.Values[i]);
+        }
+        InOrder(node.Children[node.Count], list);
+    }
+    
+    // Metodo para recorrer el arbol en Pre-orden
+    public List<object> PreOrder()
+    {
+        List<object> list = new();
+        PreOrder(_root, list);
+        return list;
+    }
+    
+    // Metodo recursivo para recorrer el arbol en Pre-orden
+    private void PreOrder(NodeTreeB node, List<object> list)
+    {
+        if (node == null) return;
+        for (int i = 0; i < node.Count; i++)
+        {
+            list.Add(node.Values[i]);
+            PreOrder(node.Children[i], list);
+        }
+        PreOrder(node.Children[node.Count], list);
+    }
+    
+    // Metodo para recorrer el arbol en Post-orden
+    public List<object> PostOrder()
+    {
+        List<object> list = new();
+        PostOrder(_root, list);
+        return list;
+    }
+    
+    // Metodo recursivo para recorrer el arbol en Post-orden
+    private void PostOrder(NodeTreeB node, List<object> list)
+    {
+        if (node == null) return;
+        for (int i = 0; i < node.Count; i++)
+        {
+            PostOrder(node.Children[i], list);
+        }
+        PostOrder(node.Children[node.Count], list);
+        for (int i = 0; i < node.Count; i++)
+        {
+            list.Add(node.Values[i]);
+        }
+    }
 }
