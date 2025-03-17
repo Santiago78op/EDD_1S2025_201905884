@@ -33,14 +33,14 @@ public class GenerarReportes : Window
         _btnReporteVehiculos = new Button("Generar Reporte de Vehículos");
         _btnReporteVehiculos.Clicked += (sender, e) => GenerarReporteVehiculos();
         _btnReporteRepuestos = new Button("Generar Reporte de Repuestos");
-        /*_btnReporteRepuestos.Clicked += (sender, e) => GenerarReporteRepuestos();
-        _btnReporteFacturas = new Button("Generar Reporte de Facturas");
+        _btnReporteRepuestos.Clicked += (sender, e) => GenerarReporteRepuestos();
+        /*_btnReporteFacturas = new Button("Generar Reporte de Facturas");
         _btnReporteFacturas.Clicked += (sender, e) => GenerarReporteFacturas();*/
         vbox.PackStart(lblTitulo, false, false, 5);
         vbox.PackStart(_btnReporteUsuarios, false, false, 5);
         vbox.PackStart(_btnReporteVehiculos, false, false, 5);
-        /*vbox.PackStart(_btnReporteRepuestos, false, false, 5);
-        vbox.PackStart(_btnReporteFacturas, false, false, 5);*/
+        vbox.PackStart(_btnReporteRepuestos, false, false, 5);
+        /*vbox.PackStart(_btnReporteFacturas, false, false, 5);*/
         Add(vbox);
         ShowAll();
     }
@@ -66,15 +66,15 @@ public class GenerarReportes : Window
     }
 
     // ✅ Generar reporte de Repuestos
-    /*private void GenerarReporteRepuestos()
+    private void GenerarReporteRepuestos()
     {
-        string dotFilePath = $"{rutaReportes}/repuestos.dot";
-        string outputImagePath = $"{rutaReportes}/repuestos.png";
+        string dotFilePath = $"{_rutaReportes}/repuestos.dot";
+        string outputImagePath = $"{_rutaReportes}/repuestos.png";
         string dotContent = ReporteService.GenerarDotRepuestos();
         GenerarImagenGraphviz(dotFilePath, outputImagePath, dotContent);
     }
 
-    // ✅ Generar reporte de Facturas
+    /*// ✅ Generar reporte de Facturas
     private void GenerarReporteFacturas()
     {
         string dotFilePath = $"{rutaReportes}/facturas.dot";

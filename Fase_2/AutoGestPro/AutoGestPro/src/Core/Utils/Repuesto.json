@@ -1,9 +1,15 @@
 [
   {
-    "ID": 1,
-    "Repuesto": "Filtro de aceite",
-    "Detalles": "Filtra impurezas del aceite del motor.",
-    "Costo": 25.50
+    "ID": 3,
+    "Repuesto": "Batería",
+    "Detalles": "Suministra energía eléctrica al motor.",
+    "Costo": 30.5
+  },
+  {
+    "ID": 2,
+    "Repuesto": "Filtro de Aire",
+    "Detalles": "Se encarga de filtrar el aire que entra al motor.",
+    "Costo": 100
   },
   {
     "ID": 2,
@@ -12,15 +18,21 @@
     "Costo": 15.75
   },
   {
-    "ID": 2,
-    "Repuesto": "Radiador",
-    "Detalles": "Se encarga de enfriar el motor.",
-    "Costo": 33.87
+    "ID": 1,
+    "Repuesto": "Motor",
+    "Detalles": "Genera la potencia necesaria para el vehículo.",
+    "Costo": 500
   },
   {
-    "ID": 3,
-    "Repuesto": "Filtro de aire",
-    "Detalles": "Se encarga de filtrar el aire que entra al motor.",
-    "Costo": 20.00
+      "ID": 4,
+      "Repuesto": "Filtro de Aceite",
+      "Detalles": "Se encarga de filtrar el aceite del motor.",
+      "Costo": 25.5
+  },
+  {
+      "ID": 5,
+      "Repuesto": "Llantas",
+      "Detalles": "Permite el desplazamiento del vehículo.",
+      "Costo": 150
   }
 ]

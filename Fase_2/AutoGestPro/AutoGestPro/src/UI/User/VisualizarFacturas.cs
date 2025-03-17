@@ -74,21 +74,21 @@ public class VisualizarFacturas : Window
                 _clienteActual.Facturas.PreOrder().ForEach(factura =>
                 {
                     Factura f = (Factura)factura;
-                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total);
+                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total.ToString());
                 });
                 break;
             case "In-orden":
                 _clienteActual.Facturas.InOrder().ForEach(factura =>
                 {
                     Factura f = (Factura)factura;
-                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total);
+                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total.ToString());
                 });
                 break;
             case "Post-orden":
                 _clienteActual.Facturas.PostOrder().ForEach(factura =>
                 {
                     Factura f = (Factura)factura;
-                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total);
+                    _listStore.AppendValues(f.Id, f.IdServicio, f.Total.ToString());
                 });
                 break;
         }

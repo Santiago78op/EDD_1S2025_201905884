@@ -10,11 +10,13 @@ public static class ReporteService
 {
     private static LinkedList _clientService;
     private static DoubleList _vehicleService;
+    private static TreeAvl _repuestoService;
     
     static ReporteService()
     {
         _clientService = Estructuras.Clientes;
         _vehicleService = Estructuras.Vehiculos;
+        _repuestoService = Estructuras.Repuestos;
     }
     
     // ✅ Reporte de Usuarios
@@ -75,6 +77,39 @@ public static class ReporteService
             nodeVehicle = nodeVehicle.Next;
         }
         
+        
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
+    
+    // ✅ Reporte de Repuestos
+    public static string GenerarDotRepuestos()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Repuestos {");
+        dot.AppendLine("node [shape=box, style=filled, fillcolor=lightblue];");
+        dot.AppendLine("rankdir=LR;");
+        
+        NodeTreeAvl? nodeRepuesto = _repuestoService.Root;
+        
+        while (nodeRepuesto != null)
+        {
+            Repuesto r = (Repuesto)nodeRepuesto.Value;
+            dot.AppendLine( $"R{r.Id} [label=\"ID: {r.Id}\\nRepuesto: {r.Repuesto1}\\nDetalles: {r.Detalles}\\nCosto: {r.Costo}\"];\n");
+            if (nodeRepuesto.Left != null)
+            {
+                Repuesto rLeft = (Repuesto)nodeRepuesto.Left.Value;
+                dot.AppendLine($"\"R{r.Id}\" -> \"R{rLeft.Id}\";");
+            }
+            
+            if (nodeRepuesto.Right != null)
+            {
+                Repuesto rRight = (Repuesto)nodeRepuesto.Right.Value;
+                dot.AppendLine($"\"R{r.Id}\" -> \"R{rRight.Id}\";");
+            }
+            
+            nodeRepuesto = nodeRepuesto.Left;
+        }
         
         dot.AppendLine("}");
         return dot.ToString();
