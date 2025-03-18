@@ -1,0 +1,16 @@
+digraph Servicios {
+node [shape=ellipse, style=filled, fillcolor=lightblue];
+S2 [label="{<izq> | ID: 2\nRepuesto: 1 | Vehículo: 1\n aceite\nCosto: Q30  <der>}"]
+S2:s -> S4
+S4 [label="{<izq> | ID: 4\nRepuesto: 1 | Vehículo: 1\n bateria\nCosto: Q100  <der>}"]
+S4:s -> S3
+S3 [label="{<izq> | ID: 3\nRepuesto: 1 | Vehículo: 1\n frenos\nCosto: Q80  <der>}"]
+S4:s -> S6
+S6 [label="{<izq> | ID: 6\nRepuesto: 1 | Vehículo: 1\n motor\nCosto: Q500  <der>}"]
+S6:s -> S5
+S5 [label="{<izq> | ID: 5\nRepuesto: 1 | Vehículo: 1\n aceite\nCosto: Q150  <der>}"]
+S6:s -> S8
+S8 [label="{<izq> | ID: 8\nRepuesto: 1 | Vehículo: 1\n suspension\nCosto: Q150  <der>}"]
+S8:s -> S7
+S7 [label="{<izq> | ID: 7\nRepuesto: 1 | Vehículo: 1\n llantas\nCosto: Q500  <der>}"]
+}

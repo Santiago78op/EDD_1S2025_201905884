@@ -1,0 +1,12 @@
+digraph Repuestos {
+node [shape=record, style=filled, fillcolor=lightblue];
+R2 [label="{<izq> | ID: 2 | Nombre: Filtro de Aire | Detalles: Se encarga de filtrar el aire que entra al motor. |Costo: 100 | <der>}"]
+R2:s -> R1
+R1 [label="{<izq> | ID: 1 | Nombre: Motor | Detalles: Genera la potencia necesaria para el vehículo. |Costo: 500 | <der>}"]
+R2:s -> R4
+R4 [label="{<izq> | ID: 4 | Nombre: Filtro de Aceite | Detalles: Se encarga de filtrar el aceite del motor. |Costo: 25,5 | <der>}"]
+R4:s -> R3
+R3 [label="{<izq> | ID: 3 | Nombre: Batería | Detalles: Suministra energía eléctrica al motor. |Costo: 30,5 | <der>}"]
+R4:s -> R5
+R5 [label="{<izq> | ID: 5 | Nombre: Llantas | Detalles: Permite el desplazamiento del vehículo. |Costo: 150 | <der>}"]
+}

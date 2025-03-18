@@ -6,14 +6,13 @@ namespace AutoGestPro.UI.Admin;
 
 public class GenerarReportes : Window
 {
-    private Button _btnReporteUsuarios, _btnReporteVehiculos, _btnReporteRepuestos, _btnReporteFacturas;
+    private Button _btnReporteUsuarios, _btnReporteVehiculos, _btnReporteRepuestos, _btnReporteServicios ,_btnReporteFacturas;
     // Obtener la ruta absoluta de la carpeta raíz del proyecto
     private static string _rutaProyecto = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
     // Combinar con la carpeta de reportes
     private string _rutaReportes = System.IO.Path.Combine(_rutaProyecto, "Reports");
     // Contador Reportes para generar nombres únicos
-    private int _contadorReportesCliente;
-    private int _contadorReportesVehiculo; 
+    private int _contadorReportesCliente, _contadorReportesVehiculo, _contadorReportesRepuesto, _contadorReportesServicio, _contadorReportesFactura;
     
     public GenerarReportes() : base("Generación de Reportes")
     {
@@ -34,12 +33,15 @@ public class GenerarReportes : Window
         _btnReporteVehiculos.Clicked += (sender, e) => GenerarReporteVehiculos();
         _btnReporteRepuestos = new Button("Generar Reporte de Repuestos");
         _btnReporteRepuestos.Clicked += (sender, e) => GenerarReporteRepuestos();
+        _btnReporteServicios = new Button("Generar Reporte de Servicios");
+        _btnReporteServicios.Clicked += (sender, e) => GenerarReporteServicios();
         /*_btnReporteFacturas = new Button("Generar Reporte de Facturas");
         _btnReporteFacturas.Clicked += (sender, e) => GenerarReporteFacturas();*/
         vbox.PackStart(lblTitulo, false, false, 5);
         vbox.PackStart(_btnReporteUsuarios, false, false, 5);
         vbox.PackStart(_btnReporteVehiculos, false, false, 5);
         vbox.PackStart(_btnReporteRepuestos, false, false, 5);
+        vbox.PackStart(_btnReporteServicios, false, false, 5);
         /*vbox.PackStart(_btnReporteFacturas, false, false, 5);*/
         Add(vbox);
         ShowAll();
@@ -68,10 +70,21 @@ public class GenerarReportes : Window
     // ✅ Generar reporte de Repuestos
     private void GenerarReporteRepuestos()
     {
-        string dotFilePath = $"{_rutaReportes}/repuestos.dot";
-        string outputImagePath = $"{_rutaReportes}/repuestos.png";
+        string dotFilePath = $"{_rutaReportes}/repuestos_{_contadorReportesRepuesto}.dot";
+        string outputImagePath = $"{_rutaReportes}/repuestos_{_contadorReportesRepuesto}.png";
         string dotContent = ReporteService.GenerarDotRepuestos();
         GenerarImagenGraphviz(dotFilePath, outputImagePath, dotContent);
+        _contadorReportesRepuesto++;
+    }
+    
+    // ✅ Generar reporte de Servicios
+    private void GenerarReporteServicios()
+    {
+        string dotFilePath = $"{_rutaReportes}/servicios_{_contadorReportesServicio}.dot";
+        string outputImagePath = $"{_rutaReportes}/servicios_{_contadorReportesServicio}.png";
+        string dotContent = ReporteService.GenerarDotServicios();
+        GenerarImagenGraphviz(dotFilePath, outputImagePath, dotContent);
+        _contadorReportesServicio++;
     }
 
     /*// ✅ Generar reporte de Facturas

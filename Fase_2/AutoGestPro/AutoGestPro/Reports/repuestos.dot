@@ -1,5 +1,5 @@
 digraph Repuestos {
-node [shape=box, style=filled, fillcolor=lightblue];
+node [shape=record, style=filled, fillcolor=lightblue];
 rankdir=LR;
 R2 [label="ID: 2\nRepuesto: Filtro de Aire\nDetalles: Se encarga de filtrar el aire que entra al motor.\nCosto: 100"];
 

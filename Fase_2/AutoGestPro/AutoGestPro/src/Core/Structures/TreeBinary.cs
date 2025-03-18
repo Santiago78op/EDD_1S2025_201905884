@@ -19,6 +19,13 @@ public class TreeBinary : ITreeBinary, IDisposable
         _root = null;
     }
 
+    // Get y Set de la raiz del arbol
+    public NodeTreeBinary Root
+    {
+        get => _root;
+        set => _root = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
     // Get de la Altura del arbol
     public int Height => _root?.Height ?? 0;
     
@@ -51,20 +58,33 @@ public class TreeBinary : ITreeBinary, IDisposable
             return new NodeTreeBinary(key, value);
         }
 
-        // Si la llave es menor que la llave del nodo
+        // Si la llave es menor que la llave del nodo, se inserta en el hijo izquierdo
         if (key < node.Key)
         {
-            node.Left = Insert(node.Left, key, value);
+            // Si no hay nodo en la izquierda, insertamos el nuevo nodo allí
+            if (node.Left == null)
+            {
+                node.Left = new NodeTreeBinary(key, value);
+            }
+            else
+            {
+                // Si hay un nodo en la izquierda, llamamos al método recursivo para insertar el nodo
+                node.Left = Insert(node.Left, key, value);
+            }
         }
-        // Si la llave es mayor que la llave del nodo
+        // Si la llave es mayor que la llave del nodo, se inserta en el hijo derecho
         else if (key > node.Key)
         {
-            node.Right = Insert(node.Right, key, value);
-        }
-        // Si la llave es igual a la llave del nodo
-        else
-        {
-            return node;
+            // Si no hay nodo en la derecha, insertamos el nuevo nodo allí
+            if (node.Right == null)
+            {
+                node.Right = new NodeTreeBinary(key, value);
+            }
+            else
+            {
+                // Si hay un nodo en la derecha, llamamos al método recursivo para insertar el nodo
+                node.Right = Insert(node.Right, key, value);
+            }
         }
 
         // Se actualiza la altura del nodo

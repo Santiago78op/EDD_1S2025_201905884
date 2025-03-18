@@ -11,12 +11,14 @@ public static class ReporteService
     private static LinkedList _clientService;
     private static DoubleList _vehicleService;
     private static TreeAvl _repuestoService;
+    private static TreeBinary _serviceService;
     
     static ReporteService()
     {
         _clientService = Estructuras.Clientes;
         _vehicleService = Estructuras.Vehiculos;
         _repuestoService = Estructuras.Repuestos;
+        _serviceService = Estructuras.Servicios;
     }
     
     // ✅ Reporte de Usuarios
@@ -87,31 +89,66 @@ public static class ReporteService
     {
         StringBuilder dot = new StringBuilder();
         dot.AppendLine("digraph Repuestos {");
-        dot.AppendLine("node [shape=box, style=filled, fillcolor=lightblue];");
-        dot.AppendLine("rankdir=LR;");
+        dot.AppendLine("node [shape=record, style=filled, fillcolor=lightblue];");
         
-        NodeTreeAvl? nodeRepuesto = _repuestoService.Root;
-        
-        while (nodeRepuesto != null)
-        {
-            Repuesto r = (Repuesto)nodeRepuesto.Value;
-            dot.AppendLine( $"R{r.Id} [label=\"ID: {r.Id}\\nRepuesto: {r.Repuesto1}\\nDetalles: {r.Detalles}\\nCosto: {r.Costo}\"];\n");
-            if (nodeRepuesto.Left != null)
-            {
-                Repuesto rLeft = (Repuesto)nodeRepuesto.Left.Value;
-                dot.AppendLine($"\"R{r.Id}\" -> \"R{rLeft.Id}\";");
-            }
-            
-            if (nodeRepuesto.Right != null)
-            {
-                Repuesto rRight = (Repuesto)nodeRepuesto.Right.Value;
-                dot.AppendLine($"\"R{r.Id}\" -> \"R{rRight.Id}\";");
-            }
-            
-            nodeRepuesto = nodeRepuesto.Left;
-        }
+        GenerarDotAvl(_repuestoService.Root, dot);
         
         dot.AppendLine("}");
         return dot.ToString();
+    }
+
+    private static void GenerarDotAvl(NodeTreeAvl nodo, StringBuilder dot)
+    {
+        if (nodo != null)
+        {
+            Repuesto r = (Repuesto)nodo.Value;
+            dot.AppendLine($"R{r.Id} [label=\"{{<izq> | ID: {r.Id} | Nombre: {r.Repuesto1} | Detalles: {r.Detalles} |Costo: {r.Costo} | <der>}}\"]");
+            if (nodo.Left != null)
+            {
+                Repuesto rLeft = (Repuesto)nodo.Left.Value;
+                dot.AppendLine($"R{r.Id}:s -> R{rLeft.Id}");
+                GenerarDotAvl(nodo.Left, dot);
+            }
+            if (nodo.Right != null)
+            {
+                Repuesto rRight = (Repuesto)nodo.Right.Value;
+                dot.AppendLine($"R{r.Id}:s -> R{rRight.Id}");
+                GenerarDotAvl(nodo.Right, dot);
+            }
+        }
+    }
+    
+    // ✅ Reporte de Servicios
+    public static string GenerarDotServicios()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Servicios {");
+        dot.AppendLine("node [shape=ellipse, style=filled, fillcolor=lightblue];");
+        
+        GenararDotBinaryTree(_serviceService.Root, dot);
+        
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
+    
+    private static void GenararDotBinaryTree(NodeTreeBinary nodo, StringBuilder dot)
+    {
+        if (nodo != null)
+        {
+            Servicio s = (Servicio)nodo.Value;
+            dot.AppendLine($"S{s.Id} [label=\"{{<izq> | ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo}  <der>}}\"]");
+            if (nodo.Left != null)
+            {
+                Servicio sLeft = (Servicio)nodo.Left.Value;
+                dot.AppendLine($"S{s.Id}:s -> S{sLeft.Id}");
+                GenararDotBinaryTree(nodo.Left, dot);
+            }
+            if (nodo.Right != null)
+            {
+                Servicio sRight = (Servicio)nodo.Right.Value;
+                dot.AppendLine($"S{s.Id}:s -> S{sRight.Id}");
+                GenararDotBinaryTree(nodo.Right, dot);
+            }
+        }
     }
 }
