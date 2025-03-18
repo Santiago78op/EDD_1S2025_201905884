@@ -12,6 +12,7 @@ public static class ReporteService
     private static DoubleList _vehicleService;
     private static TreeAvl _repuestoService;
     private static TreeBinary _serviceService;
+    private static TreeB _facturaService;
     
     static ReporteService()
     {
@@ -19,6 +20,7 @@ public static class ReporteService
         _vehicleService = Estructuras.Vehiculos;
         _repuestoService = Estructuras.Repuestos;
         _serviceService = Estructuras.Servicios;
+        _facturaService = Estructuras.Facturas;
     }
     
     // ✅ Reporte de Usuarios
@@ -106,13 +108,13 @@ public static class ReporteService
             if (nodo.Left != null)
             {
                 Repuesto rLeft = (Repuesto)nodo.Left.Value;
-                dot.AppendLine($"R{r.Id}:s -> R{rLeft.Id}");
+                dot.AppendLine($"R{r.Id} -> R{rLeft.Id}");
                 GenerarDotAvl(nodo.Left, dot);
             }
             if (nodo.Right != null)
             {
                 Repuesto rRight = (Repuesto)nodo.Right.Value;
-                dot.AppendLine($"R{r.Id}:s -> R{rRight.Id}");
+                dot.AppendLine($"R{r.Id} -> R{rRight.Id}");
                 GenerarDotAvl(nodo.Right, dot);
             }
         }
@@ -131,24 +133,61 @@ public static class ReporteService
         return dot.ToString();
     }
     
+    // Generar el archivo .dot para Graphviz
     private static void GenararDotBinaryTree(NodeTreeBinary nodo, StringBuilder dot)
     {
         if (nodo != null)
         {
             Servicio s = (Servicio)nodo.Value;
-            dot.AppendLine($"S{s.Id} [label=\"{{<izq> | ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo}  <der>}}\"]");
+            dot.AppendLine($"S{s.Id} [label=\"ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo} \"]");
             if (nodo.Left != null)
             {
                 Servicio sLeft = (Servicio)nodo.Left.Value;
-                dot.AppendLine($"S{s.Id}:s -> S{sLeft.Id}");
+                dot.AppendLine($"S{s.Id} -> S{sLeft.Id}");
                 GenararDotBinaryTree(nodo.Left, dot);
             }
             if (nodo.Right != null)
             {
                 Servicio sRight = (Servicio)nodo.Right.Value;
-                dot.AppendLine($"S{s.Id}:s -> S{sRight.Id}");
+                dot.AppendLine($"S{s.Id} -> S{sRight.Id}");
                 GenararDotBinaryTree(nodo.Right, dot);
             }
         }
     }
+    
+    // ✅ Reporte de Facturas
+    public static string GenerarDotTreeB()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph TreeB {");
+        dot.AppendLine("node [shape=record, style=filled, fillcolor=lightblue];");
+    
+        GenerarDotB(_facturaService.Root, dot);
+    
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
+    
+    private static void GenerarDotB(NodeTreeB nodo, StringBuilder dot)
+    {
+        if (nodo != null)
+        {
+            dot.Append($"N{nodo.GetHashCode()} [label=\"<f0> |");
+            for (int i = 0; i < nodo.Count; i++)
+            {
+                dot.Append($" {nodo.Keys[i]} | <f{i + 1}> |");
+            }
+            dot.AppendLine("\"];");
+    
+            for (int i = 0; i <= nodo.Count; i++)
+            {
+                if (nodo.Children[i] != null)
+                {
+                    dot.AppendLine($"N{nodo.GetHashCode()}:f{i} -> N{nodo.Children[i].GetHashCode()};");
+                    GenerarDotB(nodo.Children[i], dot);
+                }
+            }
+        }
+    }
+    
 }

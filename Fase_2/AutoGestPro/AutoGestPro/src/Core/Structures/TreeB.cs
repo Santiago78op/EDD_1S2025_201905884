@@ -23,6 +23,13 @@ public class TreeB : ITreeB, IDisposable
         _order = order;
         _root = new NodeTreeB(order);
     }
+    
+    // Get y Set de la raiz del arbol
+    public NodeTreeB Root
+    {
+        get => _root;
+        set => _root = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     // Get de la Altura del arbol
     public int Height => _root.Height;
