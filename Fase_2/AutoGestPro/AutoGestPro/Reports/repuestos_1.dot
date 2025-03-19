@@ -1,0 +1,22 @@
+digraph Repuestos {
+node [shape=record, style=filled, fillcolor=lightblue];
+R4 [label="{<izq> | ID: 4 | Nombre: Repuesto 4 | Detalles: Marca 4 |Costo: 400 | <der>}"]
+R4 -> R2
+R2 [label="{<izq> | ID: 2 | Nombre: Repuesto 2 | Detalles: Marca 2 |Costo: 200 | <der>}"]
+R2 -> R1
+R1 [label="{<izq> | ID: 1 | Nombre: Repuesto 1 | Detalles: Marca 1 |Costo: 100 | <der>}"]
+R2 -> R3
+R3 [label="{<izq> | ID: 3 | Nombre: Repuesto 3 | Detalles: Marca 3 |Costo: 300 | <der>}"]
+R4 -> R8
+R8 [label="{<izq> | ID: 8 | Nombre: Repuesto 8 | Detalles: Marca 8 |Costo: 800 | <der>}"]
+R8 -> R6
+R6 [label="{<izq> | ID: 6 | Nombre: Repuesto 6 | Detalles: Marca 6 |Costo: 600 | <der>}"]
+R6 -> R5
+R5 [label="{<izq> | ID: 5 | Nombre: Repuesto 5 | Detalles: Marca 5 |Costo: 500 | <der>}"]
+R6 -> R7
+R7 [label="{<izq> | ID: 7 | Nombre: Repuesto 7 | Detalles: Marca 7 |Costo: 700 | <der>}"]
+R8 -> R9
+R9 [label="{<izq> | ID: 9 | Nombre: Repuesto 9 | Detalles: Marca 9 |Costo: 900 | <der>}"]
+R9 -> R10
+R10 [label="{<izq> | ID: 10 | Nombre: Repuesto 10 | Detalles: Marca 10 |Costo: 1000 | <der>}"]
+}

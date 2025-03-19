@@ -12,7 +12,6 @@ public class GenerarServicio : Window
     private TreeView treeViewServicios;
     private ListStore listStore;
     
-    private int _contadorFactura = 0;
 
     public GenerarServicio() : base("Generar Servicio")
     {
@@ -167,15 +166,14 @@ public class GenerarServicio : Window
             Repuesto repuesto = (Repuesto)nodoRepuesto;
             // Calculo del costo total
             decimal costoTotal = costo + repuesto.Costo;
-            // Incrementar contador de factura
-            _contadorFactura++;
+
             // Objeto factura
-            Factura nuevaFactura = new Factura(_contadorFactura, idUsuario, id, costoTotal);
+            Factura nuevaFactura = new Factura(id, idUsuario, id, costoTotal);
             
             // Insertar factura en la lista de facturas
-            c.Facturas.Insert(_contadorFactura, nuevaFactura);
+            c.Facturas.Insert(id, nuevaFactura);
             
-            Estructuras.Facturas.Insert(_contadorFactura, nuevaFactura);
+            Estructuras.Facturas.Insert(id, nuevaFactura);
             MostrarMensaje("Éxito", "Factura generada correctamente.");
         }
         else

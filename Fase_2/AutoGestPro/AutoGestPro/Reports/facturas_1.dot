@@ -1,0 +1,4 @@
+digraph TreeB {
+node [shape=record, style=filled, fillcolor=lightblue];
+N38496415 [label="<f0> | {<izq> ID: 1 | ID_Orden: 5 | Total: 120,00 | <f1> | <der>} {<izq> ID: 1 | ID_Orden: 3 | Total: 145,99 | <f2> | <der>} {<izq> ID: 2 | ID_Orden: 7 | Total: 175,00 | <f3> | <der>} {<izq> ID: 3 | ID_Orden: 1 | Total: 125,50 | <f4> | <der>}"];
+}

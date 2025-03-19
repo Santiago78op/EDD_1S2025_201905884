@@ -50,9 +50,12 @@ public class TreeB : ITreeB, IDisposable
         // Si la raiz esta llena, se debe dividir
         if (_root.Count == _order)
         {
-            NodeTreeB newRoot = new NodeTreeB(_order);
-            newRoot.Children[0] = _root;
-            Split(newRoot, 0);
+            NodeTreeB newRoot = new NodeTreeB(_order)
+            {
+                IsLeaf = false
+            };
+            newRoot.Children.Append(_root);
+            Split(newRoot, 0, _root);
             _root = newRoot;
         }
 
@@ -61,88 +64,105 @@ public class TreeB : ITreeB, IDisposable
         // Se actualiza la altura del arbol
         UpdateHeight(_root);
     }
+    
+    // Metodo Split para dividir un nodo
+    /**
+     * @param parent Nodo padre
+     * @param idx Indice del hijo
+     * @param child Nodo hijo
+     */
+    private void Split(NodeTreeB parent, int idx, NodeTreeB child)
+    {
+        NodeTreeB newNode = new NodeTreeB(_order)
+        {
+            IsLeaf = child.IsLeaf
+        };
+        // Se copian las llaves y valores
+        for (int i = 0; i < _order / 2 - 1; i++)
+        {
+            newNode.Keys[i] = child.Keys[i + _order / 2];
+            newNode.Values[i] = child.Values[i + _order / 2];
+        }
 
-    // Metodo para insertar una llave en un nodo no lleno
+        // Si no es hoja, se copian los hijos
+        if (!child.IsLeaf)
+        {
+            for (int i = 0; i < _order / 2; i++)
+            {
+                newNode.Children[i] = child.Children[i + _order / 2];
+            }
+        }
+
+        // Se disminuye la cantidad de llaves
+        child.Count = _order / 2 - 1;
+        // Se inserta el nuevo nodo en el padre
+        for (int i = parent.Count; i > idx; i--)
+        {
+            parent.Children[i + 1] = parent.Children[i];
+        }
+
+        parent.Children[idx + 1] = newNode;
+
+        for (int i = parent.Count - 1; i >= idx; i--)
+        {
+            parent.Keys[i + 1] = parent.Keys[i];
+            parent.Values[i + 1] = parent.Values[i];
+        }
+
+        parent.Keys[idx] = child.Keys[_order / 2 - 1];
+        parent.Values[idx] = child.Values[_order / 2 - 1];
+        parent.Count++;
+    }
+    
+    // Metodo para insertar en un nodo no lleno
+    /**
+     * @param node Nodo actual
+     * @param key Llave a insertar
+     * @param value Valor a insertar
+     */
     private void InsertNonFull(NodeTreeB node, int key, object value)
     {
         int i = node.Count - 1;
 
         if (node.IsLeaf)
         {
-            // Encuentra la posición donde se debe insertar la nueva llave
-            while (i >= 0 && key < node.Keys[i])
+            // Encuentra la ubicación de la nueva clave y mueve todas las claves mayores
+            while (i >= 0 && node.Keys[i] > key)
             {
                 node.Keys[i + 1] = node.Keys[i];
                 node.Values[i + 1] = node.Values[i];
                 i--;
             }
 
+            // Inserta la nueva clave en la ubicación encontrada
             node.Keys[i + 1] = key;
             node.Values[i + 1] = value;
             node.Count++;
         }
         else
         {
-            // Encuentra el hijo que debe recibir la nueva llave
-            while (i >= 0 && key < node.Keys[i])
+            // Encuentra el hijo que debe tener la nueva clave
+            while (i >= 0 && node.Keys[i] > key)
             {
                 i--;
             }
-
             i++;
+
+            // Si el hijo está lleno, divídelo
             if (node.Children[i].Count == _order)
             {
-                Split(node, i);
-                if (key > node.Keys[i])
+                Split(node, i, node.Children[i]);
+
+                // Después de dividir, la clave del medio de node.Children[i] sube a node
+                // y node.Children[i] se divide en dos nodos. Decide cuál de los dos nodos
+                // tendrá la nueva clave
+                if (node.Keys[i] < key)
                 {
                     i++;
                 }
             }
-
             InsertNonFull(node.Children[i], key, value);
         }
-    }
-
-    // Metodo para dividir un nodo
-    private void Split(NodeTreeB node, int i)
-    {
-        NodeTreeB child = node.Children[i];
-        NodeTreeB newNode = new NodeTreeB(_order);
-
-        node.Children[i + 1] = newNode;
-        newNode.IsLeaf = child.IsLeaf;
-        newNode.Count = _order / 2;
-
-        for (int j = 0; j < _order / 2; j++)
-        {
-            newNode.Keys[j] = child.Keys[j + _order / 2];
-            newNode.Values[j] = child.Values[j + _order / 2];
-        }
-
-        if (!child.IsLeaf)
-        {
-            for (int j = 0; j <= _order / 2; j++)
-            {
-                newNode.Children[j] = child.Children[j + _order / 2];
-            }
-        }
-
-        child.Count = _order / 2;
-
-        for (int j = node.Count; j >= i + 1; j--)
-        {
-            node.Children[j + 1] = node.Children[j];
-        }
-
-        for (int j = node.Count - 1; j >= i; j--)
-        {
-            node.Keys[j + 1] = node.Keys[j];
-            node.Values[j + 1] = node.Values[j];
-        }
-
-        node.Keys[i] = child.Keys[_order / 2 - 1];
-        node.Values[i] = child.Values[_order / 2 - 1];
-        node.Count++;
     }
 
     // Metodo para eliminar un nodo del arbol

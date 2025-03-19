@@ -176,7 +176,7 @@ public static class ReporteService
             for (int i = 0; i < nodo.Count; i++)
             {
                 Factura factura = (Factura)nodo.Values[i];
-                dot.Append($" ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} | <f{i + 1}> |");
+                dot.Append($" {{ ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} }} | <f{i + 1}> |");
             }
             dot.AppendLine("\"];");
     
@@ -184,7 +184,7 @@ public static class ReporteService
             {
                 if (nodo.Children[i] != null)
                 {
-                    dot.AppendLine($"N{nodo.GetHashCode()}:f{i} -> N{nodo.Children[i].GetHashCode()};");
+                    dot.AppendLine($"N{nodo.GetHashCode()} -> N{nodo.Children[i].GetHashCode()};");
                     GenerarDotB(nodo.Children[i], dot);
                 }
             }

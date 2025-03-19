@@ -43,7 +43,7 @@ public class GenerarReportes : Window
         vbox.PackStart(_btnReporteVehiculos, false, false, 5);
         vbox.PackStart(_btnReporteRepuestos, false, false, 5);
         vbox.PackStart(_btnReporteServicios, false, false, 5);
-        /*vbox.PackStart(_btnReporteFacturas, false, false, 5);*/
+        vbox.PackStart(_btnReporteFacturas, false, false, 5);
         Add(vbox);
         ShowAll();
     }
