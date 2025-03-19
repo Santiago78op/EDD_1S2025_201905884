@@ -35,8 +35,9 @@ public class GenerarReportes : Window
         _btnReporteRepuestos.Clicked += (sender, e) => GenerarReporteRepuestos();
         _btnReporteServicios = new Button("Generar Reporte de Servicios");
         _btnReporteServicios.Clicked += (sender, e) => GenerarReporteServicios();
-        /*_btnReporteFacturas = new Button("Generar Reporte de Facturas");
-        _btnReporteFacturas.Clicked += (sender, e) => GenerarReporteFacturas();*/
+        _btnReporteFacturas = new Button("Generar Reporte de Facturas");
+        _btnReporteFacturas.Clicked += (sender, e) => GenerarReporteFacturas();
+        
         vbox.PackStart(lblTitulo, false, false, 5);
         vbox.PackStart(_btnReporteUsuarios, false, false, 5);
         vbox.PackStart(_btnReporteVehiculos, false, false, 5);
@@ -87,14 +88,15 @@ public class GenerarReportes : Window
         _contadorReportesServicio++;
     }
 
-    /*// ✅ Generar reporte de Facturas
+    // ✅ Generar reporte de Facturas
     private void GenerarReporteFacturas()
     {
-        string dotFilePath = $"{rutaReportes}/facturas.dot";
-        string outputImagePath = $"{rutaReportes}/facturas.png";
+        string dotFilePath = $"{_rutaReportes}/facturas_{_contadorReportesFactura}.dot";
+        string outputImagePath = $"{_rutaReportes}/facturas_{_contadorReportesFactura}.png";
         string dotContent = ReporteService.GenerarDotFacturas();
         GenerarImagenGraphviz(dotFilePath, outputImagePath, dotContent);
-    }*/
+        _contadorReportesFactura++;
+    }
 
     // ✅ Método para generar la imagen con Graphviz
     private void GenerarImagenGraphviz(string dotFilePath, string outputImagePath, string dotContent)

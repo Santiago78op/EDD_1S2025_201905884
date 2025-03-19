@@ -156,7 +156,7 @@ public static class ReporteService
     }
     
     // ✅ Reporte de Facturas
-    public static string GenerarDotTreeB()
+    public static string GenerarDotFacturas()
     {
         StringBuilder dot = new StringBuilder();
         dot.AppendLine("digraph TreeB {");
@@ -175,7 +175,8 @@ public static class ReporteService
             dot.Append($"N{nodo.GetHashCode()} [label=\"<f0> |");
             for (int i = 0; i < nodo.Count; i++)
             {
-                dot.Append($" {nodo.Keys[i]} | <f{i + 1}> |");
+                Factura factura = (Factura)nodo.Values[i];
+                dot.Append($" ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} | <f{i + 1}> |");
             }
             dot.AppendLine("\"];");
     

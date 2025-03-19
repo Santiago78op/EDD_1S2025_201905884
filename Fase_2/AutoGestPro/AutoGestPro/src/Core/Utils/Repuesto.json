@@ -1,38 +1,62 @@
 [
   {
-    "ID": 3,
-    "Repuesto": "Batería",
-    "Detalles": "Suministra energía eléctrica al motor.",
-    "Costo": 30.5
-  },
-  {
-    "ID": 2,
-    "Repuesto": "Filtro de Aire",
-    "Detalles": "Se encarga de filtrar el aire que entra al motor.",
+    "ID": 1,
+    "Repuesto": "Repuesto 1",
+    "Detalles": "Marca 1",
     "Costo": 100
   },
   {
     "ID": 2,
-    "Repuesto": "Bujías",
-    "Detalles": "Se usa para laa mezcla de aire y combustible.",
-    "Costo": 15.75
+    "Repuesto": "Repuesto 2",
+    "Detalles": "Marca 2",
+    "Costo": 200
   },
   {
-    "ID": 1,
-    "Repuesto": "Motor",
-    "Detalles": "Genera la potencia necesaria para el vehículo.",
+    "ID": 3,
+    "Repuesto": "Repuesto 3",
+    "Detalles": "Marca 3",
+    "Costo": 300
+  },
+  {
+    "ID": 4,
+    "Repuesto": "Repuesto 4",
+    "Detalles": "Marca 4",
+    "Costo": 400
+  },
+  {
+    "ID": 5,
+    "Repuesto": "Repuesto 5",
+    "Detalles": "Marca 5",
     "Costo": 500
   },
   {
-      "ID": 4,
-      "Repuesto": "Filtro de Aceite",
-      "Detalles": "Se encarga de filtrar el aceite del motor.",
-      "Costo": 25.5
+    "ID": 6,
+    "Repuesto": "Repuesto 6",
+    "Detalles": "Marca 6",
+    "Costo": 600
   },
   {
-      "ID": 5,
-      "Repuesto": "Llantas",
-      "Detalles": "Permite el desplazamiento del vehículo.",
-      "Costo": 150
+    "ID": 7,
+    "Repuesto": "Repuesto 7",
+    "Detalles": "Marca 7",
+    "Costo": 700
+  },
+  {
+    "ID": 8,
+    "Repuesto": "Repuesto 8",
+    "Detalles": "Marca 8",
+    "Costo": 800
+  },
+  {
+    "ID": 9,
+    "Repuesto": "Repuesto 9",
+    "Detalles": "Marca 9",
+    "Costo": 900
+  },
+  {
+    "ID": 10,
+    "Repuesto": "Repuesto 10",
+    "Detalles": "Marca 10",
+    "Costo": 1000
   }
 ]
