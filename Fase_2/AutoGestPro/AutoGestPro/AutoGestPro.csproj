@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="assets\" />
+      <Folder Include="assets\img\" />
       <Folder Include="Reports\" />
       <Folder Include="tests\" />
     </ItemGroup>
