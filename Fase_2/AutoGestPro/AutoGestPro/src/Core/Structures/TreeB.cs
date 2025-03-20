@@ -1,3 +1,4 @@
+using System.Text;
 using AutoGestPro.Core.Interfaces;
 using AutoGestPro.Core.Nodes;
 
@@ -8,227 +9,173 @@ namespace AutoGestPro.Core.Structures;
  */
 public class TreeB : ITreeB, IDisposable
 {
-    // Orden del arbol
     private int _order;
-
-    // Raiz del arbol
     private NodeTreeB _root;
 
-    /**
-     * Constructor de la clase
-     * @param order Orden del arbol
-     */
     public TreeB(int order)
     {
         _order = order;
-        _root = new NodeTreeB(order);
+        _root = new NodeTreeB(order, true);
     }
-    
-    // Get y Set de la raiz del arbol
+
     public NodeTreeB Root
     {
         get => _root;
         set => _root = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    // Get de la Altura del arbol
     public int Height => _root.Height;
-
-    // Get de la cantidad de llaves
     public int Count => _root.Count;
 
-    // Actualiza la altura del arbol
     private void UpdateHeight(NodeTreeB node)
     {
         if (node == null) return;
         node.Height = 1 + node.Children.Max(x => x?.Height ?? 0);
     }
 
-    // Metodo para insertar un nodo en el arbol
     public void Insert(int key, object value)
     {
-        // Si la raiz esta llena, se debe dividir
-        if (_root.Count == _order)
+        if (Search(key) != null)
         {
-            NodeTreeB newRoot = new NodeTreeB(_order)
-            {
-                IsLeaf = false
-            };
-            newRoot.Children.Append(_root);
-            Split(newRoot, 0, _root);
+            Console.WriteLine($"Error: La clave con ID {key} ya existe.");
+            return;
+        }
+
+        if (_root.Count == _order - 1)
+        {
+            NodeTreeB newRoot = new NodeTreeB(_order, false);
+            newRoot.Children[0] = _root;
+            SplitChild(newRoot, 0, _root);
             _root = newRoot;
         }
 
-        // Se inserta la llave en el nodo
         InsertNonFull(_root, key, value);
-        // Se actualiza la altura del arbol
-        UpdateHeight(_root);
     }
-    
-    // Metodo Split para dividir un nodo
-    /**
-     * @param parent Nodo padre
-     * @param idx Indice del hijo
-     * @param child Nodo hijo
-     */
-    private void Split(NodeTreeB parent, int idx, NodeTreeB child)
-    {
-        NodeTreeB newNode = new NodeTreeB(_order)
-        {
-            IsLeaf = child.IsLeaf
-        };
-        // Se copian las llaves y valores
-        for (int i = 0; i < _order / 2 - 1; i++)
-        {
-            newNode.Keys[i] = child.Keys[i + _order / 2];
-            newNode.Values[i] = child.Values[i + _order / 2];
-        }
 
-        // Si no es hoja, se copian los hijos
-        if (!child.IsLeaf)
-        {
-            for (int i = 0; i < _order / 2; i++)
-            {
-                newNode.Children[i] = child.Children[i + _order / 2];
-            }
-        }
-
-        // Se disminuye la cantidad de llaves
-        child.Count = _order / 2 - 1;
-        // Se inserta el nuevo nodo en el padre
-        for (int i = parent.Count; i > idx; i--)
-        {
-            parent.Children[i + 1] = parent.Children[i];
-        }
-
-        parent.Children[idx + 1] = newNode;
-
-        for (int i = parent.Count - 1; i >= idx; i--)
-        {
-            parent.Keys[i + 1] = parent.Keys[i];
-            parent.Values[i + 1] = parent.Values[i];
-        }
-
-        parent.Keys[idx] = child.Keys[_order / 2 - 1];
-        parent.Values[idx] = child.Values[_order / 2 - 1];
-        parent.Count++;
-    }
-    
-    // Metodo para insertar en un nodo no lleno
-    /**
-     * @param node Nodo actual
-     * @param key Llave a insertar
-     * @param value Valor a insertar
-     */
     private void InsertNonFull(NodeTreeB node, int key, object value)
     {
         int i = node.Count - 1;
 
         if (node.IsLeaf)
         {
-            // Encuentra la ubicación de la nueva clave y mueve todas las claves mayores
-            while (i >= 0 && node.Keys[i] > key)
+            while (i >= 0 && key < node.Keys[i])
             {
                 node.Keys[i + 1] = node.Keys[i];
                 node.Values[i + 1] = node.Values[i];
                 i--;
             }
 
-            // Inserta la nueva clave en la ubicación encontrada
             node.Keys[i + 1] = key;
             node.Values[i + 1] = value;
             node.Count++;
         }
         else
         {
-            // Encuentra el hijo que debe tener la nueva clave
-            while (i >= 0 && node.Keys[i] > key)
+            while (i >= 0 && key < node.Keys[i])
             {
                 i--;
             }
+
             i++;
 
-            // Si el hijo está lleno, divídelo
-            if (node.Children[i].Count == _order)
+            if (node.Children[i].Count == _order - 1)
             {
-                Split(node, i, node.Children[i]);
-
-                // Después de dividir, la clave del medio de node.Children[i] sube a node
-                // y node.Children[i] se divide en dos nodos. Decide cuál de los dos nodos
-                // tendrá la nueva clave
-                if (node.Keys[i] < key)
+                SplitChild(node, i, node.Children[i]);
+                if (key > node.Keys[i])
                 {
                     i++;
                 }
             }
+
             InsertNonFull(node.Children[i], key, value);
         }
     }
 
-    // Metodo para eliminar un nodo del arbol
+    private void SplitChild(NodeTreeB parent, int index, NodeTreeB child)
+    {
+        NodeTreeB newNode = new NodeTreeB(_order, child.IsLeaf);
+        int mid = _order / 2;
+    
+        // Move the second half of the child's keys and values to the new node
+        for (int j = 0; j < mid - 1; j++)
+        {
+            newNode.Keys[j] = child.Keys[mid + 1 + j];
+            newNode.Values[j] = child.Values[mid + 1 + j];
+        }
+    
+        if (!child.IsLeaf)
+        {
+            for (int j = 0; j < mid; j++)
+            {
+                newNode.Children[j] = child.Children[mid + 1 + j];
+            }
+        }
+    
+        child.Count = mid;
+        newNode.Count = mid - 1;
+    
+        // Move the parent's children to make space for the new node
+        for (int j = parent.Count; j >= index + 1; j--)
+        {
+            parent.Children[j + 1] = parent.Children[j];
+        }
+        parent.Children[index + 1] = newNode;
+    
+        // Move the parent's keys and values to make space for the middle key of the child
+        for (int j = parent.Count - 1; j >= index; j--)
+        {
+            parent.Keys[j + 1] = parent.Keys[j];
+            parent.Values[j + 1] = parent.Values[j];
+        }
+        parent.Keys[index] = child.Keys[mid];
+        parent.Values[index] = child.Values[mid];
+        parent.Count++;
+    }
+
     public void Remove(int key)
     {
-        // Se elimina la llave del arbol
         Remove(_root, key);
-        // Si la raiz esta vacia y no es hoja, se elimina
         if (_root.Count == 0 && !_root.IsLeaf)
         {
             _root = _root.Children[0];
         }
 
-        // Se actualiza la altura del arbol
         UpdateHeight(_root);
     }
 
-    // Metodo recursivo para eliminar un nodo del arbol
-    /**
-     * @param node Nodo actual
-     * @param key Llave a eliminar
-     */
     private void Remove(NodeTreeB node, int key)
     {
-        // Se busca la llave en el nodo
         int idx = FindKey(node, key);
 
-        // Si la llave esta en el nodo
         if (idx < node.Count && node.Keys[idx] == key)
         {
-            // Si el nodo es una hoja
             if (node.IsLeaf)
             {
                 RemoveFromLeaf(node, idx);
             }
-            // Si el nodo no es una hoja
             else
             {
                 RemoveFromNonLeaf(node, idx);
             }
         }
-        // Si la llave no esta en el nodo
         else
         {
-            // Si el nodo es una hoja
             if (node.IsLeaf)
             {
-                return; // La clave no está en el árbol
+                return;
             }
 
-            // Flag indica si la clave está presente en el subárbol que tiene la última clave
             bool flag = (idx == node.Count);
 
-            // Si el hijo donde se espera que esté la clave tiene menos de t claves, lo llenamos
             if (node.Children[idx].Count < _order / 2)
             {
-                // Si el hijo anterior tiene al menos t claves, le prestamos una clave
                 Fill(node, idx);
             }
 
-            // Si el último hijo ha sido fusionado, debemos seguir con el anterior
             if (flag && idx > node.Count)
             {
                 Remove(node.Children[idx - 1], key);
             }
-            // Si no, seguimos con el hijo que contiene la clave
             else
             {
                 Remove(node.Children[idx], key);
@@ -236,53 +183,32 @@ public class TreeB : ITreeB, IDisposable
         }
     }
 
-    /**
-     * Metodo para buscar la llave en un nodo hoja
-     * @param node Nodo hoja
-     * @param idx Indice de la llave a eliminar
-     */
     private int FindKey(NodeTreeB node, int key)
     {
         int idx = 0;
-        // Se busca la posición de la llave
         while (idx < node.Count && node.Keys[idx] < key)
         {
             idx++;
         }
 
-        // Se retorna la posición de la llave
         return idx;
     }
 
-    // Metodo para eliminar de un nodo no hoja
-    /**
-     * @param node Nodo actual
-     * @param idx Indice de la llave a eliminar
-     */
     private void RemoveFromLeaf(NodeTreeB node, int idx)
     {
-        // Se eliminan las llaves y valores
         for (int i = idx + 1; i < node.Count; i++)
         {
-            node.Keys[i - 1] = node.Keys[i]; // Se mueven las llaves
-            node.Values[i - 1] = node.Values[i]; // Se mueven los valores
+            node.Keys[i - 1] = node.Keys[i];
+            node.Values[i - 1] = node.Values[i];
         }
 
-        // Se disminuye la cantidad de llaves
         node.Count--;
     }
 
-    /**
-     * Metodo para eliminar de un nodo no hoja
-     * @param node Nodo actual
-     * @param idx Indice de la llave a eliminar
-     */
     private void RemoveFromNonLeaf(NodeTreeB node, int idx)
     {
-        // Se obtiene la llave y el hijo
         int key = node.Keys[idx];
 
-        // Si el hijo izquierdo tiene al menos t llaves
         if (node.Children[idx].Count >= _order / 2)
         {
             NodeTreeB pred = GetPredecessor(node, idx);
@@ -290,7 +216,6 @@ public class TreeB : ITreeB, IDisposable
             node.Values[idx] = pred.Values[pred.Count - 1];
             Remove(node.Children[idx], pred.Keys[pred.Count - 1]);
         }
-        // Si el hijo derecho tiene al menos t llaves
         else if (node.Children[idx + 1].Count >= _order / 2)
         {
             NodeTreeB succ = GetSuccessor(node, idx);
@@ -298,23 +223,16 @@ public class TreeB : ITreeB, IDisposable
             node.Values[idx] = succ.Values[0];
             Remove(node.Children[idx + 1], succ.Keys[0]);
         }
-        // Si ambos hijos tienen menos de t llaves, se fusionan
         else
         {
             Merge(node, idx);
             Remove(node.Children[idx], key);
         }
     }
-    
-    /**
-     * Metodo para obtener el predecesor de un nodo
-     * @param node Nodo actual
-     * @param idx Indice de la llave
-     */
+
     private NodeTreeB GetPredecessor(NodeTreeB node, int idx)
     {
         NodeTreeB cur = node.Children[idx];
-        // Se busca el nodo más a la derecha
         while (!cur.IsLeaf)
         {
             cur = cur.Children[cur.Count];
@@ -322,16 +240,10 @@ public class TreeB : ITreeB, IDisposable
 
         return cur;
     }
-    
-    /**
-     * Metodo para obtener el sucesor de un nodo
-     * @param node Nodo actual
-     * @param idx Indice de la llave
-     */
+
     private NodeTreeB GetSuccessor(NodeTreeB node, int idx)
     {
         NodeTreeB cur = node.Children[idx + 1];
-        // Se busca el nodo más a la izquierda
         while (!cur.IsLeaf)
         {
             cur = cur.Children[0];
@@ -339,86 +251,60 @@ public class TreeB : ITreeB, IDisposable
 
         return cur;
     }
-    
-    /**
-     * Metodo para llenar un nodo
-     * @param node Nodo actual
-     * @param idx Indice de la llave
-     */
+
     private void Fill(NodeTreeB node, int idx)
     {
-        // Si el hijo anterior tiene al menos t llaves
         if (idx != 0 && node.Children[idx - 1].Count >= _order / 2)
         {
-            // Se presta una llave
             BorrowFromPrev(node, idx);
         }
-        // Si el siguiente hijo tiene al menos t llaves
         else if (idx != node.Count && node.Children[idx + 1].Count >= _order / 2)
         {
-            // Se presta una llave
             BorrowFromNext(node, idx);
         }
-        // Si ambos hijos tienen menos de t llaves, se fusionan
         else
         {
-            // Se fusionan los nodos
             if (idx != node.Count)
             {
-                // Se fusiona con el siguiente hijo
                 Merge(node, idx);
             }
-            // Si es el último hijo
             else
             {
-                // Se fusiona con el hijo anterior
                 Merge(node, idx - 1);
             }
         }
     }
-    
-    /**
-     * Metodo para prestar una llave del hijo anterior
-     * @param node Nodo actual
-     * @param idx Indice de la llave
-     */
+
     private void BorrowFromPrev(NodeTreeB node, int idx)
     {
         NodeTreeB child = node.Children[idx];
         NodeTreeB sibling = node.Children[idx - 1];
 
-        // Se mueven las llaves y valores
         for (int i = child.Count - 1; i >= 0; i--)
         {
             child.Keys[i + 1] = child.Keys[i];
             child.Values[i + 1] = child.Values[i];
         }
-        
-        // Si no es hoja, se mueven los hijos
+
         if (!child.IsLeaf)
         {
-            // Se mueven los hijos
             for (int i = child.Count; i >= 0; i--)
             {
                 child.Children[i + 1] = child.Children[i];
             }
         }
 
-        // Se mueven las llaves y valores
         child.Keys[0] = node.Keys[idx - 1];
         child.Values[0] = node.Values[idx - 1];
 
-        // Si no es hoja, se mueven los hijos
         if (!child.IsLeaf)
         {
             child.Children[0] = sibling.Children[sibling.Count];
         }
-        
-        // Se mueven las llaves y valores
+
         node.Keys[idx - 1] = sibling.Keys[sibling.Count - 1];
         node.Values[idx - 1] = sibling.Values[sibling.Count - 1];
-        
-        // Se disminuye la cantidad de llaves de los nodos
+
         child.Count++;
         sibling.Count--;
     }
@@ -428,47 +314,35 @@ public class TreeB : ITreeB, IDisposable
         NodeTreeB child = node.Children[idx];
         NodeTreeB sibling = node.Children[idx + 1];
 
-        // Se mueven las llaves y valores
         child.Keys[child.Count] = node.Keys[idx];
         child.Values[child.Count] = node.Values[idx];
 
-        // Si no es hoja, se mueven los hijos
         if (!child.IsLeaf)
         {
             child.Children[child.Count + 1] = sibling.Children[0];
         }
 
-        // Se mueven las llaves y valores
         node.Keys[idx] = sibling.Keys[0];
         node.Values[idx] = sibling.Values[0];
 
-        // Se mueven las llaves y valores
         for (int i = 1; i < sibling.Count; i++)
         {
             sibling.Keys[i - 1] = sibling.Keys[i];
             sibling.Values[i - 1] = sibling.Values[i];
         }
-        
-        // Si no es hoja, se mueven los hijos
+
         if (!sibling.IsLeaf)
         {
-            // Se mueven los hijos
             for (int i = 1; i <= sibling.Count; i++)
             {
                 sibling.Children[i - 1] = sibling.Children[i];
             }
         }
-        
-        // Se disminuye la cantidad de llaves de los nodos
+
         child.Count++;
         sibling.Count--;
     }
-    
-    /**
-     * Metodo para fusionar dos nodos
-     * @param node Nodo actual
-     * @param idx Indice de la llave
-     */
+
     private void Merge(NodeTreeB node, int idx)
     {
         NodeTreeB child = node.Children[idx];
@@ -477,31 +351,26 @@ public class TreeB : ITreeB, IDisposable
         child.Keys[_order / 2 - 1] = node.Keys[idx];
         child.Values[_order / 2 - 1] = node.Values[idx];
 
-        // Se copian las llaves y valores
         for (int i = 0; i < sibling.Count; i++)
         {
             child.Keys[i + _order / 2] = sibling.Keys[i];
             child.Values[i + _order / 2] = sibling.Values[i];
         }
-        
-        // Si no es hoja, se copian los hijos
+
         if (!child.IsLeaf)
         {
-            // Se copian los hijos
             for (int i = 0; i <= sibling.Count; i++)
             {
                 child.Children[i + _order / 2] = sibling.Children[i];
             }
         }
-        
-        // Se mueven las llaves y valores
+
         for (int i = idx + 1; i < node.Count; i++)
         {
             node.Keys[i - 1] = node.Keys[i];
             node.Values[i - 1] = node.Values[i];
         }
-        
-        // Si no es hoja, se mueven los hijos
+
         for (int i = idx + 2; i <= node.Count; i++)
         {
             node.Children[i - 1] = node.Children[i];
@@ -510,58 +379,50 @@ public class TreeB : ITreeB, IDisposable
         child.Count += sibling.Count + 1;
         node.Count--;
     }
-    
-    // Metodo para buscar una llave en el arbol
+
     public object Search(int key)
     {
         return Search(_root, key);
     }
-    
-    // Metodo recursivo para buscar una llave en un nodo
+
     private object Search(NodeTreeB node, int key)
     {
         int i = 0;
-        // Encuentra la primera llave mayor o igual a la clave
         while (i < node.Count && key > node.Keys[i])
         {
             i++;
         }
-    
-        // Si la clave es igual a la llave en el nodo, retorna el valor
+
         if (i < node.Count && node.Keys[i] == key)
         {
             return node.Values[i];
         }
-    
-        // Si el nodo es hoja, la clave no está en el árbol
+
         if (node.IsLeaf)
         {
             return null;
         }
-    
-        // Busca en el hijo correspondiente
+
         return Search(node.Children[i], key);
     }
-    
+
     public void Dispose()
     {
         _root = null;
     }
-    
+
     ~TreeB()
     {
         Dispose();
     }
-    
-    // Metodo para recorrer el arbol en In-orden
+
     public List<object> InOrder()
     {
         List<object> list = new();
         InOrder(_root, list);
         return list;
     }
-    
-    // Metodo recursivo para recorrer el arbol en In-orden
+
     private void InOrder(NodeTreeB node, List<object> list)
     {
         if (node == null) return;
@@ -570,18 +431,17 @@ public class TreeB : ITreeB, IDisposable
             InOrder(node.Children[i], list);
             list.Add(node.Values[i]);
         }
+
         InOrder(node.Children[node.Count], list);
     }
-    
-    // Metodo para recorrer el arbol en Pre-orden
+
     public List<object> PreOrder()
     {
         List<object> list = new();
         PreOrder(_root, list);
         return list;
     }
-    
-    // Metodo recursivo para recorrer el arbol en Pre-orden
+
     private void PreOrder(NodeTreeB node, List<object> list)
     {
         if (node == null) return;
@@ -590,18 +450,17 @@ public class TreeB : ITreeB, IDisposable
             list.Add(node.Values[i]);
             PreOrder(node.Children[i], list);
         }
+
         PreOrder(node.Children[node.Count], list);
     }
-    
-    // Metodo para recorrer el arbol en Post-orden
+
     public List<object> PostOrder()
     {
         List<object> list = new();
         PostOrder(_root, list);
         return list;
     }
-    
-    // Metodo recursivo para recorrer el arbol en Post-orden
+
     private void PostOrder(NodeTreeB node, List<object> list)
     {
         if (node == null) return;
@@ -609,10 +468,30 @@ public class TreeB : ITreeB, IDisposable
         {
             PostOrder(node.Children[i], list);
         }
+
         PostOrder(node.Children[node.Count], list);
         for (int i = 0; i < node.Count; i++)
         {
             list.Add(node.Values[i]);
         }
+    }
+
+    public string Print()
+    {
+        StringBuilder sb = new();
+        Print(_root, sb, 0);
+        return sb.ToString();
+    }
+
+    private void Print(NodeTreeB node, StringBuilder sb, int level)
+    {
+        if (node == null) return;
+        for (int i = 0; i < node.Count; i++)
+        {
+            Print(node.Children[i], sb, level + 1);
+            sb.Append($"{new string(' ', level * 4)}{node.Keys[i]}\n");
+        }
+
+        Print(node.Children[node.Count], sb, level + 1);
     }
 }

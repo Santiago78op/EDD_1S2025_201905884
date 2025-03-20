@@ -155,38 +155,39 @@ public static class ReporteService
         }
     }
     
-    // ✅ Reporte de Facturas
+    // ✅ Reporte de Facturaspublic static string GenerarDotFacturas()
     public static string GenerarDotFacturas()
     {
         StringBuilder dot = new StringBuilder();
-        dot.AppendLine("digraph TreeB {");
+        dot.AppendLine("digraph BTree {");
         dot.AppendLine("node [shape=record, style=filled, fillcolor=lightblue];");
-    
-        GenerarDotB(_facturaService.Root, dot);
-    
+        GenerateGraphviz(_facturaService.Root, dot);
         dot.AppendLine("}");
+        // llamar a la clase Print de TreeB
+        _facturaService.Print();
         return dot.ToString();
     }
     
-    private static void GenerarDotB(NodeTreeB nodo, StringBuilder dot)
+    private static void GenerateGraphviz(NodeTreeB node, StringBuilder dot)
     {
-        if (nodo != null)
-        {
-            dot.Append($"N{nodo.GetHashCode()} [label=\"<f0> |");
-            for (int i = 0; i < nodo.Count; i++)
-            {
-                Factura factura = (Factura)nodo.Values[i];
-                dot.Append($" {{ ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} }} | <f{i + 1}> |");
-            }
-            dot.AppendLine("\"];");
+        if (node == null)
+            return;
     
-            for (int i = 0; i <= nodo.Count; i++)
+        string nodeLabel = $"\"<f0> |";
+        for (int i = 0; i < node.Count; i++)
+        {
+            Factura factura = (Factura)node.Values[i];
+            nodeLabel += $" {{ ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} }} | <f{i + 1}> |";
+        }
+        nodeLabel += "\"";
+        dot.AppendLine($"N{node.GetHashCode()} [label={nodeLabel}];");
+    
+        for (int i = 0; i <= node.Count; i++)
+        {
+            if (node.Children[i] != null)
             {
-                if (nodo.Children[i] != null)
-                {
-                    dot.AppendLine($"N{nodo.GetHashCode()} -> N{nodo.Children[i].GetHashCode()};");
-                    GenerarDotB(nodo.Children[i], dot);
-                }
+                dot.AppendLine($"N{node.GetHashCode()} -> N{node.Children[i].GetHashCode()};");
+                GenerateGraphviz(node.Children[i], dot);
             }
         }
     }

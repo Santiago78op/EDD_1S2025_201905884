@@ -6,32 +6,30 @@ namespace AutoGestPro.Core.Nodes;
  */
 public class NodeTreeB
 {
-    // Puntero al hijo izquierdo
-    public NodeTreeB[] Children { get; set; }
-    // Puntero al padre
-    public NodeTreeB Parent { get; set; }
-    // Llave del nodo
+    // Keys -> Arreglo de llaves
     public int[] Keys { get; set; }
-    // Valor del nodo
+    // Values -> Arreglo de valores
     public object[] Values { get; set; }
-    // Cantidad de llaves
+    // Children -> Arreglo de hijos
+    public NodeTreeB[] Children { get; set; }
+    // Count -> Cantidad de llaves
     public int Count { get; set; }
-    // Indica si el nodo es hoja
+    // IsLeaf -> Indica si es una hoja
     public bool IsLeaf { get; set; }
-    // Altura del nodo
+    // Height -> Altura del nodo
     public int Height { get; set; }
     
-    /**
+    /*+
      * Constructor de la clase
-     * @param order Orden del arbol
+     * @param order -> Orden del arbol
      */
-    public NodeTreeB(int order)
+    public NodeTreeB(int order, bool isLeaf)
     {
-        Children = new NodeTreeB[order + 1];
-        Keys = new int[order];
-        Values = new object[order];
+        Keys = new int[order - 1];
+        Values = new object[order - 1];
+        Children = new NodeTreeB[order];
         Count = 0;
-        IsLeaf = true;
+        IsLeaf = isLeaf;
         Height = 1;
     }
 }

@@ -1,24 +1,22 @@
-digraph TreeB {
+digraph BTree {
 node [shape=record, style=filled, fillcolor=lightblue];
-N34181910 [label="<f0> | { ID: 3 | ID_Orden: 18 | Total: 1090,99 } | <f1> | { ID: 7 | ID_Orden: 22 | Total: 587,12 } | <f2> | { ID: 8 | ID_Orden: 23 | Total: 997,66 } | <f3> | { ID: 9 | ID_Orden: 24 | Total: 442,93 } | <f4> | { ID: 10 | ID_Orden: 25 | Total: 1083,98 } | <f5> |"];
-N34181910 -> N39201736;
-N39201736 [label="<f0> | { ID: 2 | ID_Orden: 6 | Total: 110,50 } | <f1> | { ID: 3 | ID_Orden: 18 | Total: 1090,99 } | <f2> |"];
-N39201736 -> N63388340;
-N63388340 [label="<f0> | { ID: 1 | ID_Orden: 16 | Total: 134,66 } | <f1> | { ID: 2 | ID_Orden: 6 | Total: 110,50 } | <f2> |"];
-N63388340 -> N10923418;
-N10923418 [label="<f0> | { ID: 1 | ID_Orden: 11 | Total: 123,87 } | <f1> | { ID: 2 | ID_Orden: 6 | Total: 110,50 } | <f2> |"];
+N38496415 [label="<f0> | { ID: 9 | ID_Orden: 9 | Total: 123,88 } | <f1> |"];
+N38496415 -> N10923418;
+N10923418 [label="<f0> | { ID: 3 | ID_Orden: 3 | Total: 123,88 } | <f1> | { ID: 6 | ID_Orden: 6 | Total: 123,88 } | <f2> |"];
 N10923418 -> N31201899;
-N31201899 [label="<f0> | { ID: 1 | ID_Orden: 3 | Total: 145,99 } | <f1> | { ID: 2 | ID_Orden: 6 | Total: 110,50 } | <f2> |"];
-N31201899 -> N38496415;
-N38496415 [label="<f0> | { ID: 1 | ID_Orden: 5 | Total: 120,00 } | <f1> | { ID: 1 | ID_Orden: 3 | Total: 145,99 } | <f2> |"];
-N31201899 -> N12381635;
-N12381635 [label="<f0> | { ID: 1 | ID_Orden: 4 | Total: 135,00 } | <f1> | { ID: 2 | ID_Orden: 7 | Total: 175,00 } | <f2> |"];
+N31201899 [label="<f0> | { ID: 1 | ID_Orden: 1 | Total: 123,88 } | <f1> | { ID: 2 | ID_Orden: 2 | Total: 123,88 } | <f2> |"];
+N10923418 -> N12381635;
+N12381635 [label="<f0> | { ID: 4 | ID_Orden: 4 | Total: 123,88 } | <f1> | { ID: 5 | ID_Orden: 5 | Total: 123,88 } | <f2> |"];
 N10923418 -> N44325851;
-N44325851 [label="<f0> | { ID: 3 | ID_Orden: 9 | Total: 200,00 } | <f1> | { ID: 4 | ID_Orden: 2 | Total: 115,75 } | <f2> |"];
+N44325851 [label="<f0> | { ID: 7 | ID_Orden: 7 | Total: 123,88 } | <f1> | { ID: 8 | ID_Orden: 8 | Total: 123,88 } | <f2> |"];
+N38496415 -> N63388340;
+N63388340 [label="<f0> | { ID: 12 | ID_Orden: 12 | Total: 123,88 } | <f1> | { ID: 15 | ID_Orden: 15 | Total: 123,88 } | <f2> | { ID: 18 | ID_Orden: 18 | Total: 123,88 } | <f3> |"];
 N63388340 -> N33624151;
-N33624151 [label="<f0> | { ID: 2 | ID_Orden: 12 | Total: 600,00 } | <f1> | { ID: 3 | ID_Orden: 13 | Total: 223,55 } | <f2> |"];
-N39201736 -> N17271312;
-N17271312 [label="<f0> | { ID: 2 | ID_Orden: 17 | Total: 166,99 } | <f1> | { ID: 4 | ID_Orden: 14 | Total: 499,90 } | <f2> |"];
-N34181910 -> N21224086;
-N21224086 [label="<f0> | { ID: 4 | ID_Orden: 19 | Total: 465,45 } | <f1> | { ID: 5 | ID_Orden: 20 | Total: 535,45 } | <f2> |"];
+N33624151 [label="<f0> | { ID: 10 | ID_Orden: 10 | Total: 123,88 } | <f1> | { ID: 11 | ID_Orden: 11 | Total: 123,88 } | <f2> |"];
+N63388340 -> N34181910;
+N34181910 [label="<f0> | { ID: 13 | ID_Orden: 13 | Total: 123,88 } | <f1> | { ID: 14 | ID_Orden: 14 | Total: 123,88 } | <f2> |"];
+N63388340 -> N39201736;
+N39201736 [label="<f0> | { ID: 16 | ID_Orden: 16 | Total: 123,88 } | <f1> | { ID: 17 | ID_Orden: 17 | Total: 123,88 } | <f2> |"];
+N63388340 -> N17271312;
+N17271312 [label="<f0> | { ID: 19 | ID_Orden: 19 | Total: 123,88 } | <f1> | { ID: 20 | ID_Orden: 20 | Total: 545,55 } | <f2> | { ID: 21 | ID_Orden: 21 | Total: 545,55 } | <f3> | { ID: 22 | ID_Orden: 22 | Total: 545,55 } | <f4> |"];
 }
