@@ -27,9 +27,11 @@ Este sistema permite la gestión de usuarios, vehículos, repuestos, servicios y
 ## 🖥️ Descripción de la Interfaz
 Contiene accesos directos a las funcionalidades principales:
 - **Carga Masiva**
-- **Gestión de Usuarios**
+- **Gestión de Entidades**
+- **Actuaslización de Repuestos**
+- **Visualización de Repuestos**
+- **Control de Logueo**
 - **Generar Servicio**
-- **Cancelar Factura**
 - **Generar Reportes**
 - **Cerrar Sesión**
 
@@ -46,7 +48,7 @@ Contiene accesos directos a las funcionalidades principales:
 - Al seleccionar una opción, se mostrará la pantalla correspondiente.
 - En caso de error, se mostrará un mensaje de alerta.
 
-![Menu]( ../assets/img/Menu_Principal.png)
+![Menu]( ../assets/img/adminMenu.png)
 
 ## 📝 Carga Masiva
 - Permite cargar usuarios, vehículos y repuestos desde un archivo Json.
@@ -58,32 +60,39 @@ Contiene accesos directos a las funcionalidades principales:
 
 ## 🛠️ Uso del Sistema
 
-## 👥 Gestión de Usuarios
-![Gestión de Usuarios]( ../assets/Gestion_Usuarios.png)
-- **Ver Usuario:** Ingresar el ID del usuario y visualizar sus datos.
-- **Editar Usuario:** Modificar Nombre, Apellido y Correo.
-- **Eliminar Usuario:** Eliminar un usuario por su ID.
+## 👥 Gestión de Usuarios y Vehículos
+![Gestión de Usuarios]( ../assets/img/adminIdentidad.png)
+- **Visualizar Usuarios:** Se muestra la lista de usuarios registrados en el sistema.
+- **Editar Usuarios:** Modifique los datos personales de un usuario.
+- **Eliminar Usuarios:** Elimina un usuario junto con sus vehículos asociados.
+- **Buscar Usuario:** Encuentre usuarios por ID.
 
-![Gestión de Usuario Vehiculo]( ../assets/img/Gestion_Usuario_Vehiculo.png)
-
-## 👥 Gestión de Clientes
-- Agregar un nuevo cliente con su nombre, apellido y correo.
-- Ingresar el ID del cliente para verificar su existencia.
-- Si el cliente existe, mostrará un mensaje de error.
-
-## 🚗 Gestión de Vehículos
-- Agregar un nuevo vehículo con su marca, modelo y año.
-- Ingresar el ID del vehículo para verificar su existencia.
-- Si el vehículo existe, mostrará un mensaje de error.
+![Gestión de Usuario Vehiculo]( ../assets/img/adminEliminaIdentidad.png)
 
 ## 🛠️ Gestión de Repuestos
-- Agregar un nuevo repuesto con su nombre y precio.
-- Ingresar el ID del repuesto para verificar su existencia.
-- Si el repuesto existe, mostrará un mensaje de error.
+- Se visualizan los repuestos disponibles en el taller.
+- Se pueden buscar repuestos por ID.
+- Se pueden modificar los datos de un repuesto.
 
 ### **Gestion de Ingreso Individual**
 
-![Ingreso Individual]( ../assets/img/Ingreso_Individual.png)
+![Ingreso Individual]( ../assets/img/adminActulizaRepuesto.png)
+
+## 🛠️ Visualización de Repuestos 
+- Se visualizan los repuestos disponibles en el taller.
+- Se pueden visualizar en tres tipos de Orden:
+  - **Pre-Orden**
+  - **In-Orden**
+  - **Post-Orden**
+
+![Visualización de Repuestos]( ../assets/img/adminVistaRepuesto.png)
+
+## 🛗 Control de Logueo
+- Se visualiza el log de actividad de los usuarios.
+- Se puede exportar el log en formato JSON.
+
+![Control de Logueo]( ../assets/img/UserLog.png)
+
 
 ## 🛠️ Generar Servicio
 - **Ingresar ID de Usuario y Vehículo**
@@ -93,12 +102,6 @@ Contiene accesos directos a las funcionalidades principales:
 
 ![Generar Servicio]( ../assets/img/Generar_Servicio.png)
 
-### 🧾 **Cancelar Factura**
-- Se mostrará la última factura generada.
-- Confirmar el pago y retirar de la pila.
-
-![Cancelar Factura]( ../assets/img/Cancelar_Factura.png)
-
 ## 📊 Generar Reportes
 - Seleccionar el tipo de reporte:
   - **Usuarios y Vehículos**
@@ -106,7 +109,7 @@ Contiene accesos directos a las funcionalidades principales:
   - **Facturación**
 - Exportar en PNG.
 
-![Generar Reportes]( ../assets/img/Generar_Reportes.png)
+![Generar Reportes]( ../assets/img/AdminReport.png)
 
 ## 🔒 Cerrar Sesión
 - Al presionar el botón de "Cerrar Sesión", se redirige a la pantalla de login.
@@ -148,3 +151,41 @@ Contiene accesos directos a las funcionalidades principales:
 
 ## 4. Soporte y Contacto
 Si encuentra algún error o problema, comuníquese con el soporte técnico a: **soporte@autogestpro.com**.
+
+## 🖥️ Descripción de la Interfaz de Usuario
+- **Menú Principal:** Acceso a las funcionalidades principales.
+  -**Insertar Vehículo:** Agregar un vehículo al sistema.
+  -**Visualización de Servicios:** Ver los servicios realizados.
+  -**Visualización de Facturas:** Ver las facturas pendientes.
+  -**Cancelar Factura:** Eliminar una factura.
+  -**Cerrar Sesión:** Salir del sistema.
+
+## 📋 Menú Principal
+- Menú desplegable con las opciones de gestión.
+- Seleccionar una opción para acceder a la funcionalidad correspondiente.
+- Al seleccionar una opción, se mostrará la pantalla correspondiente.
+- En caso de error, se mostrará un mensaje de alerta.
+
+![Menu]( ../assets/img/UserMenu.png)
+
+## 🚘 Ingreso de Vehículo
+- **Ingresar Marca, Modelo y Año**
+
+![Ingreso de Vehículo]( ../assets/img/UserInsertCar.png)
+
+## 📝 Visualización de Servicios
+- **Visualizar Servicios:** Se pueden filtrar servicios por 
+- **PRE-ORDEN, POST-ORDEN e IN-ORDEN**
+
+![Visualización de Servicios]( ../assets/img/UserViewServices.png)
+
+## 📊 Visualización de Facturas
+- **Ver Facturas:** Lista de facturas pendientes de pago.
+
+![Visualización de Facturas]( ../assets/img/UserViewBills.png)
+
+## 📝 Cancelar Factura
+- **Cancelar Factura:** Se elimina una factura cuando el usuario la paga.
+
+![Cancelar Factura]( ../assets/img/UserCancelBill.png)
+
