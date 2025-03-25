@@ -163,33 +163,37 @@ public static class ReporteService
         dot.AppendLine("node [shape=record, style=filled, fillcolor=lightblue];");
         GenerateGraphviz(_facturaService.Root, dot);
         dot.AppendLine("}");
-        // llamar a la clase Print de TreeB
-        _facturaService.Print();
         return dot.ToString();
     }
     
-    private static void GenerateGraphviz(NodeTreeB node, StringBuilder dot)
+private static void GenerateGraphviz(NodeTreeB node, StringBuilder dot)
+{
+    if (node == null)
+        return;
+
+    string nodeLabel = $"\"<f0> |";
+    for (int i = 0; i < node.Count; i++)
     {
-        if (node == null)
-            return;
-    
-        string nodeLabel = $"\"<f0> |";
-        for (int i = 0; i < node.Count; i++)
+        if (node.Values[i] is Factura factura)
         {
-            Factura factura = (Factura)node.Values[i];
             nodeLabel += $" {{ ID: {factura.Id} | ID_Orden: {factura.IdServicio} | Total: {factura.Total} }} | <f{i + 1}> |";
         }
-        nodeLabel += "\"";
-        dot.AppendLine($"N{node.GetHashCode()} [label={nodeLabel}];");
-    
-        for (int i = 0; i <= node.Count; i++)
+        else
         {
-            if (node.Children[i] != null)
-            {
-                dot.AppendLine($"N{node.GetHashCode()} -> N{node.Children[i].GetHashCode()};");
-                GenerateGraphviz(node.Children[i], dot);
-            }
+            throw new InvalidCastException($"Unable to cast object of type '{node.Values[i].GetType()}' to type 'AutoGestPro.Core.Models.Factura'.");
         }
     }
+    nodeLabel += "\"";
+    dot.AppendLine($"N{node.GetHashCode()} [label={nodeLabel}];");
+
+    for (int i = 0; i <= node.Count; i++)
+    {
+        if (node.Children[i] != null)
+        {
+            dot.AppendLine($"N{node.GetHashCode()} -> N{node.Children[i].GetHashCode()};");
+            GenerateGraphviz(node.Children[i], dot);
+        }
+    }
+}
     
 }

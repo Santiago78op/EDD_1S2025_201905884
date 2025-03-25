@@ -47,8 +47,8 @@ public class CancelarFacturas : Window
         var factura = _clienteActual.Facturas.Search(idFactura);
         if (factura != null)
         {
-            _clienteActual.Facturas.Remove(idFactura); // Se elimina la factura al pagar
-            Estructuras.Facturas.Remove(idFactura);
+            _clienteActual.Facturas.Delete(idFactura); // Se elimina la factura al pagar
+            Estructuras.Facturas.Delete(idFactura);
             MostrarMensaje("Pago Exitoso", $"La factura {idFactura} ha sido cancelada y eliminada.");
         }
         else

@@ -23,7 +23,7 @@ public Cliente(int id, string nombres, string apellidos, string correo, int edad
         _edad = edad;
         _contrasenia = contrasenia;
         _Servicios = new TreeBinary();
-        _Facturas = new TreeB(5);
+        _Facturas = new TreeB();
     }
 
     public int Id

@@ -101,7 +101,7 @@ public class GenerarServicio : Window
             if (servicio != null)
             {
                 Servicio s = (Servicio)servicio;
-                listStore.AppendValues(s.Id, s.IdRepuesto, s.IdRepuesto, s.Detalles, s.Costo.ToString());
+                listStore.AppendValues(s.Id, s.IdVehiculo, s.IdRepuesto, s.Detalles, s.Costo.ToString());
             }
         }
     }
@@ -150,7 +150,7 @@ public class GenerarServicio : Window
         int idUsuario = v.Id_Usuario;
         
         // 🔥 Crear nuevo servicio y se inserta en el árbol AVL global
-        Servicio nuevoServicio = new Servicio(id , idUsuario ,idVehiculo, idRepuesto, detalle, costo);
+        Servicio nuevoServicio = new Servicio(id , idUsuario ,idRepuesto, idVehiculo, detalle, costo);
         Estructuras.Servicios.Insert(id,nuevoServicio);
         
         // 🔥 El Servicio se agrega a la lista de servicios del propietario
