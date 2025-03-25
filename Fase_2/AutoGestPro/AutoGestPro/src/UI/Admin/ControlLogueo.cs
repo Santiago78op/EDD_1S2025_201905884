@@ -108,7 +108,24 @@ public class ControlLogueo : Window
         if (fileChooser.Run() == (int)ResponseType.Accept)
         {
             string rutaArchivo = fileChooser.Filename;
-            string json = JsonConvert.SerializeObject(_registrosLogueo, Formatting.Indented);
+            List<Dictionary<string, string>> registros = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(rutaArchivo) ?? new List<Dictionary<string, string>>();
+            
+            // Convertir la lista de registros a un formato compatible con el modelo
+            NodeLinked? current = _registrosLogueo.Head;
+            
+            while (current != null)
+            {
+                LogEntry log = (LogEntry)current.Data;
+                registros.Add(new Dictionary<string, string>
+                {
+                    { "Usuario", log.Usuario },
+                    { "Entrada", log.Entrada },
+                    { "Salida", log.Salida }
+                });
+                current = current.Next;
+            }
+            
+            string json = JsonConvert.SerializeObject(registros, Formatting.Indented);
             File.WriteAllText(rutaArchivo, json);
 
             MostrarMensaje("Éxito", "Logueo exportado exitosamente.");

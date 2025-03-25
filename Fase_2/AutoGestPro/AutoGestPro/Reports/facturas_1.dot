@@ -1,4 +1,12 @@
-digraph TreeB {
+digraph BTree {
 node [shape=record, style=filled, fillcolor=lightblue];
-N38496415 [label="<f0> | {<izq> ID: 1 | ID_Orden: 5 | Total: 120,00 | <f1> | <der>} {<izq> ID: 1 | ID_Orden: 3 | Total: 145,99 | <f2> | <der>} {<izq> ID: 2 | ID_Orden: 7 | Total: 175,00 | <f3> | <der>} {<izq> ID: 3 | ID_Orden: 1 | Total: 125,50 | <f4> | <der>}"];
+N63388340 [label="<f0> | { ID: 5 | ID_Orden: 5 | Total: 41,31 } | <f1> | { ID: 8 | ID_Orden: 8 | Total: 105,56 } | <f2> | { ID: 13 | ID_Orden: 13 | Total: 50,56 } | <f3> |"];
+N63388340 -> N33624151;
+N33624151 [label="<f0> | { ID: 1 | ID_Orden: 1 | Total: 45,56 } | <f1> | { ID: 2 | ID_Orden: 2 | Total: 175,56 } | <f2> | { ID: 3 | ID_Orden: 3 | Total: 56,06 } | <f3> | { ID: 4 | ID_Orden: 4 | Total: 70,56 } | <f4> |"];
+N63388340 -> N34181910;
+N34181910 [label="<f0> | { ID: 6 | ID_Orden: 6 | Total: 85,56 } | <f1> | { ID: 7 | ID_Orden: 7 | Total: 35,81 } | <f2> |"];
+N63388340 -> N39201736;
+N39201736 [label="<f0> | { ID: 9 | ID_Orden: 9 | Total: 125,56 } | <f1> | { ID: 10 | ID_Orden: 10 | Total: 70,56 } | <f2> | { ID: 11 | ID_Orden: 11 | Total: 65,56 } | <f3> | { ID: 12 | ID_Orden: 12 | Total: 37,56 } | <f4> |"];
+N63388340 -> N17271312;
+N17271312 [label="<f0> | { ID: 14 | ID_Orden: 14 | Total: 43,56 } | <f1> | { ID: 15 | ID_Orden: 15 | Total: 145,56 } | <f2> |"];
 }

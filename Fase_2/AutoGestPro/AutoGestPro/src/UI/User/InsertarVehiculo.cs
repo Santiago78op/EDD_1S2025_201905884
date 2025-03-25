@@ -21,7 +21,7 @@ public class InsertarVehiculo : Window
         DeleteEvent += (o, args) => Hide();
 
         VBox vbox = new VBox(false, 5) { BorderWidth = 10 };
-        
+
         Label idVehiculo = new Label("ID:");
         _entryId = new Entry();
 
@@ -57,29 +57,28 @@ public class InsertarVehiculo : Window
         string marca = _entryMarca.Text.Trim();
         string placa = _entryPlaca.Text.Trim();
 
-        if ( int.TryParse(_entryId.Text, out _) == false 
-             || string.IsNullOrEmpty(marca) 
-             || int.TryParse(_entryModelo.Text, out _) == false 
+        if ( int.TryParse(_entryId.Text, out _) == false
+             || string.IsNullOrEmpty(marca)
+             || int.TryParse(_entryModelo.Text, out _) == false
              || string.IsNullOrEmpty(placa))
         {
             MostrarMensaje("Error", "Todos los campos son obligatorios, Id y Modelo deben ser numéricos.");
             return;
         }
-        
+
         int id = int.Parse(_entryId.Text.Trim());
         int modelo = int.Parse(_entryModelo.Text.Trim());
-        
+
         // Error si los datos numéricos son negativos
         if (id < 0 || modelo < 0)
         {
             MostrarMensaje("Error", "Los campos numéricos deben ser positivos.");
             return;
         }
-        
 
         // Validar que el ID no exista
         NodeDouble? current = Estructuras.Vehiculos.Head;
-        
+
         while (current != null)
         {
             Vehiculo vehiculo = (Vehiculo)current.Data;
@@ -90,7 +89,7 @@ public class InsertarVehiculo : Window
             }
             current = current.Next;
         }
-        
+
         // Crear el vehículo
         // 🔥 Crear un nuevo vehículo
         Vehiculo nuevoVehiculo =
@@ -110,5 +109,18 @@ public class InsertarVehiculo : Window
         dialog.Title = titulo;
         dialog.Run();
         dialog.Destroy();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _entryId?.Dispose();
+            _entryMarca?.Dispose();
+            _entryModelo?.Dispose();
+            _entryPlaca?.Dispose();
+            _btnRegistrar?.Dispose();
+        }
+        base.Dispose(disposing);
     }
 }

@@ -1,0 +1,42 @@
+digraph Repuestos {
+node [shape=record, style=filled, fillcolor=lightblue];
+R7 [label="{<izq> | ID: 7 | Nombre: Amortiguadores | Detalles: Par de amortiguadores para eje delantero |Costo: 100,00 | <der>}"]
+R7 -> R3
+R3 [label="{<izq> | ID: 3 | Nombre: Filtro de aire | Detalles: Filtro de aire para motor 1.8L |Costo: 10,25 | <der>}"]
+R3 -> R1
+R1 [label="{<izq> | ID: 1 | Nombre: Filtro de aceite | Detalles: Filtro de aceite para motor 1.8L |Costo: 15,75 | <der>}"]
+R1 -> R2
+R2 [label="{<izq> | ID: 2 | Nombre: Bujías | Detalles: Juego de bujías para motor 2.0L |Costo: 30,50 | <der>}"]
+R3 -> R5
+R5 [label="{<izq> | ID: 5 | Nombre: Pastillas de freno | Detalles: Juego de pastillas de freno para eje delantero |Costo: 45,00 | <der>}"]
+R5 -> R4
+R4 [label="{<izq> | ID: 4 | Nombre: Filtro de combustible | Detalles: Filtro de combustible para motor 2.0L |Costo: 20,00 | <der>}"]
+R5 -> R6
+R6 [label="{<izq> | ID: 6 | Nombre: Discos de freno | Detalles: Juego de discos de freno para eje delantero |Costo: 60,00 | <der>}"]
+R7 -> R15
+R15 [label="{<izq> | ID: 15 | Nombre: Pastillas de freno | Detalles: Juego de pastillas de freno para eje trasero |Costo: 40,00 | <der>}"]
+R15 -> R11
+R11 [label="{<izq> | ID: 11 | Nombre: Radiador | Detalles: Radiador para motor 2.0L |Costo: 120,00 | <der>}"]
+R11 -> R9
+R9 [label="{<izq> | ID: 9 | Nombre: Correa de distribución | Detalles: Correa de distribución para motor 2.0L |Costo: 80,00 | <der>}"]
+R9 -> R8
+R8 [label="{<izq> | ID: 8 | Nombre: Kit de embrague | Detalles: Kit de embrague para motor 1.8L |Costo: 150,00 | <der>}"]
+R9 -> R10
+R10 [label="{<izq> | ID: 10 | Nombre: Bomba de agua | Detalles: Bomba de agua para motor 1.8L |Costo: 45,00 | <der>}"]
+R11 -> R13
+R13 [label="{<izq> | ID: 13 | Nombre: Filtro de aire | Detalles: Filtro de aire para motor 2.0L |Costo: 12,00 | <der>}"]
+R13 -> R12
+R12 [label="{<izq> | ID: 12 | Nombre: Termostato | Detalles: Termostato para motor 1.8L |Costo: 25,00 | <der>}"]
+R13 -> R14
+R14 [label="{<izq> | ID: 14 | Nombre: Filtro de combustible | Detalles: Filtro de combustible para motor 1.8L |Costo: 18,00 | <der>}"]
+R15 -> R17
+R17 [label="{<izq> | ID: 17 | Nombre: Amortiguadores | Detalles: Par de amortiguadores para eje trasero |Costo: 90,00 | <der>}"]
+R17 -> R16
+R16 [label="{<izq> | ID: 16 | Nombre: Discos de freno | Detalles: Juego de discos de freno para eje trasero |Costo: 55,00 | <der>}"]
+R17 -> R20
+R20 [label="{<izq> | ID: 20 | Nombre: Bomba de agua | Detalles: Bomba de agua para motor 2.0L |Costo: 40,00 | <der>}"]
+R20 -> R19
+R19 [label="{<izq> | ID: 19 | Nombre: Correa de distribución | Detalles: Correa de distribución para motor 1.8L |Costo: 75,00 | <der>}"]
+R20 -> R21
+R21 [label="{<izq> | ID: 21 | Nombre: Radiador | Detalles: Radiador para motor 1.8L |Costo: 110,00 | <der>}"]
+}

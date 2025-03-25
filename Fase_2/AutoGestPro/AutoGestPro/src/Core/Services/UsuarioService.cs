@@ -21,6 +21,7 @@ public class UsuarioService
         _usuarios.Append(new Usuario("admin@usac.com", "admint123"));
     }
     
+    
     public bool ValidarCredencialesUsuario(string nombreUsuario, string contrasena)
     {
         NodeLinked? current = _usuarios.Head;

@@ -1,0 +1,18 @@
+digraph Vehiculos {
+node [shape=box, style=filled, fillcolor=lightblue];
+rankdir=LR;
+V1 [label="ID: 1\nIdUsuario: 1\nMarca: Honda Civic\nModelo: 2005\nPlaca: XZJ7H9K"];
+
+"V1" -> "V2";
+V2 [label="ID: 2\nIdUsuario: 2\nMarca: Toyota Corolla\nModelo: 2010\nPlaca: JKS8T5A"];
+
+"V2" -> "V4";
+"V2" -> "V1";
+V4 [label="ID: 4\nIdUsuario: 4\nMarca: Ford Focus\nModelo: 2012\nPlaca: LKM9P2Q"];
+
+"V4" -> "V5";
+"V4" -> "V2";
+V5 [label="ID: 5\nIdUsuario: 1\nMarca: Toyota Corolla\nModelo: 2010\nPlaca: JKS8T5A"];
+
+"V5" -> "V4";
+}
