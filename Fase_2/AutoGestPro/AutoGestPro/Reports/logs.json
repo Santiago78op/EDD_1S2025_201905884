@@ -1,0 +1,27 @@
+[
+  {
+    "Usuario": "admin@usac.com",
+    "Entrada": "2025-03-26 08:11:51",
+    "Salida": "En sesión"
+  },
+  {
+    "Usuario": "admin@usac.com",
+    "Entrada": "2025-03-26 08:11:51",
+    "Salida": "2025-03-26 08:16:22"
+  },
+  {
+    "Usuario": "carlos.alberto@usac.com",
+    "Entrada": "2025-03-26 08:16:35",
+    "Salida": "2025-03-26 08:16:43"
+  },
+  {
+    "Usuario": "ana.lucia@usac.com",
+    "Entrada": "2025-03-26 08:17:35",
+    "Salida": "2025-03-26 08:17:38"
+  },
+  {
+    "Usuario": "admin@usac.com",
+    "Entrada": "2025-03-26 08:17:53",
+    "Salida": "En sesión"
+  }
+]
