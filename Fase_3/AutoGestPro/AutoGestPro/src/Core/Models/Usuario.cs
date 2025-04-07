@@ -107,4 +107,14 @@ public class Usuario
             return Convert.ToBase64String(hashBytes);
         }
     }
+    
+    // Valida si el Usuario es administrador
+    /*
+     * El nombre del usuario administrador será admin@usac.com y
+     * su contraseña será admint123
+     */
+    public bool EsAdmin()
+    {
+        return Correo == "admin@usac.com" && VerificarContrasenia("admint123");
+    }
 }

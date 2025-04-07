@@ -1,14 +1,12 @@
-﻿using AutoGestPro.UI.Views.Admin;
+﻿using AutoGestPro.Core.Services;
+using AutoGestPro.UI.Views.Admin;
 using AutoGestPro.UI.Views.Shared;
+using AutoGestPro.UI.Views.User;
 
 namespace AutoGestPro.UI;
 
 using System;
 using Gtk;
-using AutoGestPro.UI.Admin;
-using AutoGestPro.UI.User;
-using AutoGestPro.Core.Global;
-using AutoGestPro.Shared;
 
 /// <summary>
 /// Ventana principal que contiene el menú de navegación y la lógica de inicio de sesión.
@@ -17,12 +15,14 @@ public class MainWindow : Window
 {
     private VBox _mainVBox;
     private MenuBar _menuBar;
+    private HBox _menuActionsBox;
     private Label _welcomeLabel;
 
     public MainWindow() : base("AutoGestPro - Sistema de Taller")
     {
-        SetDefaultSize(800, 600);
+        SetDefaultSize(600, 300);
         SetPosition(WindowPosition.Center);
+        ApplyStyles();
         DeleteEvent += OnDeleteEvent;
 
         BuildLoginUI();
@@ -57,15 +57,17 @@ public class MainWindow : Window
     private void BuildUI()
     {
         _mainVBox = new VBox(false, 5);
+        _menuActionsBox = new HBox(false, 5); // Inicializar _menuActionsBox
         _menuBar = CreateMenuBar();
 
         _welcomeLabel = new Label
         {
             Text = $"Bienvenido {Sesion.UsuarioActual?.Nombres} a AutoGestPro",
             Justify = Justification.Center,
-            MarginTop = 50
+            Valign = Align.Start,
+            Halign = Align.Center
         };
-
+        
         _mainVBox.PackStart(_menuBar, false, false, 0);
         _mainVBox.PackStart(_welcomeLabel, true, true, 0);
         Add(_mainVBox);
@@ -92,43 +94,56 @@ public class MainWindow : Window
         archivoMenu.Append(salirItem);
         menuBar.Append(archivoItem);
 
+        // Añadir botones al menú de acciones según rol
+        foreach (var c in _menuActionsBox.Children)
+        {
+            _menuActionsBox.Remove(c);
+        }
+
         if (Sesion.UsuarioActual != null)
         {
-            if (Sesion.UsuarioActual.EsAdmin)
+            if (Sesion.UsuarioActual.EsAdmin())
             {
-                var adminMenuItem = new MenuItem("Administrador");
-                var adminMenu = new Menu();
-                adminMenuItem.Submenu = adminMenu;
-
                 var adminActions = new MenuAdministrador();
-
-                adminMenu.Append(CreateMenuItem("Gest. Usuarios", adminActions.OnGestionUsuarios));
-                adminMenu.Append(CreateMenuItem("Gest. Vehículos", adminActions.OnGestionVehiculos));
-                adminMenu.Append(CreateMenuItem("Gest. Repuestos", adminActions.OnGestionRepuestos));
-                adminMenu.Append(CreateMenuItem("Servicios", adminActions.OnGestionServicios));
-                adminMenu.Append(CreateMenuItem("Facturas", adminActions.OnGestionFacturas));
-                adminMenu.Append(CreateMenuItem("Reportes", adminActions.OnGenerarReportes));
-                adminMenu.Append(CreateMenuItem("Bitácora", adminActions.OnMostrarBitacora));
-
-                menuBar.Append(adminMenuItem);
+                _menuActionsBox.PackStart(CreateActionButton("Gest. Usuarios", adminActions.OnGestionUsuarios), false,
+                    false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Gest. Vehículos", adminActions.OnGestionVehiculos), false,
+                    false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Gest. Repuestos", adminActions.OnGestionRepuestos), false,
+                    false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Servicios", adminActions.OnGestionServicios), false,
+                    false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Facturas", adminActions.OnGestionFacturas), false, false,
+                    5);
+                _menuActionsBox.PackStart(CreateActionButton("Reportes", adminActions.OnGenerarReportes), false, false,
+                    5);
+                _menuActionsBox.PackStart(CreateActionButton("Bitácora", adminActions.OnMostrarBitacora), false, false,
+                    5);
             }
             else
             {
-                var userMenuItem = new MenuItem("Usuario");
-                var userMenu = new Menu();
-                userMenuItem.Submenu = userMenu;
-
                 var userActions = new MenuUsuario();
-
-                userMenu.Append(CreateMenuItem("Mis Vehículos", userActions.OnMisVehiculos));
-                userMenu.Append(CreateMenuItem("Servicios", userActions.OnMisServicios));
-                userMenu.Append(CreateMenuItem("Facturas", userActions.OnMisFacturas));
-
-                menuBar.Append(userMenuItem);
+                /*
+                _menuActionsBox.PackStart(CreateActionButton("Mis Vehículos", userActions.OnMisVehiculos), false, false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Servicios", userActions.OnMisServicios), false, false, 5);
+                _menuActionsBox.PackStart(CreateActionButton("Facturas", userActions.OnMisFacturas), false, false, 5);
+            */
             }
         }
 
         return menuBar;
+    }
+
+    /// <summary>
+    /// Crea un botón de acción con una etiqueta y un manejador de eventos.
+    /// </summary>
+    /// <param name="label">Etiqueta del botón.</param>
+    /// <param name="handler">Manejador de eventos para el botón.</param>
+    private Button CreateActionButton(string label, EventHandler handler)
+    {
+        var button = new Button(label);
+        button.Clicked += handler;
+        return button;
     }
 
     /// <summary>
@@ -151,6 +166,18 @@ public class MainWindow : Window
         _mainVBox.Destroy();
         Sesion.UsuarioActual = null;
         BuildLoginUI();
+    }
+
+    /// <summary>
+    /// Aplica estilos CSS a la ventana.
+    /// </summary>
+    private void ApplyStyles()
+    {
+        var cssProvider = new CssProvider();
+        string cssPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+            "../../../src/UI/Assets/Styles/login.css");
+        cssProvider.LoadFromPath(cssPath);
+        StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, 800);
     }
 
     /// <summary>

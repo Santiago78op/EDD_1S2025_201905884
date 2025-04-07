@@ -10,12 +10,8 @@
     <ItemGroup>
       <Folder Include="assets\" />
       <Folder Include="docs\" />
-      <Folder Include="src\UI\Controllers\" />
-      <Folder Include="src\UI\Resources\" />
-      <Folder Include="src\UI\Utils\" />
-      <Folder Include="src\UI\Views\Admin\" />
-      <Folder Include="src\UI\Views\User\" />
-      <Folder Include="tests\" />
+      <Folder Include="src\UI\Resources\Icons\" />
+      <Folder Include="src\UI\Resources\Img\" />
     </ItemGroup>
 
     <ItemGroup>

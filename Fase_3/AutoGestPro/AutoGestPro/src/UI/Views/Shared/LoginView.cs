@@ -1,8 +1,9 @@
-﻿using Gtk;
+﻿using AutoGestPro.Core.Blockchain;
+using Gtk;
 using AutoGestPro.Core.Global;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Services;
 using AutoGestPro.UI.Extensions;
-using AutoGestPro.UI.Views.Admin;
 
 namespace AutoGestPro.UI.Views.Shared
 {
@@ -15,6 +16,8 @@ namespace AutoGestPro.UI.Views.Shared
         private readonly Entry _claveEntry;
         private readonly Button _loginButton;
         private readonly Label _mensajeLabel;
+        
+        private readonly ServicioUsuarios _servicio = Estructuras.Clientes;
 
         /// <summary>
         /// Evento que se dispara cuando el login es exitoso.
@@ -29,12 +32,16 @@ namespace AutoGestPro.UI.Views.Shared
             Margin = 50;
 
             var titulo = new Label("Iniciar Sesión") { Xalign = 0 };
-            titulo.AddCssClass("form-title");
+            titulo.AddCssClass("label-titulo");
             PackStart(titulo, false, false, 0);
 
             _correoEntry = new Entry { PlaceholderText = "Correo electrónico" };
+            _correoEntry.AddCssClass("entry");
             _claveEntry = new Entry { PlaceholderText = "Contraseña", Visibility = false };
+            _claveEntry.AddCssClass("entry");
             _loginButton = new Button("Ingresar");
+            _loginButton.AddCssClass("boton");
+            _loginButton.AddCssClass("boton-login");
             _mensajeLabel = new Label();
 
             _loginButton.Clicked += OnLoginClicked;
@@ -48,35 +55,51 @@ namespace AutoGestPro.UI.Views.Shared
         /// <summary>
         /// Manejador del evento de login.
         /// </summary>
-        private void OnLoginClicked(object sender, EventArgs e)
+        private void OnLoginClicked(object? sender, EventArgs e)
         {
-            string correo = _correoEntry.Text.Trim();
-            string clave = _claveEntry.Text.Trim();
-
-            if (string.IsNullOrEmpty(correo) || string.IsNullOrEmpty(clave))
+            try
             {
-                MostrarMensaje("Por favor, complete todos los campos.");
-                return;
-            }
+                string correoLogin = _correoEntry.Text.Trim();
+                string claveLogin = _claveEntry.Text.Trim();
 
-            // Buscar usuario en la lista global (esto puede cambiarse por una BD real)
-            var actual = Estructuras.Clientes.Head;
-            while (actual != null)
-            {
-                if (actual.Data is Cliente cliente)
+                if (string.IsNullOrEmpty(correoLogin) || string.IsNullOrEmpty(claveLogin))
                 {
-                    if (cliente.Correo == correo && cliente.Clave == clave)
-                    {
-                        Sesion.UsuarioActual = cliente;
-                        LoginExitoso?.Invoke(this, EventArgs.Empty);
-                        return;
-                    }
+                    MostrarMensaje("Por favor, complete todos los campos.");
+                    return;
+                }
+                
+                // Valida si el Usuario es admin y solo actuliza el Usuario Actual y regresa.
+                if (correoLogin == "admin@usac.com" && claveLogin == "admint123")
+                {
+                    Sesion.UsuarioActual = new Usuario(Guid.NewGuid(), "Admin", "Admin", correoLogin, 0, claveLogin);
+                    MostrarMensaje("Autenticación exitosa: Administrador");
+                   LoginExitoso?.Invoke(this, EventArgs.Empty);
+                   return;
                 }
 
-                actual = actual.Next;
+                // Verifica autenticación
+                Usuario usuarioAutenticado = _servicio.Autenticar(correoLogin, claveLogin);
+                if (usuarioAutenticado != null)
+                {
+                    MostrarMensaje($"Autenticación exitosa: {usuarioAutenticado.Nombres} {usuarioAutenticado.Apellidos}");
+                }
+                else
+                {
+                    MostrarMensaje("Autenticación fallida: credenciales incorrectas");
+                } 
+                
+                // Verificar integridad de la blockchain
+                bool esValida = _servicio.VerificarIntegridad();
+                Console.WriteLine($"Integridad de la blockchain: {(esValida ? "Válida" : "Inválida")}");
+                
+                Sesion.UsuarioActual = usuarioAutenticado;
+                LoginExitoso?.Invoke(this, EventArgs.Empty);
             }
-
-            MostrarMensaje("Credenciales incorrectas. Inténtelo de nuevo.");
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         /// <summary>

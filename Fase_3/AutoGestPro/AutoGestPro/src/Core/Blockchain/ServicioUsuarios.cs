@@ -19,6 +19,12 @@ public class ServicioUsuarios
     // Registra un nuevo usuario en el sistema
     public Usuario RegistrarUsuario(Guid id, string nombres, string apellidos, string correo, int edad, string contrasenia)
     {
+        // Verifica si ya existe un usuario con ese ID
+        if (_usuariosPorCorreo.Values.Any(u => u.Id == id))
+        {
+            throw new InvalidOperationException("Ya existe un usuario con ese ID");
+        }
+        
         // Verifica si ya existe un usuario con ese correo
         if (_usuariosPorCorreo.ContainsKey(correo))
         {

@@ -1,0 +1,66 @@
+/* estilos.css */
+
+/* Fondo general de la ventana */
+window {
+    background-image: none;
+    background-color: #f5f7fa;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para títulos */
+.label-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Entradas de texto */
+
+.entry {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.entry:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+/* Botones */
+.boton {
+    background-image: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #3498db;
+    color: white;
+}
+
+.boton:hover {
+    background-color: #2980b9;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.boton-login {
+    background-image: none;
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.boton-login:hover {
+    background-color: #2980b9;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
