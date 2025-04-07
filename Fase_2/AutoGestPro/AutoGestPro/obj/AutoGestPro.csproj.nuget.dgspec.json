@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/julian/Documentos/EDD_1S2025_201905884/Fase_2/AutoGestPro/AutoGestPro/AutoGestPro.csproj": {}
+    "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_2\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj": {}
   },
   "projects": {
-    "/home/julian/Documentos/EDD_1S2025_201905884/Fase_2/AutoGestPro/AutoGestPro/AutoGestPro.csproj": {
+    "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_2\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/julian/Documentos/EDD_1S2025_201905884/Fase_2/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
+        "projectUniqueName": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_2\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
         "projectName": "AutoGestPro",
-        "projectPath": "/home/julian/Documentos/EDD_1S2025_201905884/Fase_2/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
-        "packagesPath": "/home/julian/.nuget/packages/",
-        "outputPath": "/home/julian/Documentos/EDD_1S2025_201905884/Fase_2/AutoGestPro/AutoGestPro/obj/",
+        "projectPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_2\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
+        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_2\\AutoGestPro\\AutoGestPro\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/julian/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -36,9 +36,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/julian/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\santi\\.dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

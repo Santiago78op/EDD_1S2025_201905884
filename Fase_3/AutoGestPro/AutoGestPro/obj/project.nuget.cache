@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "b/L+iEchVMA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\santi\\.nuget\\packages\\atksharp\\3.24.24.117-develop\\atksharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\cairosharp\\3.24.24.117-develop\\cairosharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\gdksharp\\3.24.24.117-develop\\gdksharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\giosharp\\3.24.24.117-develop\\giosharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\glibsharp\\3.24.24.117-develop\\glibsharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\gtksharp\\3.24.24.117-develop\\gtksharp.3.24.24.117-develop.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\gtksharp.dependencies\\1.1.0\\gtksharp.dependencies.1.1.0.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\pangosharp\\3.24.24.117-develop\\pangosharp.3.24.24.117-develop.nupkg.sha512"
+  ],
+  "logs": []
+}
