@@ -59,6 +59,15 @@
           "lib/net8.0/GLibSharp.dll": {}
         }
       },
+      "Graphviz/2.38.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/_._": {}
+        },
+        "runtime": {
+          "lib/Graphviz.dll": {}
+        }
+      },
       "GtkSharp/3.24.24.117-develop": {
         "type": "package",
         "dependencies": {
@@ -38778,6 +38787,19 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "PangoSharp/3.24.24.117-develop": {
         "type": "package",
         "dependencies": {
@@ -38857,6 +38879,121 @@
         "glibsharp.nuspec",
         "lib/net8.0/GLibSharp.dll",
         "lib/netstandard2.0/GLibSharp.dll"
+      ]
+    },
+    "Graphviz/2.38.0.2": {
+      "sha512": "MPtG+Mf0fvuwuL1b0+9BghMeE4QHgaXLvRDSxrEHngU2/cNjE1N6pljiOrLptyOt/LfML8F/NGlT6i8VGS628w==",
+      "type": "package",
+      "path": "graphviz/2.38.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "GVedit.html",
+        "Graphviz.ini",
+        "New Text Document.txt",
+        "Pathplan.dll",
+        "QtCore4.dll",
+        "QtGui4.dll",
+        "Settings.ini",
+        "Temp.rar",
+        "acyclic.exe",
+        "ann.dll",
+        "bcomps.exe",
+        "ccomps.exe",
+        "cdt.dll",
+        "cgraph.dll",
+        "circo.exe",
+        "config.h",
+        "config6",
+        "diffimg.exe",
+        "dijkstra.exe",
+        "dot.exe",
+        "dotty.exe",
+        "edgepaint.exe",
+        "exparse.h",
+        "fc-cache.exe",
+        "fc-cat.exe",
+        "fc-list.exe",
+        "fc-match.exe",
+        "fdp.exe",
+        "fontconfig.dll",
+        "fontconfig_fix.dll",
+        "freetype6.dll",
+        "gc.exe",
+        "gd.tgz",
+        "gd.zip",
+        "getopt.h",
+        "glut32.dll",
+        "gml2gv.exe",
+        "graphml2gv.exe",
+        "graphviz.2.38.0.2.nupkg.sha512",
+        "graphviz.nuspec",
+        "gts.lib",
+        "gts.tgz",
+        "gv2gml.exe",
+        "gvc.dll",
+        "gvcolor.exe",
+        "gvedit.exe",
+        "gvgen.exe",
+        "gvmap.exe",
+        "gvpack.exe",
+        "gvplugin_core.dll",
+        "gvplugin_dot_layout.dll",
+        "gvplugin_gd.dll",
+        "gvplugin_gdiplus.dll",
+        "gvplugin_neato_layout.dll",
+        "gvplugin_pango.dll",
+        "gvpr.exe",
+        "gxl2gv.exe",
+        "iconv.dll",
+        "intl.dll",
+        "jpeg62.dll",
+        "lefty.exe",
+        "lib/Graphviz.dll",
+        "libatk-1.0-0.dll",
+        "libcairo-2.dll",
+        "libexpat-1.dll",
+        "libexpat.dll",
+        "libfontconfig-1.dll",
+        "libfreetype-6.dll",
+        "libgdk-win32-2.0-0.dll",
+        "libgdk_pixbuf-2.0-0.dll",
+        "libgdkglext-win32-1.0-0.dll",
+        "libgio-2.0-0.dll",
+        "libglade-2.0-0.dll",
+        "libglib-2.0-0.dll",
+        "libgmodule-2.0-0.dll",
+        "libgobject-2.0-0.dll",
+        "libgthread-2.0-0.dll",
+        "libgtk-win32-2.0-0.dll",
+        "libgtkglext-win32-1.0-0.dll",
+        "libltdl-3.dll",
+        "libpango-1.0-0.dll",
+        "libpangocairo-1.0-0.dll",
+        "libpangoft2-1.0-0.dll",
+        "libpangowin32-1.0-0.dll",
+        "libpng12.dll",
+        "libpng14-14.dll",
+        "librsvg-2-2.dll",
+        "libxml2.dll",
+        "lneato.exe",
+        "ltdl.dll",
+        "mingle.exe",
+        "mm2gv.exe",
+        "neato.exe",
+        "nop.exe",
+        "osage.exe",
+        "patchwork.exe",
+        "props.txt",
+        "prune.exe",
+        "sccmap.exe",
+        "sfdp.exe",
+        "smyrna.exe",
+        "tred.exe",
+        "twopi.exe",
+        "unflatten.exe",
+        "vmalloc.dll",
+        "zlib1.dll"
       ]
     },
     "GtkSharp/3.24.24.117-develop": {
@@ -45388,6 +45525,36 @@
         "gtksharp.dependencies.nuspec"
       ]
     },
+    "Newtonsoft.Json/13.0.3": {
+      "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "PangoSharp/3.24.24.117-develop": {
       "sha512": "WycHWMa+cd07LrbFMi4ulvFYbzz2WrjNw2F2MsJTZKW63J7Yxw9gHA5vMAkF6h/jT0beAi0+0FLqDyFm4xJszg==",
       "type": "package",
@@ -45404,24 +45571,26 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "Graphviz >= 2.38.0.2",
       "GtkSharp >= 3.24.24.117-develop",
-      "GtkSharp.Dependencies >= 1.1.0"
+      "GtkSharp.Dependencies >= 1.1.0",
+      "Newtonsoft.Json >= 13.0.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\santi\\.nuget\\packages\\": {}
+    "/home/julian/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
+      "projectUniqueName": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
       "projectName": "AutoGestPro",
-      "projectPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
-      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\obj\\",
+      "projectPath": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
+      "packagesPath": "/home/julian/.nuget/packages/",
+      "outputPath": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/julian/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -45443,14 +45612,20 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Graphviz": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.38.0.2, )"
+          },
           "GtkSharp": {
             "target": "Package",
             "version": "[3.24.24.117-develop, )"
@@ -45458,6 +45633,10 @@
           "GtkSharp.Dependencies": {
             "target": "Package",
             "version": "[1.1.0, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
           }
         },
         "imports": [
@@ -45476,8 +45655,20 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\santi\\.dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Graphviz 2.38.0.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Graphviz",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }
