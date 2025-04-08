@@ -64,3 +64,20 @@ window {
     background-color: #2980b9;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+
+/* botones de acción admin */
+.boton-admin {
+    background-image: none;
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 5px;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.boton-admin:hover {
+    background-color: #c0392b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}

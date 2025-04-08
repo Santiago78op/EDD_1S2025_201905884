@@ -1,4 +1,5 @@
 ﻿using AutoGestPro.Core.Services;
+using AutoGestPro.UI.Extensions;
 using AutoGestPro.UI.Views.Admin;
 using AutoGestPro.UI.Views.Shared;
 using AutoGestPro.UI.Views.User;
@@ -15,7 +16,7 @@ public class MainWindow : Window
 {
     private VBox _mainVBox;
     private MenuBar _menuBar;
-    private HBox _menuActionsBox;
+    private VBox _menuActionsBox;
     private Label _welcomeLabel;
 
     public MainWindow() : base("AutoGestPro - Sistema de Taller")
@@ -56,10 +57,9 @@ public class MainWindow : Window
     /// </summary>
     private void BuildUI()
     {
-        _mainVBox = new VBox(false, 5);
-        _menuActionsBox = new HBox(false, 5); // Inicializar _menuActionsBox
-        _menuBar = CreateMenuBar();
+        _mainVBox = new VBox(false, 10); // Aumentar espacio vertical
 
+        // Bienvenida
         _welcomeLabel = new Label
         {
             Text = $"Bienvenido {Sesion.UsuarioActual?.Nombres} a AutoGestPro",
@@ -67,71 +67,101 @@ public class MainWindow : Window
             Valign = Align.Start,
             Halign = Align.Center
         };
-        
-        _mainVBox.PackStart(_menuBar, false, false, 0);
-        _mainVBox.PackStart(_welcomeLabel, true, true, 0);
+        _welcomeLabel.AddCssClass("label-titulo");
+
+        // Crea el contenedor de botones de acción
+        _menuActionsBox = CreateActionButtons();
+
+        // Organizar la interfaz
+        _mainVBox.PackStart(_welcomeLabel, false, false, 15); // Más espacio para el título
+        _mainVBox.PackStart(_menuActionsBox, true, true, 0);
         Add(_mainVBox);
         ShowAll();
     }
 
     /// <summary>
-    /// Crea la barra de menú principal con opciones según el tipo de usuario.
+    /// Crea el contenedor de botones de acción con mejor diseño.
     /// </summary>
-    private MenuBar CreateMenuBar()
+    private VBox CreateActionButtons()
     {
-        var menuBar = new MenuBar();
+        var actionBox = new VBox(false, 10);
 
-        var archivoItem = new MenuItem("Archivo");
-        var archivoMenu = new Menu();
-        archivoItem.Submenu = archivoMenu;
-
-        var cerrarSesionItem = new MenuItem("Cerrar Sesión");
-        cerrarSesionItem.Activated += (s, e) => ReiniciarAplicacion();
-        archivoMenu.Append(cerrarSesionItem);
-
-        var salirItem = new MenuItem("Salir");
-        salirItem.Activated += (s, e) => Application.Quit();
-        archivoMenu.Append(salirItem);
-        menuBar.Append(archivoItem);
-
-        // Añadir botones al menú de acciones según rol
-        foreach (var c in _menuActionsBox.Children)
-        {
-            _menuActionsBox.Remove(c);
-        }
+        // Contenedor centrado para los botones
+        var centeringBox = new HBox(false, 0);
+        centeringBox.PackStart(new Label(""), true, true, 0); // Espaciador izquierdo
 
         if (Sesion.UsuarioActual != null)
         {
             if (Sesion.UsuarioActual.EsAdmin())
             {
+                // Crear un grid para organizar los botones de administrador
+                var grid = new Grid();
+                grid.RowSpacing = 15;
+                grid.ColumnSpacing = 15;
+                grid.ColumnHomogeneous = true;
+
                 var adminActions = new MenuAdministrador();
-                _menuActionsBox.PackStart(CreateActionButton("Gest. Usuarios", adminActions.OnGestionUsuarios), false,
-                    false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Gest. Vehículos", adminActions.OnGestionVehiculos), false,
-                    false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Gest. Repuestos", adminActions.OnGestionRepuestos), false,
-                    false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Servicios", adminActions.OnGestionServicios), false,
-                    false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Facturas", adminActions.OnGestionFacturas), false, false,
-                    5);
-                _menuActionsBox.PackStart(CreateActionButton("Reportes", adminActions.OnGenerarReportes), false, false,
-                    5);
-                _menuActionsBox.PackStart(CreateActionButton("Bitácora", adminActions.OnMostrarBitacora), false, false,
-                    5);
+
+                // Primera fila
+                grid.Attach(CreateActionButton("Gestión de\nUsuarios", adminActions.OnGestionUsuarios), 0, 0, 1, 1);
+                grid.Attach(CreateActionButton("Gestión de\nVehículos", adminActions.OnGestionVehiculos), 1, 0, 1, 1);
+                grid.Attach(CreateActionButton("Gestión de\nRepuestos", adminActions.OnGestionRepuestos), 2, 0, 1, 1);
+
+                // Segunda fila
+                grid.Attach(CreateActionButton("Servicios", adminActions.OnGestionServicios), 0, 1, 1, 1);
+                grid.Attach(CreateActionButton("Facturas", adminActions.OnGestionFacturas), 1, 1, 1, 1);
+                grid.Attach(CreateActionButton("Reportes", adminActions.OnGenerarReportes), 2, 1, 1, 1);
+
+                // Tercera fila
+                grid.Attach(CreateActionButton("Bitácora", adminActions.OnMostrarBitacora), 1, 2, 1, 1);
+
+                centeringBox.PackStart(grid, false, false, 0);
             }
             else
             {
+                // Grid para botones de usuario normal
+                var grid = new Grid();
+                grid.RowSpacing = 15;
+                grid.ColumnSpacing = 15;
+                grid.ColumnHomogeneous = true;
+
                 var userActions = new MenuUsuario();
+
+                // Descomentar y modificar según necesites
                 /*
-                _menuActionsBox.PackStart(CreateActionButton("Mis Vehículos", userActions.OnMisVehiculos), false, false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Servicios", userActions.OnMisServicios), false, false, 5);
-                _menuActionsBox.PackStart(CreateActionButton("Facturas", userActions.OnMisFacturas), false, false, 5);
-            */
+                grid.Attach(CreateActionButton("Mis\nVehículos", userActions.OnMisVehiculos), 0, 0, 1, 1);
+                grid.Attach(CreateActionButton("Mis\nServicios", userActions.OnMisServicios), 1, 0, 1, 1);
+                grid.Attach(CreateActionButton("Mis\nFacturas", userActions.OnMisFacturas), 0, 1, 1, 1);
+                */
+
+                centeringBox.PackStart(grid, false, false, 0);
             }
         }
 
-        return menuBar;
+        centeringBox.PackStart(new Label(""), true, true, 0); // Espaciador derecho
+        actionBox.PackStart(centeringBox, true, true, 0);
+
+        // Agregar botones de sesión en la parte inferior
+        var sessionButtonsBox = new HBox(true, 15);
+        sessionButtonsBox.PackStart(new Label(""), true, false, 0); // Espaciador
+
+        var logoutButton = new Button("Cerrar Sesión");
+        logoutButton.Clicked += OnCerrarSesionClicked; // Usar el nuevo manejador
+        logoutButton.AddCssClass("boton-sesion");
+        logoutButton.WidthRequest = 120;
+
+        var exitButton = new Button("Salir");
+        exitButton.Clicked += OnSalirClicked; // Usar el nuevo manejador
+        exitButton.AddCssClass("boton-sesion");
+        exitButton.WidthRequest = 120;
+
+        sessionButtonsBox.PackStart(logoutButton, false, false, 0);
+        sessionButtonsBox.PackStart(exitButton, false, false, 0);
+        sessionButtonsBox.PackStart(new Label(""), true, false, 0); // Espaciador
+
+        actionBox.PackStart(sessionButtonsBox, false, false, 20);
+
+        return actionBox;
     }
 
     /// <summary>
@@ -141,21 +171,75 @@ public class MainWindow : Window
     /// <param name="handler">Manejador de eventos para el botón.</param>
     private Button CreateActionButton(string label, EventHandler handler)
     {
-        var button = new Button(label);
+        var button = new Button(label)
+        {
+            WidthRequest = 150, // Más ancho
+            HeightRequest = 80 // Más alto para acomodar texto multilinea
+        };
+
         button.Clicked += handler;
+
+        // Diferente estilo según el rol
+        if (Sesion.UsuarioActual.EsAdmin())
+        {
+            button.AddCssClass("boton-admin");
+        }
+        else
+        {
+            button.AddCssClass("boton-usuario");
+        }
+
         return button;
+    }
+    
+    /// <summary>
+    /// Manejador de evento para el botón "Cerrar Sesión" con confirmación.
+    /// </summary>
+    private void OnCerrarSesionClicked(object sender, EventArgs e)
+    {
+        // Crear un cuadro de diálogo de confirmación
+        var dialog = new MessageDialog(
+            this,
+            DialogFlags.Modal,
+            MessageType.Question,
+            ButtonsType.YesNo,
+            "¿Está seguro que desea cerrar sesión?")
+        {
+            Title = "Confirmar cierre de sesión"
+        };
+    
+        ResponseType response = (ResponseType)dialog.Run();
+        dialog.Destroy();
+    
+        if (response == ResponseType.Yes)
+        {
+            ReiniciarAplicacion();
+        }
     }
 
     /// <summary>
-    /// Crea un ítem de menú con una acción asociada.
+    /// Manejador de evento para el botón "Salir" con confirmación.
     /// </summary>
-    /// <param name="text">Texto del menú.</param>
-    /// <param name="handler">Acción a ejecutar.</param>
-    private MenuItem CreateMenuItem(string text, EventHandler handler)
+    private void OnSalirClicked(object sender, EventArgs e)
     {
-        var item = new MenuItem(text);
-        item.Activated += handler;
-        return item;
+        // Crear un cuadro de diálogo de confirmación
+        var dialog = new MessageDialog(
+            this,
+            DialogFlags.Modal,
+            MessageType.Question,
+            ButtonsType.YesNo,
+            "¿Está seguro que desea salir de la aplicación?")
+        {
+            Title = "Confirmar salida"
+        };
+    
+        ResponseType response = (ResponseType)dialog.Run();
+        dialog.Destroy();
+    
+        if (response == ResponseType.Yes)
+        {
+            Application.Quit();
+        }
     }
 
     /// <summary>
@@ -175,7 +259,7 @@ public class MainWindow : Window
     {
         var cssProvider = new CssProvider();
         string cssPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "../../../src/UI/Assets/Styles/login.css");
+            "../../../src/UI/Assets/Styles/style.css");
         cssProvider.LoadFromPath(cssPath);
         StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, 800);
     }
