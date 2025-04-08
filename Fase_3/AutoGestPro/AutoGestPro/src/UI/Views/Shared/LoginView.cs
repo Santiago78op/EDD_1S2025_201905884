@@ -71,7 +71,7 @@ namespace AutoGestPro.UI.Views.Shared
                 // Valida si el Usuario es admin y solo actuliza el Usuario Actual y regresa.
                 if (correoLogin == "admin@usac.com" && claveLogin == "admint123")
                 {
-                    Sesion.UsuarioActual = new Usuario(Guid.NewGuid(), "Admin", "Admin", correoLogin, 0, claveLogin);
+                    Sesion.UsuarioActual = new Usuario(0, "Admin", "Admin", correoLogin, 0, claveLogin);
                     MostrarMensaje("Autenticación exitosa: Administrador");
                    LoginExitoso?.Invoke(this, EventArgs.Empty);
                    return;

@@ -358,42 +358,40 @@ namespace AutoGestPro.UI.Views.Admin
                 // Animación de progreso
                 await AnimateProgress();
                 
-                // Leer el archivo
-                string jsonContent = File.ReadAllText(_archivoSeleccionado);
-                
                 // Obtener el índice activo
                 int activeIndex = _cmbTipoEntidad.Active;
-        
+                
                 // Validar que el índice sea válido
                 if (activeIndex >= 0)
                 {
+                    // Crear un TreePath a partir del índice activo
+                    TreePath path = new TreePath(new[] { activeIndex });
+                
                     // Obtener el texto del modelo de datos
                     TreeIter iter;
-                    if (_cmbTipoEntidad.Model.GetIterFromString(out iter, activeIndex.ToString()))
+                    if (_cmbTipoEntidad.Model.GetIter(out iter, path))
                     {
-                        string tipoEntidad = (string)_cmbTipoEntidad.Model.GetValue(iter, 0);
-                        
-                        // Disparar evento para que otra clase procese el contenido
-                        OnCargaDatosSolicitada += (tipoEntidad, archivoJson) =>
+                        string tipoEntidadNow = (string)_cmbTipoEntidad.Model.GetValue(iter, 0);
+                
+                        // Crear instancia del servicio de carga masiva
+                        var servicioCarga = new CargaMasivaService();
+                
+                        // Ejecutar la carga masiva
+                        bool resultado = servicioCarga.GestionarCargaMasiva(tipoEntidadNow, _archivoSeleccionado);
+                
+                        // Actualizar el estado según el resultado 
+                        if (resultado)
                         {
-                            var servicioCarga = new CargaMasivaService();
-                            bool resultado = servicioCarga.CargarUsuariosDesdeArchivo(archivoJson);
-                        
-                            if (resultado)
-                            {
-                                UpdateStatus($"Datos de {tipoEntidad} cargados correctamente.");
-                            }
-                            else
-                            {
-                                UpdateStatus($"Error al cargar datos de {tipoEntidad}.");
-                            }
-                        };
-                        
-                        UpdateStatus("Solicitud de carga enviada correctamente.");
-                        
-                        // Cambiar el estilo del botón para indicar éxito
-                        _btnCargar.StyleContext.RemoveClass("boton-primary");
-                        _btnCargar.StyleContext.AddClass("boton-primary-success");
+                            // Actualizar datos en el TreeView
+                            ActualizarDatos(servicioCarga.DatosCargados, tipoEntidadNow);
+                            UpdateStatus($"Datos de {tipoEntidadNow} cargados correctamente.");
+                            _btnCargar.StyleContext.RemoveClass("boton-primary");
+                            _btnCargar.StyleContext.AddClass("boton-primary-success");
+                        }
+                        else
+                        {
+                            UpdateStatus($"Error al cargar datos de {tipoEntidadNow}.");
+                        }
                     }
                 }
             }
@@ -429,35 +427,30 @@ namespace AutoGestPro.UI.Views.Admin
             switch (tipoEntidad)
             {
                 case "USUARIOS":
-                    ConfigureTreeViewColumns("ID", "Nombre", "Rol");
+                    AddTreeViewColumn("ID", 0);
+                    AddTreeViewColumn("Nombres", 1);
+                    AddTreeViewColumn("Apellidos", 2);
+                    AddTreeViewColumn("Correo", 3);
+                    AddTreeViewColumn("Edad", 4);
+                    AddTreeViewColumn("Contraseña", 5);
+                    _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 case "VEHICULOS":
-                    ConfigureTreeViewColumns("Placa", "Marca", "Modelo");
+                    //ConfigureTreeViewColumns("Placa", "Marca", "Modelo");
                     break;
                 case "REPUESTOS":
-                    ConfigureTreeViewColumns("Código", "Nombre", "Precio");
+                    //ConfigureTreeViewColumns("Código", "Nombre", "Precio");
                     break;
                 case "SERVICIOS":
-                    ConfigureTreeViewColumns("ID", "Nombre", "Tarifa");
+                    //ConfigureTreeViewColumns("ID", "Nombre", "Tarifa");
                     break;
                 default:
-                    ConfigureTreeViewColumns("Campo 1", "Campo 2", "Campo 3");
+                    //ConfigureTreeViewColumns("Campo 1", "Campo 2", "Campo 3");
                     break;
             }
             
             // Recrear el ListStore
-            _listStore = new ListStore(typeof(string), typeof(string), typeof(string));
             _treeView.Model = _listStore;
-        }
-
-        /// <summary>
-        /// Configura las columnas del TreeView con los nombres especificados
-        /// </summary>
-        private void ConfigureTreeViewColumns(string col1Title, string col2Title, string col3Title)
-        {
-            AddTreeViewColumn(col1Title, 0);
-            AddTreeViewColumn(col2Title, 1);
-            AddTreeViewColumn(col3Title, 2);
         }
 
         /// <summary>
@@ -481,7 +474,7 @@ namespace AutoGestPro.UI.Views.Admin
         /// Método público para actualizar los datos en el TreeView
         /// </summary>
         /// <param name="datos">Array de arrays de strings con los datos a mostrar</param>
-        public void ActualizarDatos(string[][] datos)
+        public void ActualizarDatos(string[][] datos, string tipoEntidad )
         {
             _listStore.Clear();
             
@@ -491,7 +484,24 @@ namespace AutoGestPro.UI.Views.Admin
                 {
                     if (fila.Length >= 3)
                     {
-                        _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                        switch (tipoEntidad)
+                        {
+                            case "USUARIOS":
+                                _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5]);
+                                break;
+                            case "VEHICULOS":
+                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                break;
+                            case "REPUESTOS":
+                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                break;
+                            case "SERVICIOS":
+                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                break;
+                            default:
+                                _listStore.AppendValues("Error", "Tipo de entidad no soportado", "");
+                                break;
+                        }
                     }
                 }
                 

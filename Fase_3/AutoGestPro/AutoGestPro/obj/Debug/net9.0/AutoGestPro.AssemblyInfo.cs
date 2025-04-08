@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoGestPro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1776e086fc7a3a23409a1e3f8699f7fb82179a90")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f482a070365ad45653a18720d65f4b50220c520a")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoGestPro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoGestPro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

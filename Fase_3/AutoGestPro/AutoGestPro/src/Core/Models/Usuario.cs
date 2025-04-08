@@ -8,7 +8,7 @@ namespace AutoGestPro.Core.Models;
 /// </summary>
 public class Usuario
 {
-    private Guid _id; // Identificador único del cliente
+    private int _id; // Identificador único del cliente
     private string _nombres; // Nombres del cliente
     private string _apellidos; // Apellidos del cliente
     private string _correo; // Correo electrónico del cliente
@@ -18,7 +18,7 @@ public class Usuario
     private string _contraseniaHash;
     private string _salt;
 
-    public Guid Id
+    public int Id
     {
         get => _id;
         set => _id = value;
@@ -63,7 +63,7 @@ public class Usuario
     /// <param name="correo">Correo electrónico del cliente.</param>
     /// <param name="edad">Edad del cliente.</param>
     /// <param name="contraseniaHash">Hash de la contraseña del cliente.</param>
-    public Usuario(Guid id, string nombres, string apellidos, string correo, int edad, string contraseniaHash)
+    public Usuario(int id, string nombres, string apellidos, string correo, int edad, string contraseniaHash)
     {
         _id = id;
         _nombres = nombres;

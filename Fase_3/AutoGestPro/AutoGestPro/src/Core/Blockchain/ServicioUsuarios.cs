@@ -17,18 +17,30 @@ public class ServicioUsuarios
     }
     
     // Registra un nuevo usuario en el sistema
-    public Usuario RegistrarUsuario(Guid id, string nombres, string apellidos, string correo, int edad, string contrasenia)
+    public Usuario RegistrarUsuario(int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
     {
+        // Tabla de verdad - Validaciones: id y correo únicos
+        /*
+         *  clienteTrue | clienteCorreoTrue | Resultado
+         *  -------------------------------------------
+         *  null        | null              | true   -> Se puede agregar
+         *  null        | !null             | false  -> No se puede agregar
+         *  !null       | null              | false  -> No se puede agregar
+         *  !null       | !null             | false  -> No se puede agregar
+         *  -------------------------------------------
+         */
         // Verifica si ya existe un usuario con ese ID
         if (_usuariosPorCorreo.Values.Any(u => u.Id == id))
         {
-            throw new InvalidOperationException("Ya existe un usuario con ese ID");
+            Console.WriteLine("Ya existe un usuario con ese ID");
+            return null;
         }
         
         // Verifica si ya existe un usuario con ese correo
         if (_usuariosPorCorreo.ContainsKey(correo))
         {
-            throw new InvalidOperationException("Ya existe un usuario con ese correo electrónico");
+            Console.WriteLine("Ya existe un usuario con ese correo");
+            return null;
         }
 
         // Crea el nuevo usuario
