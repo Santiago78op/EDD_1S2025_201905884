@@ -103,18 +103,20 @@ public class MainWindow : Window
                 var adminActions = new MenuAdministrador();
 
                 // Primera fila
-                grid.Attach(CreateActionButton("Gestión de\nUsuarios", adminActions.OnGestionUsuarios), 0, 0, 1, 1);
-                grid.Attach(CreateActionButton("Gestión de\nVehículos", adminActions.OnGestionVehiculos), 1, 0, 1, 1);
-                grid.Attach(CreateActionButton("Gestión de\nRepuestos", adminActions.OnGestionRepuestos), 2, 0, 1, 1);
+                grid.Attach(CreateActionButton("Carga \nMasiva", adminActions.OnCargaMaisva), 0, 0, 1, 1);
+                grid.Attach(CreateActionButton("Inserción de\nUsuarios", adminActions.OnGestionVehiculos), 1, 0, 1, 1);
+                grid.Attach(CreateActionButton("Visualización de\nUsuarios", adminActions.OnGestionRepuestos), 2, 0, 1, 1);
 
                 // Segunda fila
-                grid.Attach(CreateActionButton("Servicios", adminActions.OnGestionServicios), 0, 1, 1, 1);
-                grid.Attach(CreateActionButton("Facturas", adminActions.OnGestionFacturas), 1, 1, 1, 1);
-                grid.Attach(CreateActionButton("Reportes", adminActions.OnGenerarReportes), 2, 1, 1, 1);
+                grid.Attach(CreateActionButton("Visualización de \nRepuestos", adminActions.OnGestionServicios), 0, 1, 1, 1);
+                grid.Attach(CreateActionButton("Generar \nServicio", adminActions.OnGestionFacturas), 1, 1, 1, 1);
+                grid.Attach(CreateActionButton("Generación de \nReportes", adminActions.OnGenerarReportes), 2, 1, 1, 1);
 
                 // Tercera fila
-                grid.Attach(CreateActionButton("Bitácora", adminActions.OnMostrarBitacora), 1, 2, 1, 1);
-
+                grid.Attach(CreateActionButton("Cargar \nBackup", adminActions.OnMostrarBitacora), 0, 2, 1, 1);
+                grid.Attach(CreateActionButton("Generar \nBackup", adminActions.OnMostrarBitacora), 1, 2, 1, 1);
+                
+                
                 centeringBox.PackStart(grid, false, false, 0);
             }
             else

@@ -9,10 +9,11 @@ using Gtk;
 public class MenuAdministrador
 {
     
-    public void OnGestionUsuarios(object sender, EventArgs e)
+    public void OnCargaMaisva(object sender, EventArgs e)
     {
-        // Lógica para abrir la gestión de usuarios
-        Console.WriteLine("Abrir Gestión de Usuarios");
+        // Lógica para abrir la gestión de Cargas Masivas
+        var ventana = new GestionCargaMasiva();
+        ventana.ShowAll();
     }
 
     public void OnGestionVehiculos(object sender, EventArgs e)

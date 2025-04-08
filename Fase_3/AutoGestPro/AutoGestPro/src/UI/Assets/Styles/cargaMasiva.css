@@ -1,0 +1,96 @@
+/* bootstrap-style.css - Estilos para la aplicación de Carga Masiva */
+
+/* Estilos para botones */
+.boton-primary {
+    background-image: none;
+    background-color: #0056b3;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    font-weight: 500;
+}
+
+.boton-primary:hover {
+    background-color: #0069d9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.boton-primary:active {
+    box-shadow: none;
+}
+
+.boton-primary-success {
+    background-image: none;
+    background-color: #198754;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    font-weight: 500;
+}
+
+.boton-primary-success:hover {
+    background-color: #218838;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.boton-primary-success:active {
+    box-shadow: none;
+}
+
+/* Estilos para TreeView */
+treeview {
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+treeview .selected {
+    background-color: #007bff;
+    color: white;
+}
+
+treeview header button {
+    font-weight: bold;
+    background-color: #e9ecef;
+    padding: 8px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Estilos para ComboBox */
+combobox {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 6px;
+}
+
+combobox:hover {
+    border-color: #80bdff;
+}
+
+/* Estilos para ProgressBar */
+progressbar {
+    border-radius: 4px;
+    min-height: 10px;
+}
+
+progressbar trough {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    border: none;
+}
+
+progressbar progress {
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+/* Estilos para ScrolledWindow */
+scrolledwindow {
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
