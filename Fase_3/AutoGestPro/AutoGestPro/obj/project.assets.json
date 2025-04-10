@@ -45578,19 +45578,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\santi\\.nuget\\packages\\": {}
+    "/home/julian/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
+      "projectUniqueName": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
       "projectName": "AutoGestPro",
-      "projectPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\AutoGestPro.csproj",
-      "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\santi\\Desktop\\Edd\\EDD_1S2025_201905884\\Fase_3\\AutoGestPro\\AutoGestPro\\obj\\",
+      "projectPath": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/AutoGestPro.csproj",
+      "packagesPath": "/home/julian/.nuget/packages/",
+      "outputPath": "/home/julian/EDD/EDD_1S2025_201905884/Fase_3/AutoGestPro/AutoGestPro/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/julian/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -45612,9 +45612,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -45655,7 +45655,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\santi\\.dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

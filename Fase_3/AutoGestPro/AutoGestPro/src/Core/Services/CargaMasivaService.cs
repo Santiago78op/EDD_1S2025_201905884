@@ -37,7 +37,7 @@ public class CargaMasivaService
                 return CargaVehiculosDesdeArchivo(rutaArchivo);
                 break;
             case "REPUESTOS":
-                // Implementar carga de repuestos
+                // Cargar repuestos desde un archivo JSON
                 break;
             case "SERVICIOS":
                 // Implementar carga de servicios
