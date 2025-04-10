@@ -1,4 +1,5 @@
 using AutoGestPro.Core.Models;
+using Newtonsoft.Json;
 
 namespace AutoGestPro.Core.Blockchain;
 
@@ -64,6 +65,13 @@ public class ServicioUsuarios
         }
 
         return usuario.VerificarContrasenia(contrasenia) ? usuario : null;
+    }
+    
+    // Busca un usuario por su ID
+    public Usuario BuscarUsuarioPorId(int id)
+    {
+        // Busca en el diccionario de usuarios por correo
+        return _usuariosPorCorreo.Values.FirstOrDefault(u => u.Id == id);
     }
 
     // Verifica la integridad de la blockchain

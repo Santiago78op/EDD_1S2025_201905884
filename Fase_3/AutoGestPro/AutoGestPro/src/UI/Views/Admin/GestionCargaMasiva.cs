@@ -436,7 +436,12 @@ namespace AutoGestPro.UI.Views.Admin
                     _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 case "VEHICULOS":
-                    //ConfigureTreeViewColumns("Placa", "Marca", "Modelo");
+                    AddTreeViewColumn("ID", 0);
+                    AddTreeViewColumn("ID Usuario", 1);
+                    AddTreeViewColumn("Marca", 2);
+                    AddTreeViewColumn("Modelo", 3);
+                    AddTreeViewColumn("Placa", 4);
+                    _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 case "REPUESTOS":
                     //ConfigureTreeViewColumns("Código", "Nombre", "Precio");
@@ -490,7 +495,7 @@ namespace AutoGestPro.UI.Views.Admin
                                 _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5]);
                                 break;
                             case "VEHICULOS":
-                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3], fila[4]);
                                 break;
                             case "REPUESTOS":
                                 _listStore.AppendValues(fila[0], fila[1], fila[2]);

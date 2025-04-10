@@ -108,7 +108,9 @@ public class CargaMasivaService
         // Si el id_usuario del vehículo no existe, no se puede agregar
         NodeDouble? vehiculoTrue = Estructuras.Vehiculos.SearchNode(vehiculo.Id);
         
-        
+        // Si el id_usuario del vehículo no existe, no se puede agregar 
+        // Validamos desde el blockchain
+        var usuarioTrue = _servicio.BuscarUsuarioPorId(vehiculo.IdUsuario);
         
         //Tabla de verdad - Validaciones: id único y usuario existente
         /*
@@ -147,29 +149,23 @@ public class CargaMasivaService
                 var datos = new List<string[]>();
                 foreach (var vehiculo in vehiculos)
                 {
-                    // Registrar vehiculo en el Blockchain
-                    var vehi = _servicio.RegistrarVehiculo(vehiculo.Id, vehiculo.Marca, vehiculo.Modelo, vehiculo.Anio, vehiculo.Patente);
-
-                    if (vehi != null)
+                    if (vehiculoTrue(vehiculo))
                     {
-                        if(vehiculoTrue(vehiculo))
-                        {
-                            Estructuras.Vehiculos.Append(vehiculo);
-                        }
+                        Estructuras.Vehiculos.Append(vehiculo); 
                         
                         datos.Add(new string[]
                         {
                             vehiculo.Id.ToString(),
+                            vehiculo.IdUsuario.ToString(),
                             vehiculo.Marca,
-                            vehiculo.Modelo,
-                            vehiculo.Anio.ToString(),
-                            vehiculo.Patente
+                            vehiculo.Modelo.ToString(),
+                            vehiculo.Placa
                         });
                     }
                     else
                     {
                         // Error al registrar el vehiculo
-                        Console.WriteLine($"Error al registrar el vehiculo: {vehiculo.Patente}");
+                        Console.WriteLine($"Error al registrar el vehiculo: {vehiculo.Id}");
                     }
                 }
                 // Actualizar la propiedad DatosCargados
