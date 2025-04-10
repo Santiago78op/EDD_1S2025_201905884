@@ -1,35 +1,35 @@
 [
   {
     "ID": 1,
-    "ID_Usuario": 1,
+    "IDUsuario": 1,
     "Marca": "Honda Civic",
     "Modelo": 2005,
     "Placa": "XZJ7H9K"
   },
   {
     "ID": 2,
-    "ID_Usuario": 2,
+    "IDUsuario": 2,
     "Marca": "Toyota Corolla",
     "Modelo": 2010,
     "Placa": "JKS8T5A"
   },
   {
     "ID": 3,
-    "ID_Usuario": 3,
+    "IDUsuario": 3,
     "Marca": "Toyota Corolla",
     "Modelo": 2010,
     "Placa": "JKS8T5A"
   },
   {
     "ID": 4,
-    "ID_Usuario": 4,
+    "IDUsuario": 4,
     "Marca": "Ford Focus",
     "Modelo": 2012,
     "Placa": "LKM9P2Q"
   },
   {
     "ID": 5,
-    "ID_Usuario": 1,
+    "IDUsuario": 1,
     "Marca": "Toyota Corolla",
     "Modelo": 2010,
     "Placa": "JKS8T5A"
