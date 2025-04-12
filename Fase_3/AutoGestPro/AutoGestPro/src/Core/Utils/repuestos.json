@@ -1,0 +1,122 @@
+﻿[
+  {
+    "ID": 1,
+    "Repuesto": "Filtro de aceite",
+    "Detalles": "Filtra impurezas del aceite del motor.",
+    "Costo": 25.50
+  },
+  {
+    "ID": 2,
+    "Repuesto": "Bujías",
+    "Detalles": "Enciende la mezcla de aire y combustible.",
+    "Costo": 15.75
+  },
+  {
+    "ID": 3,
+    "Repuesto": "Pastillas de freno",
+    "Detalles": "Frenan las ruedas al presionar el disco.",
+    "Costo": 45.00
+  },
+  {
+    "ID": 4,
+    "Repuesto": "Batería",
+    "Detalles": "Provee energía eléctrica al vehículo.",
+    "Costo": 120.00
+  },
+  {
+    "ID": 5,
+    "Repuesto": "Alternador",
+    "Detalles": "Genera electricidad para cargar la batería.",
+    "Costo": 180.50
+  },
+  {
+    "ID": 6,
+    "Repuesto": "Radiador",
+    "Detalles": "Enfría el motor con líquido refrigerante.",
+    "Costo": 95.25
+  },
+  {
+    "ID": 7,
+    "Repuesto": "Correa de distribución",
+    "Detalles": "Sincroniza el movimiento de las válvulas.",
+    "Costo": 35.80
+  },
+  {
+    "ID": 8,
+    "Repuesto": "Amortiguadores",
+    "Detalles": "Absorben impactos en la suspensión.",
+    "Costo": 60.00
+  },
+  {
+    "ID": 9,
+    "Repuesto": "Filtro de aire",
+    "Detalles": "Limpia el aire que entra al motor.",
+    "Costo": 20.30
+  },
+  {
+    "ID": 10,
+    "Repuesto": "Bomba de agua",
+    "Detalles": "Circula el refrigerante por el motor.",
+    "Costo": 55.90
+  },
+  {
+    "ID": 11,
+    "Repuesto": "Discos de freno",
+    "Detalles": "Superficie para las pastillas de freno.",
+    "Costo": 70.40
+  },
+  {
+    "ID": 12,
+    "Repuesto": "Aceite de motor",
+    "Detalles": "Lubrica y protege el motor.",
+    "Costo": 40.00
+  },
+  {
+    "ID": 13,
+    "Repuesto": "Termostato",
+    "Detalles": "Regula la temperatura del motor.",
+    "Costo": 22.15
+  },
+  {
+    "ID": 14,
+    "Repuesto": "Sensor de oxígeno",
+    "Detalles": "Mide niveles de oxígeno en escape.",
+    "Costo": 65.70
+  },
+  {
+    "ID": 15,
+    "Repuesto": "Llantas",
+    "Detalles": "Proveen tracción y soporte al vehículo.",
+    "Costo": 110.00
+  },
+  {
+    "ID": 16,
+    "Repuesto": "Embrague",
+    "Detalles": "Conecta y desconecta el motor de la transmisión.",
+    "Costo": 150.25
+  },
+  {
+    "ID": 17,
+    "Repuesto": "Faros delanteros",
+    "Detalles": "Iluminan el camino en la oscuridad.",
+    "Costo": 85.60
+  },
+  {
+    "ID": 18,
+    "Repuesto": "Filtro de combustible",
+    "Detalles": "Elimina impurezas del combustible.",
+    "Costo": 18.90
+  },
+  {
+    "ID": 19,
+    "Repuesto": "Bobina de encendido",
+    "Detalles": "Genera voltaje para las bujías.",
+    "Costo": 45.30
+  },
+  {
+    "ID": 20,
+    "Repuesto": "Escobillas limpiaparabrisas",
+    "Detalles": "Limpian el parabrisas de agua y suciedad.",
+    "Costo": 12.50
+  }
+]

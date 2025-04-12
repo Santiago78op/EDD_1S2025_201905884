@@ -120,6 +120,12 @@
     "Costo": 75.00
   },
   {
+    "ID": 19,
+    "Repuesto": "Correa de distribución",
+    "Detalles": "Correa de distribución para motor 1.8L",
+    "Costo": 75.00
+  },
+  {
     "ID": 20,
     "Repuesto": "Bomba de agua",
     "Detalles": "Bomba de agua para motor 2.0L",

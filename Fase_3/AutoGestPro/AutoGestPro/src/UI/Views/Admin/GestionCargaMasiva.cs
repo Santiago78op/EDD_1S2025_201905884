@@ -444,14 +444,24 @@ namespace AutoGestPro.UI.Views.Admin
                     _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 case "REPUESTOS":
-                    //ConfigureTreeViewColumns("Código", "Nombre", "Precio");
+                    AddTreeViewColumn("ID", 0);
+                    AddTreeViewColumn("Repuesto", 1);
+                    AddTreeViewColumn("Detalles", 2);
+                    AddTreeViewColumn("Costo", 3);
+                    _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 case "SERVICIOS":
-                    //ConfigureTreeViewColumns("ID", "Nombre", "Tarifa");
+                    AddTreeViewColumn("ID", 0);
+                    AddTreeViewColumn("Id Usuario", 1);
+                    AddTreeViewColumn("Id Repuesto", 2);
+                    AddTreeViewColumn("Id Vehículo", 3);
+                    AddTreeViewColumn("Detalles", 4);
+                    AddTreeViewColumn("Costo", 5);
+                    _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
                     break;
                 default:
-                    //ConfigureTreeViewColumns("Campo 1", "Campo 2", "Campo 3");
-                    break;
+                    ShowMessage("Tipo de entidad no soportado.");
+                    return;
             }
             
             // Recrear el ListStore
@@ -498,10 +508,10 @@ namespace AutoGestPro.UI.Views.Admin
                                 _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3], fila[4]);
                                 break;
                             case "REPUESTOS":
-                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3]);
                                 break;
                             case "SERVICIOS":
-                                _listStore.AppendValues(fila[0], fila[1], fila[2]);
+                                _listStore.AppendValues(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5]);
                                 break;
                             default:
                                 _listStore.AppendValues("Error", "Tipo de entidad no soportado", "");

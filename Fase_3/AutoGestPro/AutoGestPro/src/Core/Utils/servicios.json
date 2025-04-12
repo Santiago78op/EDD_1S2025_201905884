@@ -1,0 +1,44 @@
+﻿[
+  {
+    "ID": 1,
+    "IdRepuesto": 3,
+    "IdVehiculo": 5,
+    "Detalles": "Cambio de pastillas de freno",
+    "Costo": 50.00
+  },
+  {
+    "ID": 2,
+    "IdRepuesto": 4,
+    "IdVehiculo": 8,
+    "Detalles": "Reemplazo de batería",
+    "Costo": 120.00
+  },
+  {
+    "ID": 3,
+    "IdRepuesto": 7,
+    "IdVehiculo": 12,
+    "Detalles": "Cambio de correa de distribución",
+    "Costo": 80.00
+  },
+  {
+    "ID": 4,
+    "IdRepuesto": 10,
+    "IdVehiculo": 15,
+    "Detalles": "Reparación de bomba de agua",
+    "Costo": 100.00
+  },
+  {
+    "ID": 5,
+    "IdRepuesto": 15,
+    "IdVehiculo": 20,
+    "Detalles": "Reemplazo de llantas",
+    "Costo": 220.00
+  },
+  {
+    "ID": 5,
+    "IdRepuesto": 15,
+    "IdVehiculo": 20,
+    "Detalles": "Reemplazo de llantas",
+    "Costo": 220.00
+  }
+]

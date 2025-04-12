@@ -21,10 +21,10 @@ public class Servicio
     /// <param name="idVehiculo">El identificador del vehículo.</param>
     /// <param name="detalles">Los detalles del servicio.</param>
     /// <param name="costo">El costo del servicio.</param>
-    public Servicio(int id, int idUsuario, int idRepuesto, int idVehiculo, string detalles, decimal costo)
+    public Servicio(int id, int idRepuesto, int idVehiculo, string detalles, decimal costo)
     {
         _id = id;
-        _idUsuario = idUsuario;
+        _idUsuario = 0;
         _idRepuesto = idRepuesto;
         _idVehiculo = idVehiculo;
         _detalles = detalles ?? throw new ArgumentNullException(nameof(detalles));

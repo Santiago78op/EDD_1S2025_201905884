@@ -37,9 +37,10 @@ public class CargaMasivaService
                 return CargaVehiculosDesdeArchivo(rutaArchivo);
             case "REPUESTOS":
                 // Cargar repuestos desde un archivo JSON
-                break;
+                return CargaRepuestosDesdeArchivo(rutaArchivo);
             case "SERVICIOS":
-                // Implementar carga de servicios
+                // Cargar servicios desde un archivo JSON
+                return CargaServiciosDesdeArchivo(rutaArchivo);
                 break;
             default:
                 Console.WriteLine("Tipo de carga no soportado.");
@@ -178,4 +179,133 @@ public class CargaMasivaService
         }
         return false;
     }
+    
+    /// <summary>
+    /// 📌 Cargar repuestos desde un archivo JSON
+    /// </summary>
+    /// <param name="rutaArchivo">Ruta del archivo JSON.</param>
+    /// <returns>True si la carga fue exitosa, false en caso contrario.</returns>
+    public bool CargaRepuestosDesdeArchivo(string rutaArchivo)
+    {
+        try
+        {
+            // Leer el contenido del archivo JSON
+            string json = File.ReadAllText(rutaArchivo);
+            // Deserializar el contenido a una lista de repuestos
+            var repuestos = JsonConvert.DeserializeObject<Repuesto[]>(json);
+            if (repuestos != null)
+            {
+                // Guardar los repuestos en la base de datos
+                var datos = new List<string[]>();
+                foreach (var repuesto in repuestos)
+                {
+                    Estructuras.Repuestos.Insert(repuesto.Id, repuesto);
+                    if (!datos.Any(d => d[0] == repuesto.Id.ToString()))
+                    {
+                        datos.Add(new string[]
+                        {
+                            repuesto.Id.ToString(),
+                            repuesto.Repuesto1,
+                            repuesto.Detalles,
+                            repuesto.Costo.ToString()
+                        });
+                    }
+                }
+                // Actualizar la propiedad DatosCargados
+                DatosCargados = datos.ToArray();
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al cargar repuestos: {ex.Message}");
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// 📌 Cargar servicios desde un archivo JSON
+    /// </summary>
+    /// <param name="rutaArchivo">Ruta del archivo JSON.</param>
+    /// <returns>True si la carga fue exitosa, false en caso contrario.</returns>
+    public bool CargaServiciosDesdeArchivo(string rutaArchivo)
+    {
+        try
+        {
+            // Leer el contenido del archivo JSON
+            string json = File.ReadAllText(rutaArchivo);
+            // Deserializar el contenido a una lista de servicios
+            var servicios = JsonConvert.DeserializeObject<Servicio[]>(json);
+            if (servicios != null)
+            {
+                // Guardar los servicios en la base de datos
+                var datos = new List<string[]>();
+                foreach (var servicio in servicios)
+                {
+                    // Verificar si el repuesto y el vehiculo existen
+                    var repuesto = Estructuras.Repuestos.Search(servicio.IdRepuesto);
+                    var vehiculo = Estructuras.Vehiculos.SearchNode(servicio.IdVehiculo);
+                    // Asigna el ID del usuario al servicio
+                    servicio.IdUsuario = ((Vehiculo)vehiculo.Data).IdUsuario;
+                    
+                    if (repuesto == null || vehiculo == null)
+                    {
+                        Console.WriteLine($"Error al registrar el servicio: {servicio.Id}");
+                    }else
+                    {
+                        Estructuras.Servicios.Insert(servicio.Id, servicio);
+                        if (!datos.Any(d => d[0] == servicio.Id.ToString()))
+                        {
+                            datos.Add(new string[]
+                            {
+                                servicio.Id.ToString(),
+                                servicio.IdUsuario.ToString(),
+                                servicio.IdRepuesto.ToString(),
+                                servicio.IdVehiculo.ToString(),
+                                servicio.Detalles,
+                                servicio.Costo.ToString()
+                            });
+                        }
+                        
+                        // Genera factura
+                        GenerarFactura(servicio, (Vehiculo)vehiculo.Data, repuesto);
+                    }
+                }
+                // Actualizar la propiedad DatosCargados
+                DatosCargados = datos.ToArray();
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al cargar servicios: {ex.Message}");
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// Genera una factura para el servicio.
+    /// </summary>
+    /// <param name="servicio">Servicio a facturar.</param>
+    /// <param name="vehiculo">Vehículo asociado al servicio.</param>
+    /// <param name="repuesto">Repuesto asociado al servicio.</param>
+    private void GenerarFactura(Servicio servicio, Vehiculo vehiculo, Repuesto repuesto)
+    {
+        try
+        {
+            // Total de la factura
+            var total = servicio.Costo + repuesto.Costo;
+            // Crear la factura
+            var factura = new Factura(servicio.Id, vehiculo.IdUsuario, servicio.Id, total);
+            // Guardar la factura en el Árbol de Merkle 
+            Estructuras.Facturas.Insert(factura.Id, factura);
+           
+            Console.WriteLine($"Factura generada correctamente: {factura.Id}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al generar factura: {ex.Message}");
+        }
+    }
+    
 }

@@ -1,0 +1,82 @@
+﻿[
+  {
+    "ID": 1,
+    "Nombres": "Efraín Josué",
+    "Apellidos": "Cuxum Pérez",
+    "Correo": "efrain.josue@usac.com",
+    "Edad": 19,
+    "Contrasenia": "EC123"
+  },
+  {
+    "ID": 2,
+    "Nombres": "Ximena Marisol",
+    "Apellidos": "Quixchán Rojas",
+    "Correo": "ximena.marisol@usac.com",
+    "Edad": 21,
+    "Contrasenia": "XQ123"
+  },
+  {
+    "ID": 3,
+    "Nombres": "Brayan Estuardo",
+    "Apellidos": "Tumax García",
+    "Correo": "brayan.estuardo@usac.com",
+    "Edad": 22,
+    "Contrasenia": "BT123"
+  },
+  {
+    "ID": 4,
+    "Nombres": "Karla Lisseth",
+    "Apellidos": "Chocoy Méndez",
+    "Correo": "karla.lisseth@usac.com",
+    "Edad": 20,
+    "Contrasenia": "KC123"
+  },
+  {
+    "ID": 5,
+    "Nombres": "Steven Facundo",
+    "Apellidos": "Mejia Xolop",
+    "Correo": "steven.mejia@usac.com",
+    "Edad": 23,
+    "Contrasenia": "SM123"
+  },
+  {
+    "ID": 6,
+    "Nombres": "Selvin Orlando",
+    "Apellidos": "Ajpacajá Ruiz",
+    "Correo": "selvin.orlando@usac.com",
+    "Edad": 18,
+    "Contrasenia": "SA123"
+  },
+  {
+    "ID": 7,
+    "Nombres": "Mayra Alejandra",
+    "Apellidos": "Cojulún Díaz",
+    "Correo": "mayra.alejandra@usac.com",
+    "Edad": 21,
+    "Contrasenia": "MC123"
+  },
+  {
+    "ID": 8,
+    "Nombres": "Noé Eliseo",
+    "Apellidos": "Sactic Vásquez",
+    "Correo": "noe.eliseo@usac.com",
+    "Edad": 19,
+    "Contrasenia": "NS123"
+  },
+  {
+    "ID": 9,
+    "Nombres": "Dulce María",
+    "Apellidos": "Xolop Castillo",
+    "Correo": "dulce.maria@usac.com",
+    "Edad": 20,
+    "Contrasenia": "DX123"
+  },
+  {
+    "ID": 10,
+    "Nombres": "Jairo Vinicio",
+    "Apellidos": "Camey Ortiz",
+    "Correo": "jairo.vinicio@usac.com",
+    "Edad": 22,
+    "Contrasenia": "JC123"
+  }
+]
