@@ -297,10 +297,10 @@ public class CargaMasivaService
             var total = servicio.Costo + repuesto.Costo;
             // Crear la factura
             var factura = new Factura(servicio.Id, vehiculo.IdUsuario, servicio.Id, total);
+            // Establecer el método de pago
+            factura.EstablecerMetodoPago(MetodoPago.TarjetaDeCredito, true);
             // Guardar la factura en el Árbol de Merkle 
             Estructuras.Facturas.Insert(factura.Id, factura);
-           
-            Console.WriteLine($"Factura generada correctamente: {factura.Id}");
         }
         catch (Exception ex)
         {

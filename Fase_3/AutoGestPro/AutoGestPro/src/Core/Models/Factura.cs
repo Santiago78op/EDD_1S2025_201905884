@@ -1,3 +1,5 @@
+using AutoGestPro.Core.Global;
+
 namespace AutoGestPro.Core.Models;
 
 /// <summary>
@@ -9,6 +11,11 @@ public class Factura
     private int _idUsuario;
     private int _idServicio;
     private decimal _total;
+    private DateTime _fechaCreacion; 
+    private MetodoPago _metodoPago;
+    
+    // Generar de forma aleatoria un método de pago
+    private Random _random = new Random();
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase <see cref="Factura"/>.
@@ -23,6 +30,8 @@ public class Factura
         _idUsuario = idUsuario;
         _idServicio = idServicio;
         _total = total;
+        _fechaCreacion = DateTime.Now;
+        _metodoPago = MetodoPago.Efectivo; // Valor por defecto
     }
 
     /// <summary>
@@ -59,5 +68,38 @@ public class Factura
     {
         get => _total;
         set => _total = value;
+    }
+
+    public DateTime FechaCreacion
+    {
+        get => _fechaCreacion;
+        set => _fechaCreacion = value;
+    }
+
+    /// <summary>
+    /// Obtiene o establece el método de pago.
+    /// </summary>
+    public MetodoPago MetodoPago
+    {
+        get => _metodoPago;
+        set => _metodoPago = value;
+    }
+    
+    /// <summary>
+    /// Establece el método de pago de la factura.
+    /// </summary>
+    /// <param name="metodoPago">El método de pago a establecer.</param>
+    /// <param name="trueMasiva">Indica si es un pago masivo.</param>
+    public void EstablecerMetodoPago(MetodoPago metodoPago, bool trueMasiva = false)
+    {
+        if (!trueMasiva)
+        {
+            _metodoPago = metodoPago;
+        } 
+        else
+        {
+            int randomValue = _random.Next(0, 3);
+            _metodoPago = (MetodoPago)randomValue; // Asigna el método de pago basado en el número aleatorio
+        }
     }
 }

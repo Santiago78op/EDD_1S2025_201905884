@@ -46,7 +46,7 @@ namespace AutoGestPro.Core.Structures;
                 // Validar que el ID sea único
                 if (_nodes.ContainsKey(id))
                 {
-                    Console.WriteLine("El id ya existe");
+                    Console.WriteLine("La Factura con el ID {0} ya existe.", id);
                     return;
                 }
                 
