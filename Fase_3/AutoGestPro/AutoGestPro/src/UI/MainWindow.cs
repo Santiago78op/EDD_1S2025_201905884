@@ -105,7 +105,7 @@ public class MainWindow : Window
                 // Primera fila
                 grid.Attach(CreateActionButton("Carga \nMasiva", adminActions.OnCargaMaisva), 0, 0, 1, 1);
                 grid.Attach(CreateActionButton("Inserción de\nUsuarios", adminActions.OnInsercionUsuario), 1, 0, 1, 1);
-                grid.Attach(CreateActionButton("Visualización de\nUsuarios", adminActions.OnGestionRepuestos), 2, 0, 1, 1);
+                grid.Attach(CreateActionButton("Visualización de\nUsuarios", adminActions.OnVisualizarUsuario), 2, 0, 1, 1);
 
                 // Segunda fila
                 grid.Attach(CreateActionButton("Visualización de \nRepuestos", adminActions.OnGestionServicios), 0, 1, 1, 1);

@@ -19,13 +19,14 @@ public class MenuAdministrador
     public void OnInsercionUsuario(object sender, EventArgs e)
     {
         // Lógica para abrir la gestión de Cargas Masivas
-        var ventana = new GestionUsuarios();
+        var ventana = new GestionUsuariosInsercion();
         ventana.ShowAll();
     }
 
-    public void OnGestionRepuestos(object sender, EventArgs e)
+    public void OnVisualizarUsuario(object sender, EventArgs e)
     {
-        Console.WriteLine("Abrir Gestión de Repuestos");
+        var ventana = new VisualizacionUsuarios();
+        ventana.ShowAll();
     }
 
     public void OnGestionServicios(object sender, EventArgs e)
