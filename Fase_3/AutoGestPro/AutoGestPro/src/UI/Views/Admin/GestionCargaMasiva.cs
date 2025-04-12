@@ -68,7 +68,7 @@ namespace AutoGestPro.UI.Views.Admin
             SetPosition(WindowPosition.Center);
             DeleteEvent += (o, args) => 
             {
-                args.RetVal = false; // Permite el cierre de la ventana
+                args.RetVal = true; // Permite el cierre de la ventana
                 this.Destroy(); // Solo destruye esta ventana, no toda la aplicación
             };
         }
