@@ -19,7 +19,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="GtkSharp" Version="3.24.24.117-develop" />
+      <PackageReference Include="GtkSharp" Version="3.24.24.95" />
       <PackageReference Include="GtkSharp.Dependencies" Version="1.1.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>

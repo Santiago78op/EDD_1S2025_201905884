@@ -16,9 +16,11 @@ public class MenuAdministrador
         ventana.ShowAll();
     }
 
-    public void OnGestionVehiculos(object sender, EventArgs e)
+    public void OnInsercionUsuario(object sender, EventArgs e)
     {
-        Console.WriteLine("Abrir Gestión de Vehículos");
+        // Lógica para abrir la gestión de Cargas Masivas
+        var ventana = new GestionUsuarios();
+        ventana.ShowAll();
     }
 
     public void OnGestionRepuestos(object sender, EventArgs e)

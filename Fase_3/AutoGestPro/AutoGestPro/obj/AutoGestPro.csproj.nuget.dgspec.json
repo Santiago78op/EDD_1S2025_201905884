@@ -52,7 +52,7 @@
             },
             "GtkSharp": {
               "target": "Package",
-              "version": "[3.24.24.117-develop, )"
+              "version": "[3.24.24.95, )"
             },
             "GtkSharp.Dependencies": {
               "target": "Package",
