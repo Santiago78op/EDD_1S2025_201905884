@@ -2,7 +2,6 @@
 
 using Gtk;
 
-
 /// <summary>
 /// Extensiones para widgets de Gtk.
 /// </summary>
