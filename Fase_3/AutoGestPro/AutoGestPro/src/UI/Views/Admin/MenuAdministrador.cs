@@ -29,8 +29,10 @@ public class MenuAdministrador
         ventana.ShowAll();
     }
 
-    public void OnGestionServicios(object sender, EventArgs e)
+    public void OnVisualizarRepuesto(object sender, EventArgs e)
     {
+        var ventana = new VisualizacionRepuestos();
+        ventana.ShowAll();
         Console.WriteLine("Abrir Servicios");
     }
 
