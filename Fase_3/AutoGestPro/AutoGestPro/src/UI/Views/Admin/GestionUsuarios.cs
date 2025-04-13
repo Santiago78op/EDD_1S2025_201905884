@@ -340,4 +340,3 @@ public class GestionUsuariosInsercion : Window
 
     #endregion
 }
-
