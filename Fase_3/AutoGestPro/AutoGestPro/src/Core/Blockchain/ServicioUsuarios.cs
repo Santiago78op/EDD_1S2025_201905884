@@ -79,4 +79,14 @@ public class ServicioUsuarios
     {
         return _blockchain.EsValida();
     }
+    
+    // Obtiene todos los usuarios registrados
+    public List<Usuario> ObtenerTodos()
+    {
+        // Devuelve una lista con todos los usuarios en el diccionario
+        return _usuariosPorCorreo.Values.ToList();
+    }
+
+    // Propiedad que devuelve el número de usuarios registrados
+    public int Count => _usuariosPorCorreo.Count;
 }
