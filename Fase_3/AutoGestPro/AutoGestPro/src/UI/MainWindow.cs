@@ -109,7 +109,7 @@ public class MainWindow : Window
 
                 // Segunda fila
                 grid.Attach(CreateActionButton("Visualización de \nRepuestos", adminActions.OnVisualizarRepuesto), 0, 1, 1, 1);
-                grid.Attach(CreateActionButton("Generar \nServicio", adminActions.OnGestionFacturas), 1, 1, 1, 1);
+                grid.Attach(CreateActionButton("Generar \nServicio", adminActions.OnInsertarServicio), 1, 1, 1, 1);
                 grid.Attach(CreateActionButton("Generación de \nReportes", adminActions.OnGenerarReportes), 2, 1, 1, 1);
 
                 // Tercera fila

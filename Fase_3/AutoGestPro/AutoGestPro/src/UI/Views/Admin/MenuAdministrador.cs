@@ -33,12 +33,12 @@ public class MenuAdministrador
     {
         var ventana = new VisualizacionRepuestos();
         ventana.ShowAll();
-        Console.WriteLine("Abrir Servicios");
     }
 
-    public void OnGestionFacturas(object sender, EventArgs e)
+    public void OnInsertarServicio(object sender, EventArgs e)
     {
-        Console.WriteLine("Abrir Facturas");
+        var ventana = new GestionServicios();
+        ventana.ShowAll();
     }
 
     public void OnGenerarReportes(object sender, EventArgs e)
