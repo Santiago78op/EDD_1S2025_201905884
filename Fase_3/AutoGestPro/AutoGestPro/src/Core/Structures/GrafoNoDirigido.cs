@@ -95,7 +95,7 @@ public class GrafoNoDirigido : IGrafo
         dot.AppendLine("    edge [fontname=\"Arial\"];");
         
         // Agregar título al grafo
-        string titulo = "Grafo de Compatibilidad de Vehículos y Repuestos Santiago Barrera";
+        string titulo = "Grafo de Compatibilidad de Vehículos y Repuestos";
         dot.AppendLine($"    label=\"{titulo}\";");
         
         // Agregar marco al grafo

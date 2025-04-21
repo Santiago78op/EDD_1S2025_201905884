@@ -332,4 +332,9 @@ public class DoubleList : IDoubleList, IDisposable
     {
         Dispose();
     }
+
+    public string GenerarDotVehiculos()
+    {
+        throw new NotImplementedException();
+    }
 }

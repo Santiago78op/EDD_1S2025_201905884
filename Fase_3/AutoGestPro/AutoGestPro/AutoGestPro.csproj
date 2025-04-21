@@ -8,10 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="assets\" />
       <Folder Include="docs\" />
-      <Folder Include="src\UI\Resources\Icons\" />
-      <Folder Include="src\UI\Resources\Img\" />
+      <Folder Include="Reports\" />
     </ItemGroup>
 
     <ItemGroup>

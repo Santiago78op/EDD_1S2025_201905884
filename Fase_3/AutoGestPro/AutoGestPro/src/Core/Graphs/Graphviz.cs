@@ -1,14 +1,75 @@
-
+using System.Diagnostics;
+using AutoGestPro.Core.Global;
 
 namespace AutoGestPro.Core.Graphs;
 
+/// <summary>
+/// Clase para generar imágenes a partir de archivos .dot utilizando Graphviz.
+/// </summary>
 public class Graphviz
 {
+
+    private int _contUser, _contCar;
+    
+    // Obtener la ruta absoluta de la carpeta raíz del proyecto
+    private static string GetProjectRootPath()
+    {
+        string projectRootPath = AppDomain.CurrentDomain.BaseDirectory;
+        return Path.GetFullPath(Path.Combine(projectRootPath, @"..\..\..\..\"));
+    }
+    
+    //  Combinar con la carpet de Reporte
+    private static string GetReportPath()
+    {
+        string projectRootPath = GetProjectRootPath();
+        string reportPath = Path.Combine(projectRootPath, "Reports");
+        return reportPath;
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de usuario en formato .dot.
+    /// </summary>
+    public void GeneraReporteUsuario()
+    {
+        string dotFilePath = $"{GetReportPath()}/usuarios_{++_contUser}.dot";
+        string outputFilePath = $"{GetReportPath()}/usuarios_{_contUser}.png";
+        string dotContent = Estructuras.Clientes.GenerarDotUsuarios();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de vehículos en formato .dot.
+    /// </summary>
+    public void GeneraReporteVehiculo()
+    {
+        string dotFilePath = $"{GetReportPath()}/vehiculos_{++_contCar}.dot";
+        string outputFilePath = $"{GetReportPath()}/vehiculos_{_contCar}.png";
+        string dotContent = Estructuras.Vehiculos.GenerarDotVehiculos();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
     /// <summary>
     /// Genera una imagen a partir de un archivo .dot.
     /// </summary>
-    public string GenerarDotImg()
+    public void GenerarDotImg(string dotFilePath, string outputImagePath, string dotContent)
     {
-        return null;
+        try
+        {
+            File.WriteAllText(dotFilePath,dotContent);
+            Process process = new Process();
+            process.StartInfo.FileName = "dot";
+            process.StartInfo.Arguments = $"-Tpng \"{dotFilePath}\" -o \"{outputImagePath}\"";
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.Start();
+            process.WaitForExit();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

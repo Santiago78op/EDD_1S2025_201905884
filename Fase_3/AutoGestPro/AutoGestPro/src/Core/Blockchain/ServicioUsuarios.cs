@@ -1,5 +1,5 @@
+using System.Text;
 using AutoGestPro.Core.Models;
-using Newtonsoft.Json;
 
 namespace AutoGestPro.Core.Blockchain;
 
@@ -89,4 +89,45 @@ public class ServicioUsuarios
 
     // Propiedad que devuelve el número de usuarios registrados
     public int Count => _usuariosPorCorreo.Count;
+    
+    /// <summary>
+    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// </summary>
+    /// <returns>String en formato DOT</returns>
+    public string GenerarDotUsuarios()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Blockchain {");
+        dot.AppendLine("    node [shape=record];");
+        dot.AppendLine("    graph [rankdir=LR];");
+        dot.AppendLine("    subgraph cluster_0 {");
+        dot.AppendLine("        label=\"Blockchain de Usuarios\";");
+    
+        if (_blockchain.Cadena == null || _blockchain.Cadena.Count == 0)
+        {
+            dot.AppendLine("        empty [label=\"Cadena vacía\"];");
+        }
+        else
+        {
+            for (int i = 0; i < _blockchain.Cadena.Count; i++)
+            {
+                Bloque bloque = _blockchain.Cadena[i];
+                string hashDisplay = bloque.Hash.Length >= 8 ? bloque.Hash.Substring(0, 8) + "..." : bloque.Hash;
+                string prevHashDisplay = bloque.HashPrevio.Length >= 8 ? bloque.HashPrevio.Substring(0, 8) + "..." : bloque.HashPrevio;
+            
+                string nodeLabel = $"\"Bloque {bloque.Indice}\\nHash: {hashDisplay}\\nPrevHash: {prevHashDisplay}\\nNonce: {bloque.Nonce}\"";
+                dot.AppendLine($"        block{bloque.Indice} [label={nodeLabel}];");
+            
+                // Añadir la conexión al siguiente bloque si no es el último
+                if (i < _blockchain.Cadena.Count - 1)
+                {
+                    dot.AppendLine($"        block{bloque.Indice} -> block{_blockchain.Cadena[i + 1].Indice};");
+                }
+            }
+        }
+    
+        dot.AppendLine("    }");
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
 }

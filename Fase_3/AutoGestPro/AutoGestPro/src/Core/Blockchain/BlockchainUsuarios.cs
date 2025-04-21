@@ -18,7 +18,19 @@ public class BlockchainUsuarios
         _dificultad = dificultad;
         CrearBloqueGenesis();
     }
-    
+
+    public List<Bloque> Cadena
+    {
+        get => _cadena;
+        set => _cadena = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public int Dificultad
+    {
+        get => _dificultad;
+        set => _dificultad = value;
+    }
+
     // Crea el primer bloque (génesis)
     private void CrearBloqueGenesis()
     {
