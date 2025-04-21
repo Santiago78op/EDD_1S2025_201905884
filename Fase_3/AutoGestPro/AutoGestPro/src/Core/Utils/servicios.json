@@ -40,5 +40,26 @@
     "IdVehiculo": 20,
     "Detalles": "Reemplazo de llantas",
     "Costo": 220.00
-  }
+  },
+    {
+        "ID": 6,
+        "IdRepuesto": 18,
+        "IdVehiculo": 20,
+        "Detalles": "Cambio de aceite y filtro",
+        "Costo": 40.00
+    },
+    {
+        "ID": 7,
+        "IdRepuesto": 15,
+        "IdVehiculo": 18,
+        "Detalles": "Alineación y balanceo",
+        "Costo": 60.00
+    },
+    {
+        "ID": 8,
+        "IdRepuesto": 9,
+        "IdVehiculo": 12,
+        "Detalles": "Reparación de transmisión",
+        "Costo": 300.00
+    }
 ]

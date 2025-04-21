@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoGestPro.Core.Global;
 using AutoGestPro.Core.Models;
+using AutoGestPro.Core.Nodes;
 using Gtk;
 
 namespace AutoGestPro.UI.Views.Admin;
@@ -222,8 +223,8 @@ public class GestionServicios : Window
         // Crear el modelo de datos para el ComboBox
         var listStore = new ListStore(typeof(string));
         listStore.AppendValues("Efectivo");
-        listStore.AppendValues("TarjetaDeCredito");
-        listStore.AppendValues("TarjetaDeDebito");
+        listStore.AppendValues("Tarjeta De Credito");
+        listStore.AppendValues("Tarjeta De Debito");
 
         // Crear el ComboBox con el modelo de datos
         _cmbMetodoPago = new ComboBox(listStore);
@@ -440,6 +441,9 @@ public class GestionServicios : Window
                 _btnGenerarServicio.Sensitive = true;
                 return;
             }
+            
+            // Crea nodo de tipo vehículo, para el grafo no dirigido
+            Vehiculo dataVehiculo = (Vehiculo)nodoVehiculo.Data;
 
             var nodoRepuesto = Estructuras.Repuestos.Search(idRepuesto);
             if (nodoRepuesto == null)
@@ -449,29 +453,30 @@ public class GestionServicios : Window
                 _btnGenerarServicio.Sensitive = true;
                 return;
             }
-
+            
+            // Crea nodo de tipo repuesto, para el grafo no dirigido
+            Repuesto dataRepuesto = nodoRepuesto;
+    
             // Crear nuevo servicio con método de pago
-            Vehiculo idUser = (Vehiculo)nodoVehiculo.Data;
             Servicio nuevoServicio = new Servicio(id,idRepuesto, idVehiculo, _entryDetalle.Text.Trim(), costo)
             {
-                IdUsuario = idUser.IdUsuario
+                IdUsuario = dataVehiculo.IdUsuario
             };
             
             // Insertar en el árbol AVL global
             Estructuras.Servicios.Insert(id, nuevoServicio);
 
             // Agregar el servicio al usuario correspondiente
-            Usuario usuario = Estructuras.Clientes.BuscarUsuarioPorId(idUser.IdUsuario);
+            Usuario usuario = Estructuras.Clientes.BuscarUsuarioPorId(dataVehiculo.IdUsuario);
             if (usuario != null)
             {
                 Estructuras.Servicios.Insert(id, nuevoServicio);
 
                 // Creación de la factura
-                Repuesto repuesto = nodoRepuesto;
-                decimal costoTotal = costo + repuesto.Costo;
+                decimal costoTotal = costo + dataRepuesto.Costo;
 
                 // Crear objeto factura
-                Factura nuevaFactura = new Factura(id, idUser.IdUsuario, id, costoTotal);
+                Factura nuevaFactura = new Factura(id, dataVehiculo.IdUsuario, id, costoTotal);
                 
                 // Establecer método de pago
                 nuevaFactura.EstablecerMetodoPago((AutoGestPro.Core.Global.MetodoPago)metodoPagoFactura);
@@ -480,13 +485,14 @@ public class GestionServicios : Window
                 // Guardar la factura en el Árbol de Merkle 
                 Estructuras.Facturas.Insert(nuevaFactura.Id, nuevaFactura);
 
-                // Insertar factura en la estructura global
-                Estructuras.Facturas.Insert(id, nuevaFactura);
-
+                // Establecimeinto de la relación en grafo no dirigido entre id vehículo y id repuesto.
+                // Agregar relación entre vehículo y repuesto en el grafo no dirigido
+                Estructuras.Gestor.RegistrarCompatibilidad("V"+dataVehiculo.Id, "R"+dataRepuesto.Id);   
+                
                 // Actualizar interfaz
                 _listStore.AppendValues(
                     id.ToString(),
-                    idUser.IdUsuario.ToString(),
+                    dataVehiculo.IdUsuario.ToString(),
                     idVehiculo.ToString(),
                     idRepuesto.ToString(),
                     _entryDetalle.Text.Trim(),

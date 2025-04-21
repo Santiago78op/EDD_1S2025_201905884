@@ -14,10 +14,14 @@ public static class Estructuras
     private static readonly Lazy<TreeAvl<Repuesto>> _repuestos = new Lazy<TreeAvl<Repuesto>>(() => new TreeAvl<Repuesto>());
     private static readonly Lazy<TreeBinary> _servicios = new Lazy<TreeBinary>(() => new TreeBinary());
     private static readonly Lazy<MerkleTree> _facturas = new Lazy<MerkleTree>(() => new MerkleTree());
+    private static readonly Lazy<GrafoNoDirigido> _grafo = new Lazy<GrafoNoDirigido>(() => new GrafoNoDirigido());
+    private static readonly Lazy<GestorVehiculosRepuestos> _gestor = new Lazy<GestorVehiculosRepuestos>(() => new GestorVehiculosRepuestos(_grafo.Value));
     
     public static ServicioUsuarios Clientes => _clientes.Value;
     public static DoubleList Vehiculos => _vehiculos.Value;
     public static TreeAvl<Repuesto> Repuestos => _repuestos.Value;
     public static TreeBinary Servicios => _servicios.Value;
     public static MerkleTree Facturas => _facturas.Value;
+    public static GrafoNoDirigido Grafo => _grafo.Value;
+    public static GestorVehiculosRepuestos Gestor => _gestor.Value;
 }

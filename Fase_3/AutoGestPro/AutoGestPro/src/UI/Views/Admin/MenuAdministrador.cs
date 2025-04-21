@@ -1,3 +1,5 @@
+using AutoGestPro.Core.Global;
+
 namespace AutoGestPro.UI.Views.Admin;
 
 using Gtk;
@@ -44,6 +46,8 @@ public class MenuAdministrador
     public void OnGenerarReportes(object sender, EventArgs e)
     {
         Console.WriteLine("Generar Reportes");
+        String dot = Estructuras.Grafo.GenerarDot();
+        Console.WriteLine(dot);
     }
 
     public void OnMostrarBitacora(object sender, EventArgs e)

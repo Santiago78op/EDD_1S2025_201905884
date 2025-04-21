@@ -267,6 +267,17 @@ public class CargaMasivaService
                             });
                         }
                         
+                        // Crea nodo de tipo vehículo, para el grafo no dirigido
+                        Vehiculo dataVehiculo = (Vehiculo)vehiculo.Data;
+                            
+                        // Crea nodo de tipo repuesto, para el grafo no dirigido
+                        Repuesto dataRepuesto = repuesto;
+                        
+                        
+                        // Establecimeinto de la relación en grafo no dirigido entre id vehículo y id repuesto.
+                        // Agregar relación entre vehículo y repuesto en el grafo no dirigido
+                        Estructuras.Gestor.RegistrarCompatibilidad("V"+dataVehiculo.Id, "R"+dataRepuesto.Id);   
+                        
                         // Genera factura
                         GenerarFactura(servicio, (Vehiculo)vehiculo.Data, repuesto);
                     }
