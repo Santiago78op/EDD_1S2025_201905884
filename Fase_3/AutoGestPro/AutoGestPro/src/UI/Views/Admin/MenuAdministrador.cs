@@ -45,9 +45,8 @@ public class MenuAdministrador
 
     public void OnGenerarReportes(object sender, EventArgs e)
     {
-        Console.WriteLine("Generar Reportes");
-        String dot = Estructuras.Grafo.GenerarDot();
-        Console.WriteLine(dot);
+        var ventana = new GenerarReportes();
+        ventana.ShowAll();
     }
 
     public void OnMostrarBitacora(object sender, EventArgs e)

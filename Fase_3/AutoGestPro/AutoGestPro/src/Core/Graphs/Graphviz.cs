@@ -19,10 +19,15 @@ public class Graphviz
     }
     
     //  Combinar con la carpet de Reporte
-    private static string GetReportPath()
+    public static string GetReportPath()
     {
         string projectRootPath = GetProjectRootPath();
         string reportPath = Path.Combine(projectRootPath, "Reports");
+        // Crear la carpeta "Reportes" si no existe
+        if (!Directory.Exists(reportPath))
+        {
+            Directory.CreateDirectory(reportPath);
+        }
         return reportPath;
     }
     
