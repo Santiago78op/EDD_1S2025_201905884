@@ -1,4 +1,6 @@
+using System.Text;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -333,8 +335,56 @@ public class DoubleList : IDoubleList, IDisposable
         Dispose();
     }
 
+    /// <summary>
+    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// </summary>
+    /// <returns>String en formato DOT</returns>
     public string GenerarDotVehiculos()
     {
-        throw new NotImplementedException();
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Vehiculos {");
+        dot.AppendLine("    node [shape=box];");
+        dot.AppendLine("    graph [rankdir=LR];");
+        dot.AppendLine("    subgraph cluster_0 {");
+        dot.AppendLine("        label=\"Lista Doble de Vehiculos\";");
+
+        if (_length == 0)
+        {
+            dot.AppendLine("        empty [label=\"Cadena vacía\"];");
+        }
+        else
+        {
+            NodeDouble current = _head;
+            while (current != null)
+            {
+                var vehiculo = current.Data as Vehiculo;
+                if (vehiculo != null)
+                {
+                    dot.AppendLine($"        {vehiculo.Id} [label=\"ID: {vehiculo.Id}\\nIdUsuario: {vehiculo.IdUsuario}\\nMarca: {vehiculo.Marca}\\nModelo: {vehiculo.Modelo}\\nPlaca: {vehiculo.Placa}\"];\n");
+                }
+                current = current.Next;
+            }
+
+            // Conectar los nodos
+            current = _head;
+            while (current != null && current.Next != null)
+            {
+                var vehiculoActual = current.Data as Vehiculo;
+                var vehiculoSiguiente = current.Next.Data as Vehiculo;
+
+                if (vehiculoActual != null && vehiculoSiguiente != null)
+                {
+                    dot.AppendLine($"        {vehiculoActual.Id} -> {vehiculoSiguiente.Id};");
+                    dot.AppendLine($"        {vehiculoSiguiente.Id} -> {vehiculoActual.Id};");
+                }
+                
+                current = current.Next;
+            }
+        }
+
+        dot.AppendLine("    }");
+        dot.AppendLine("}");
+        
+        return dot.ToString();
     }
 }
