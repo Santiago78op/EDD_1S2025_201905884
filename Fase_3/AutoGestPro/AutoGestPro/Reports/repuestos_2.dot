@@ -1,0 +1,45 @@
+digraph Repuestos {
+node [shape=record];
+    subgraph cluster_0 {
+        label="AVL Tree de Repuestos";
+R8 [label="{<izq> | ID: 8 | Nombre: Amortiguadores | Detalles: Absorben impactos en la suspensión. |Costo: 60.00 | <der>}"]
+R8 -> R4
+R4 [label="{<izq> | ID: 4 | Nombre: Batería | Detalles: Provee energía eléctrica al vehículo. |Costo: 120.00 | <der>}"]
+R4 -> R2
+R2 [label="{<izq> | ID: 2 | Nombre: Bujías | Detalles: Enciende la mezcla de aire y combustible. |Costo: 15.75 | <der>}"]
+R2 -> R1
+R1 [label="{<izq> | ID: 1 | Nombre: Filtro de aceite | Detalles: Filtra impurezas del aceite del motor. |Costo: 25.50 | <der>}"]
+R2 -> R3
+R3 [label="{<izq> | ID: 3 | Nombre: Pastillas de freno | Detalles: Frenan las ruedas al presionar el disco. |Costo: 45.00 | <der>}"]
+R4 -> R6
+R6 [label="{<izq> | ID: 6 | Nombre: Radiador | Detalles: Enfría el motor con líquido refrigerante. |Costo: 95.25 | <der>}"]
+R6 -> R5
+R5 [label="{<izq> | ID: 5 | Nombre: Alternador | Detalles: Genera electricidad para cargar la batería. |Costo: 180.50 | <der>}"]
+R6 -> R7
+R7 [label="{<izq> | ID: 7 | Nombre: Correa de distribución | Detalles: Sincroniza el movimiento de las válvulas. |Costo: 35.80 | <der>}"]
+R8 -> R16
+R16 [label="{<izq> | ID: 16 | Nombre: Embrague | Detalles: Conecta y desconecta el motor de la transmisión. |Costo: 150.25 | <der>}"]
+R16 -> R12
+R12 [label="{<izq> | ID: 12 | Nombre: Aceite de motor | Detalles: Lubrica y protege el motor. |Costo: 40.00 | <der>}"]
+R12 -> R10
+R10 [label="{<izq> | ID: 10 | Nombre: Bomba de agua | Detalles: Circula el refrigerante por el motor. |Costo: 55.90 | <der>}"]
+R10 -> R9
+R9 [label="{<izq> | ID: 9 | Nombre: Filtro de aire | Detalles: Limpia el aire que entra al motor. |Costo: 20.30 | <der>}"]
+R10 -> R11
+R11 [label="{<izq> | ID: 11 | Nombre: Discos de freno | Detalles: Superficie para las pastillas de freno. |Costo: 70.40 | <der>}"]
+R12 -> R14
+R14 [label="{<izq> | ID: 14 | Nombre: Sensor de oxígeno | Detalles: Mide niveles de oxígeno en escape. |Costo: 65.70 | <der>}"]
+R14 -> R13
+R13 [label="{<izq> | ID: 13 | Nombre: Termostato | Detalles: Regula la temperatura del motor. |Costo: 22.15 | <der>}"]
+R14 -> R15
+R15 [label="{<izq> | ID: 15 | Nombre: Llantas | Detalles: Proveen tracción y soporte al vehículo. |Costo: 110.00 | <der>}"]
+R16 -> R18
+R18 [label="{<izq> | ID: 18 | Nombre: Filtro de combustible | Detalles: Elimina impurezas del combustible. |Costo: 18.90 | <der>}"]
+R18 -> R17
+R17 [label="{<izq> | ID: 17 | Nombre: Faros delanteros | Detalles: Iluminan el camino en la oscuridad. |Costo: 85.60 | <der>}"]
+R18 -> R19
+R19 [label="{<izq> | ID: 19 | Nombre: Bobina de encendido | Detalles: Genera voltaje para las bujías. |Costo: 45.30 | <der>}"]
+R19 -> R20
+R20 [label="{<izq> | ID: 20 | Nombre: Escobillas limpiaparabrisas | Detalles: Limpian el parabrisas de agua y suciedad. |Costo: 12.50 | <der>}"]
+    }
+}

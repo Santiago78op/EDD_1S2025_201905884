@@ -1,4 +1,6 @@
+using System.Text;
 using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 using AutoGestPro.Core.Nodes;
 
 namespace AutoGestPro.Core.Structures;
@@ -521,6 +523,79 @@ public class TreeAvl<TValue> : ITreeAvl<TValue>
             TraverseDictionary(node.Left, dictionary);
             dictionary[node.Key] = node.Value;
             TraverseDictionary(node.Right, dictionary);
+        }
+    }
+
+    /// <summary>
+    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// </summary>
+    /// <returns>String en formato DOT</returns>
+    public string GenerarDotRepuestos()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Repuestos {");
+        dot.AppendLine("node [shape=record];");
+        dot.AppendLine("    subgraph cluster_0 {");
+        dot.AppendLine("        label=\"AVL Tree de Repuestos\";");
+
+        if (_root == null)
+        {
+            dot.AppendLine("        empty [label=\"Arbol AVL vacío\"];");
+        }
+        else
+        {
+            // Generar la representación DOT recorriendo el árbol en InOrden
+            List<NodeTreeAvl<TValue>> nodosInOrden = new List<NodeTreeAvl<TValue>>();
+            RecopilarNodosInOrden(_root, nodosInOrden);
+        
+            // Generar los nodos
+            foreach (var nodo in nodosInOrden)
+            {
+                Repuesto r = nodo.Value as Repuesto;
+                dot.AppendLine($"R{r.Id} [label=\"{{<izq> | ID: {r.Id} | Nombre: {r.Repuesto1} | Detalles: {r.Detalles} |Costo: {r.Costo} | <der>}}\"]");
+            }
+        
+            // Generar las conexiones
+            GenerarConexionesDot(nodosInOrden, dot);
+        }
+        
+        dot.AppendLine("    }");
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
+    
+    // Método auxiliar para recopilar nodos en InOrden
+    private void RecopilarNodosInOrden(NodeTreeAvl<TValue> node, List<NodeTreeAvl<TValue>> lista)
+    {
+        if (node != null)
+        {
+            RecopilarNodosInOrden(node.Left, lista);
+            lista.Add(node);
+            RecopilarNodosInOrden(node.Right, lista);
+        }
+    }
+
+    // Método para generar las conexiones entre nodos
+    private void GenerarConexionesDot(List<NodeTreeAvl<TValue>> nodosInOrden, StringBuilder dot)
+    {
+        if (nodosInOrden != null)
+        {
+            // Generar los nodos
+            foreach (var node in nodosInOrden)
+            {
+                Repuesto r = node.Value as Repuesto;
+                if (node.Left != null)
+                {
+                    Repuesto rLeft = node.Left.Value as Repuesto;
+                    dot.AppendLine($"R{r.Id} -> R{rLeft.Id}");
+                }
+                
+                if (node.Right != null)
+                {
+                    Repuesto rRight = node.Right.Value as Repuesto;
+                    dot.AppendLine($"R{r.Id} -> R{rRight.Id}");
+                }
+            }
         }
     }
 

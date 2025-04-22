@@ -1,0 +1,8 @@
+digraph Vehiculos {
+    node [shape=box];
+    graph [rankdir=LR];
+    subgraph cluster_0 {
+        label="Lista Doble de Vehiculos";
+        empty [label="Cadena vacía"];
+    }
+}

@@ -10,7 +10,7 @@ namespace AutoGestPro.Core.Graphs;
 public class Graphviz
 {
 
-    private int _contUser, _contCar;
+    private int _contUser, _contCar, _contRep;
     
     // Obtener la ruta absoluta de la carpeta raíz del proyecto
     private static string GetProjectRootPath()
@@ -59,6 +59,28 @@ public class Graphviz
         string dotFilePath = $"{GetReportPath()}/vehiculos_{++_contCar}.dot";
         string outputFilePath = $"{GetReportPath()}/vehiculos_{_contCar}.png";
         string dotContent = Estructuras.Vehiculos.GenerarDotVehiculos();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de Repusto en formato .dot.
+    /// </summary>
+    public void GeneraReporteRepuesto()
+    {
+        string dotFilePath = $"{GetReportPath()}/repuestos_{++_contRep}.dot";
+        string outputFilePath = $"{GetReportPath()}/repuestos_{_contRep}.png";
+        string dotContent = Estructuras.Repuestos.GenerarDotRepuestos();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de servicios en formato .dot.
+    /// </summary>
+    public void GeneraReporteServicio()
+    {
+        string dotFilePath = $"{GetReportPath()}/servicios_{++_contRep}.dot";
+        string outputFilePath = $"{GetReportPath()}/servicios_{_contRep}.png";
+        string dotContent = Estructuras.Servicios.GenerarDotServicios();
         GenerarDotImg(dotFilePath, outputFilePath, dotContent);
     }
     

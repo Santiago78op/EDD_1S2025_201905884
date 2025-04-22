@@ -1,4 +1,6 @@
-﻿using AutoGestPro.Core.Interfaces;
+﻿using System.Text;
+using AutoGestPro.Core.Interfaces;
+using AutoGestPro.Core.Models;
 
 namespace AutoGestPro.Core.Structures;
 
@@ -340,6 +342,51 @@ public class TreeBinary : ITreeBinary, IDisposable
     {
         if (_disposed)
             throw new ObjectDisposedException(nameof(TreeBinary));
+    }
+
+    /// <summary>
+    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// </summary>
+    /// <returns>String en formato DOT</returns>
+    public string GenerarDotServicios()
+    {
+        StringBuilder dot = new StringBuilder();
+        dot.AppendLine("digraph Servicios {");
+        dot.AppendLine("node [shape=ellipse];");
+        dot.AppendLine("    subgraph cluster_0 {");
+        dot.AppendLine("        label=\"Binary Tree de Servicios\";");
+
+        // Generar el DOT para el árbol
+        GenerateDot(_root, dot);
+
+        dot.AppendLine("}");
+        return dot.ToString();
+    }
+    
+    /// <summary>
+    /// Método recursivo para generar el DOT del árbol
+    /// </summary>
+    public void GenerateDot(NodeTreeBinary node, StringBuilder dot)
+    {
+        if (node == null)
+            return;
+
+        // Agregar el nodo actual
+        dot.AppendLine($"    {node.Key} [label=\"{node.Value}\"];");
+        Servicio s = (Servicio)node.Value;
+        dot.AppendLine($"{node.Key} [label=\"ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo} \"]");
+
+        // Agregar la relación con el hijo izquierdo
+        if (node.Left != null)
+            dot.AppendLine($"    {node.Key} -> {node.Left.Key};");
+
+        // Agregar la relación con el hijo derecho
+        if (node.Right != null)
+            dot.AppendLine($"    {node.Key} -> {node.Right.Key};");
+
+        // Llamar recursivamente para los hijos
+        GenerateDot(node.Left, dot);
+        GenerateDot(node.Right, dot);
     }
 
     /// <summary>

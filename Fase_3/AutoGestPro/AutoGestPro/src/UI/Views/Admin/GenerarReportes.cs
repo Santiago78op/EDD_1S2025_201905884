@@ -160,13 +160,69 @@ public class GenerarReportes : Window
     // ✅ Generar reporte de Repuestos
     private async void GenerarReporteRepuestos()
     {
-        await GenerarReporteGenerico("repuestos", _contadorReportesRepuesto, ReporteService.GenerarDotRepuestos);
+        try
+        {
+            // Deshabilitar botones y mostrar progreso
+            SetButtonsEnabled(false);
+            _progressBar.Show();
+            UpdateStatus("Generando reporte de repuestos...");
+            
+            // Animar barra de progreso
+            await AnimateProgress();
+            
+            // Usar la clase Graphviz para generar el reporte
+            await Task.Run(() => _graphviz.GeneraReporteRepuesto());
+            
+            UpdateStatus("Reporte de repuestos generado correctamente");
+            MostrarMensaje("Éxito", "Reporte de repuestos generado correctamente");
+        }
+        catch (Exception ex)
+        {
+            UpdateStatus($"Error: {ex.Message}");
+            MostrarMensaje("Error", $"Error al generar reporte: {ex.Message}");
+        }
+        finally
+        {
+            // Restaurar UI
+            _progressBar.Fraction = 1.0;
+            await Task.Delay(500);
+            _progressBar.Hide();
+            SetButtonsEnabled(true);
+        }
     }
     
     // ✅ Generar reporte de Servicios
     private async void GenerarReporteServicios()
     {
-        await GenerarReporteGenerico("servicios", _contadorReportesServicio, ReporteService.GenerarDotServicios);
+        try
+        {
+            // Deshabilitar botones y mostrar progreso
+            SetButtonsEnabled(false);
+            _progressBar.Show();
+            UpdateStatus("Generando reporte de servicios...");
+            
+            // Animar barra de progreso
+            await AnimateProgress();
+            
+            // Usar la clase Graphviz para generar el reporte
+            await Task.Run(() => _graphviz.GeneraReporteServicio());
+            
+            UpdateStatus("Reporte de servicios generado correctamente");
+            MostrarMensaje("Éxito", "Reporte de servicios generado correctamente");
+        }
+        catch (Exception ex)
+        {
+            UpdateStatus($"Error: {ex.Message}");
+            MostrarMensaje("Error", $"Error al generar reporte: {ex.Message}");
+        }
+        finally
+        {
+            // Restaurar UI
+            _progressBar.Fraction = 1.0;
+            await Task.Delay(500);
+            _progressBar.Hide();
+            SetButtonsEnabled(true);
+        }
     }
 
     // ✅ Generar reporte de Facturas
