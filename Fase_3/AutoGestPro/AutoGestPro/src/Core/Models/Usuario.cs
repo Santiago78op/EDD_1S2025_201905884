@@ -117,4 +117,10 @@ public class Usuario
     {
         return Correo == "admin@usac.com" && VerificarContrasenia("admint123");
     }
+    
+    // Método para mostrar información del usuario
+    public override string ToString()
+    {
+        return $"ID: {_id}, Nombres: {_nombres}, Apellidos: {_apellidos}, Correo: {_correo}, Edad: {_edad}";
+    }
 }

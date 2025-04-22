@@ -1,5 +1,6 @@
 using System.Text;
 using AutoGestPro.Core.Models;
+using Newtonsoft.Json;
 
 namespace AutoGestPro.Core.Blockchain;
 
@@ -114,8 +115,13 @@ public class ServicioUsuarios
                 Bloque bloque = _blockchain.Cadena[i];
                 string hashDisplay = bloque.Hash.Length >= 8 ? bloque.Hash.Substring(0, 8) + "..." : bloque.Hash;
                 string prevHashDisplay = bloque.HashPrevio.Length >= 8 ? bloque.HashPrevio.Substring(0, 8) + "..." : bloque.HashPrevio;
-            
-                string nodeLabel = $"\"Bloque {bloque.Indice}\\nHash: {hashDisplay}\\nPrevHash: {prevHashDisplay}\\nNonce: {bloque.Nonce}\"";
+                
+                // Convierte el bloqueDatos a un formato legible para Graphviz
+                string bloqueDatos = JsonConvert.SerializeObject(bloque.Datos);
+                // Eliminar las comillas dobles, las llaves y \ del JSON
+                bloqueDatos = bloqueDatos.Replace("\"", "").Replace("{", "").Replace("}", "").Replace("\\", "");
+                 
+                string nodeLabel = $"\"Bloque {bloque.Indice}\\nTimeStamp: {bloque.Timestamp}\\nData: {bloqueDatos}\\nHash: {hashDisplay}\\nPrevHash: {prevHashDisplay}\\nNonce: {bloque.Nonce}\"";
                 dot.AppendLine($"        block{bloque.Indice} [label={nodeLabel}];");
             
                 // Añadir la conexión al siguiente bloque si no es el último

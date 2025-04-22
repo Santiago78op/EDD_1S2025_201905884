@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 using AutoGestPro.Core.Global;
 
 namespace AutoGestPro.Core.Graphs;
@@ -14,16 +15,24 @@ public class Graphviz
     // Obtener la ruta absoluta de la carpeta raíz del proyecto
     private static string GetProjectRootPath()
     {
-        string projectRootPath = AppDomain.CurrentDomain.BaseDirectory;
-        return Path.GetFullPath(Path.Combine(projectRootPath, @"..\..\..\..\"));
-    }
+        // Obtiene la ubbicación del ejecutable actual
+        string exePath = Assembly.GetExecutingAssembly().Location;
+        // Sube cuatro niveles para llegar a la raíz del proyecto
+        string projectRoot = new DirectoryInfo(Path.GetDirectoryName(exePath))
+            .Parent?.Parent?.Parent?.FullName;
     
-    //  Combinar con la carpet de Reporte
+        if (projectRoot == null)
+            throw new DirectoryNotFoundException("No se pudo encontrar la raíz del proyecto");
+
+        return projectRoot;
+    }
+
+    // Combinar con la carpeta de Reportes
     public static string GetReportPath()
     {
         string projectRootPath = GetProjectRootPath();
         string reportPath = Path.Combine(projectRootPath, "Reports");
-        // Crear la carpeta "Reportes" si no existe
+        // Crear la carpeta "Reports" si no existe
         if (!Directory.Exists(reportPath))
         {
             Directory.CreateDirectory(reportPath);

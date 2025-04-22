@@ -1,0 +1,28 @@
+digraph Blockchain {
+    node [shape=record];
+    graph [rankdir=LR];
+    subgraph cluster_0 {
+        label="Blockchain de Usuarios";
+        block0 [label="Bloque 0\nHash: 000025e8...\nPrevHash: 0\nNonce: 213640"];
+        block0 -> block1;
+        block1 [label="Bloque 1\nHash: 00008b6e...\nPrevHash: 000025e8...\nNonce: 22798"];
+        block1 -> block2;
+        block2 [label="Bloque 2\nHash: 0000d9f0...\nPrevHash: 00008b6e...\nNonce: 22640"];
+        block2 -> block3;
+        block3 [label="Bloque 3\nHash: 0000ef91...\nPrevHash: 0000d9f0...\nNonce: 187876"];
+        block3 -> block4;
+        block4 [label="Bloque 4\nHash: 0000a15a...\nPrevHash: 0000ef91...\nNonce: 74431"];
+        block4 -> block5;
+        block5 [label="Bloque 5\nHash: 0000966b...\nPrevHash: 0000a15a...\nNonce: 22412"];
+        block5 -> block6;
+        block6 [label="Bloque 6\nHash: 000061ce...\nPrevHash: 0000966b...\nNonce: 154"];
+        block6 -> block7;
+        block7 [label="Bloque 7\nHash: 00009b02...\nPrevHash: 000061ce...\nNonce: 53210"];
+        block7 -> block8;
+        block8 [label="Bloque 8\nHash: 00003df5...\nPrevHash: 00009b02...\nNonce: 29898"];
+        block8 -> block9;
+        block9 [label="Bloque 9\nHash: 00005c71...\nPrevHash: 00003df5...\nNonce: 45460"];
+        block9 -> block10;
+        block10 [label="Bloque 10\nHash: 0000de80...\nPrevHash: 00005c71...\nNonce: 34189"];
+    }
+}
