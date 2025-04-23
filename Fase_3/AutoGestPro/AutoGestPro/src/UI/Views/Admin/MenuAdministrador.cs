@@ -49,10 +49,20 @@ public class MenuAdministrador
         ventana.ShowAll();
     }
 
-    public void OnMostrarBitacora(object sender, EventArgs e)
+    public void OnGenerarBackup(object sender, EventArgs e)
     {
-        Console.WriteLine("Mostrar Bitácora");
+        // Lógica para abrir la gestión de Cargas Masivas
+        var ventana = new GestionBackups();
+        ventana.ShowAll();
     }
+    
+    public void OnCargarBackup(object sender, EventArgs e)
+    {
+        // Lógica para abrir la gestión de Cargas Masivas
+        var ventana = new RestaurarBackups();
+        ventana.ShowAll();
+    }
+    
     /*
      *ntana = new GestionUsuarios();
            ventana.ShowAll();

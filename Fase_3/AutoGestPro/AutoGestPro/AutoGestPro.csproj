@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Backup\" />
       <Folder Include="docs\" />
       <Folder Include="Reports\" />
     </ItemGroup>

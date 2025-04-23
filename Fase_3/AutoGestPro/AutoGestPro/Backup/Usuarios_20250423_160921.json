@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "Nombres": "Efra\u00EDn Josu\u00E9",
+    "Apellidos": "Cuxum P\u00E9rez",
+    "Correo": "efrain.josue@usac.com",
+    "Edad": 19,
+    "Contrasenia": "dhDV2V\u002BmzBKoy62iYP39eX3ekhZ8RGDhCQ94SEJZoHU="
+  },
+  {
+    "Id": 2,
+    "Nombres": "Ximena Marisol",
+    "Apellidos": "Quixch\u00E1n Rojas",
+    "Correo": "ximena.marisol@usac.com",
+    "Edad": 21,
+    "Contrasenia": "s7srOVxC2SN64F8iFsZetdOHXfcCOHUGdvS11ELa/FI="
+  },
+  {
+    "Id": 3,
+    "Nombres": "Brayan Estuardo",
+    "Apellidos": "Tumax Garc\u00EDa",
+    "Correo": "brayan.estuardo@usac.com",
+    "Edad": 22,
+    "Contrasenia": "sOSMnV1MAH\u002BZgjqh1uIKrTmIABN24pD7DKhAPNUpju8="
+  },
+  {
+    "Id": 4,
+    "Nombres": "Karla Lisseth",
+    "Apellidos": "Chocoy M\u00E9ndez",
+    "Correo": "karla.lisseth@usac.com",
+    "Edad": 20,
+    "Contrasenia": "ZFFfjoblhVqse5rX6wu7GpJpavzaSEdobqPPw4Thmsc="
+  },
+  {
+    "Id": 5,
+    "Nombres": "Steven Facundo",
+    "Apellidos": "Mejia Xolop",
+    "Correo": "steven.mejia@usac.com",
+    "Edad": 23,
+    "Contrasenia": "GdjDJG5FBsowd05LTWtgS3zFYl/wrDBSM/ZzONUYd/s="
+  },
+  {
+    "Id": 6,
+    "Nombres": "Selvin Orlando",
+    "Apellidos": "Ajpacaj\u00E1 Ruiz",
+    "Correo": "selvin.orlando@usac.com",
+    "Edad": 18,
+    "Contrasenia": "1ojMkTZRP5suATz3w5E821R2PNdd0VY9DuHm5kXwa0k="
+  },
+  {
+    "Id": 7,
+    "Nombres": "Mayra Alejandra",
+    "Apellidos": "Cojul\u00FAn D\u00EDaz",
+    "Correo": "mayra.alejandra@usac.com",
+    "Edad": 21,
+    "Contrasenia": "cPCCV9Len2liSX/XvLbTfKtZgJdKr\u002BlEtrQmeovMgU0="
+  },
+  {
+    "Id": 8,
+    "Nombres": "No\u00E9 Eliseo",
+    "Apellidos": "Sactic V\u00E1squez",
+    "Correo": "noe.eliseo@usac.com",
+    "Edad": 19,
+    "Contrasenia": "gEibicS\u002BpxZfuJJE2YDDt/ASIk3ITyB5A6MdyQOQ5Fw="
+  },
+  {
+    "Id": 9,
+    "Nombres": "Dulce Mar\u00EDa",
+    "Apellidos": "Xolop Castillo",
+    "Correo": "dulce.maria@usac.com",
+    "Edad": 20,
+    "Contrasenia": "jM46QCRzbkMkFPAInWN635acE8gv/Dz4Yh1ci2PC6lQ="
+  },
+  {
+    "Id": 10,
+    "Nombres": "Jairo Vinicio",
+    "Apellidos": "Camey Ortiz",
+    "Correo": "jairo.vinicio@usac.com",
+    "Edad": 22,
+    "Contrasenia": "O\u002BC4UVXBfsqvxWYnqwwbdVDKwvIc3MedoywoqmasFHI="
+  }
+]

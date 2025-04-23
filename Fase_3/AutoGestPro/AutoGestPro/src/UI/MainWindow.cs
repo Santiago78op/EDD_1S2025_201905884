@@ -113,8 +113,8 @@ public class MainWindow : Window
                 grid.Attach(CreateActionButton("Generación de \nReportes", adminActions.OnGenerarReportes), 2, 1, 1, 1);
 
                 // Tercera fila
-                grid.Attach(CreateActionButton("Cargar \nBackup", adminActions.OnMostrarBitacora), 0, 2, 1, 1);
-                grid.Attach(CreateActionButton("Generar \nBackup", adminActions.OnMostrarBitacora), 1, 2, 1, 1);
+                grid.Attach(CreateActionButton("Cargar \nBackup", adminActions.OnGenerarBackup), 0, 2, 1, 1);
+                grid.Attach(CreateActionButton("Generar \nBackup", adminActions.OnCargarBackup), 1, 2, 1, 1);
                 
                 
                 centeringBox.PackStart(grid, false, false, 0);
