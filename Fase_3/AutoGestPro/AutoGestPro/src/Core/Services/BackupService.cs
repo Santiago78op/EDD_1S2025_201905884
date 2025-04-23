@@ -227,9 +227,9 @@ public class BackupService
     {
         try
         {
-            // Obtener los repuestos del árbol AVL
+            // Lista para almacenar los repuestos del árbol AVL
             List<Repuesto> repuestos = _servicioRepuestos.ToList();
-
+            
             // Serializar la lista a JSON
             var options = new JsonSerializerOptions
             {

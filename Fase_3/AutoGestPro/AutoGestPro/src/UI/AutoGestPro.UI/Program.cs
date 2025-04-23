@@ -1,4 +1,5 @@
-﻿using AutoGestPro.UI;
+﻿using AutoGestPro.Core.Services;
+using AutoGestPro.UI;
 using Gtk;
 
 /// <summary>
@@ -16,6 +17,45 @@ internal static class Program
     {
         // Inicializar GTK
         Application.Init();
+        
+        // Ejecutar restauración automática de entidades
+        var autoRestore = new AutoRestoreService();
+        var restoreResult = autoRestore.RestoreAutomatically();
+            
+        // Si la restauración falló, mostrar mensaje de error
+        if (!restoreResult.Success)
+        {
+            using (var dialog = new MessageDialog(
+                       null,
+                       DialogFlags.Modal,
+                       MessageType.Error,
+                       ButtonsType.Ok,
+                       $"Error en la restauración automática: {restoreResult.Message}"))
+            {
+                dialog.Title = "Error de Restauración";
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+        else
+        {
+            // Opcional: Mostrar mensaje de éxito
+            using (var dialog = new MessageDialog(
+                       null,
+                       DialogFlags.Modal,
+                       MessageType.Info,
+                       ButtonsType.Ok,
+                       $"Restauración automática completada con éxito.\n" +
+                       $"Usuarios: {restoreResult.UsuariosRestored}\n" +
+                       $"Vehículos: {restoreResult.VehiculosRestored}\n" +
+                       $"Repuestos: {restoreResult.RepuestosRestored}"))
+            {
+                dialog.Title = "Restauración Automática";
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
         // Crear instancia de la ventana principal
         var app = new Application("org.AutoGestPro.App", GLib.ApplicationFlags.None);
         app.Register(GLib.Cancellable.Current);

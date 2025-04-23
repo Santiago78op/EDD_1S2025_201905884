@@ -215,10 +215,17 @@ public class RestoreService
             // Restaurar los repuestos
             foreach (var repuesto in repuestos)
             {
+                int id = Convert.ToInt32(repuesto.Id);
+                string nombre = repuesto.Repuesto1;
+                string detalles = repuesto.Detalles;
+                decimal costo = Convert.ToDecimal(repuesto.Costo);
+                
                 // Verificar si el repuesto ya existe
                 if (!_servicioRepuestos.ContainsKey(repuesto.Id))
                 {
-                    _servicioRepuestos.Insert(repuesto.Id, repuesto);
+                    // Crear el objeto Repuesto manualmente
+                    Repuesto r = new Repuesto(id, nombre, detalles, costo);
+                    _servicioRepuestos.Insert(r.Id, r);
                     count++;
                 }
             }

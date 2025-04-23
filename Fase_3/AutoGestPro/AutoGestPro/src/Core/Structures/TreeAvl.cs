@@ -25,7 +25,12 @@ public class TreeAvl<TValue> : ITreeAvl<TValue>
     /// Contador de elementos en el árbol.
     /// </summary>
     private int _count;
-
+    
+    /// <summary>
+    /// Get de la propiedad Root.
+    /// </summary>
+    public NodeTreeAvl<TValue> Root => _root;
+    
     /// <summary>
     /// Obtiene el número de elementos en el árbol.
     /// </summary>
