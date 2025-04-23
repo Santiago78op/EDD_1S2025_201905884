@@ -228,70 +228,60 @@ public class GenerarReportes : Window
     // ✅ Generar reporte de Facturas
     private async void GenerarReporteFacturas()
     {
-        await GenerarReporteGenerico("facturas", _contadorReportesFactura, ReporteService.GenerarDotFacturas);
+        try
+        {
+            // Deshabilitar botones y mostrar progreso
+            SetButtonsEnabled(false);
+            _progressBar.Show();
+            UpdateStatus("Generando factura de servicios...");
+            
+            // Animar barra de progreso
+            await AnimateProgress();
+            
+            // Usar la clase Graphviz para generar el reporte
+            await Task.Run(() => _graphviz.GeneraReporteFactura());
+            
+            UpdateStatus("Reporte de facturas generado correctamente");
+            MostrarMensaje("Éxito", "Reporte de facturas generado correctamente");
+        }
+        catch (Exception ex)
+        {
+            UpdateStatus($"Error: {ex.Message}");
+            MostrarMensaje("Error", $"Error al generar reporte: {ex.Message}");
+        }
+        finally
+        {
+            // Restaurar UI
+            _progressBar.Fraction = 1.0;
+            await Task.Delay(500);
+            _progressBar.Hide();
+            SetButtonsEnabled(true);
+        }
     }
     
     // ✅ Generar reporte de grafo de compatibilidad
     private async void GenerarReporteGrafo()
-    {
-        await GenerarReporteGenerico("grafo", _contadorReportesGrafo, () => Estructuras.Grafo.GenerarDot());
-    }
-    
-    // Método genérico para generar reportes
-    private async Task GenerarReporteGenerico(string tipo, int contador, Func<string> generarDot)
     {
         try
         {
             // Deshabilitar botones y mostrar progreso
             SetButtonsEnabled(false);
             _progressBar.Show();
-            UpdateStatus($"Generando reporte de {tipo}...");
+            UpdateStatus("Generando compatibilidad entre vehículos y repuestos de servicios...");
             
             // Animar barra de progreso
             await AnimateProgress();
             
-            // Generar el reporte
-            contador++;
-            string reportPath = Graphviz.GetReportPath();
-            string dotFilePath = System.IO.Path.Combine(reportPath, $"{tipo}_{contador}.dot");
-            string outputImagePath = System.IO.Path.Combine(reportPath, $"{tipo}_{contador}.png");
+            // Usar la clase Graphviz para generar el reporte
+            await Task.Run(() => _graphviz.GeneraReporteCompatibilidad());
             
-            // Generar el contenido DOT
-            string dotContent = generarDot();
-            
-            // Generar la imagen de forma asíncrona
-            await Task.Run(() => _graphviz.GenerarDotImg(dotFilePath, outputImagePath, dotContent));
-            
-            // Verificar si la imagen se generó correctamente
-            if (File.Exists(outputImagePath))
-            {
-                MostrarMensaje("Éxito", $"Reporte generado correctamente: {outputImagePath}");
-                UpdateStatus($"Reporte de {tipo} generado: {outputImagePath}");
-                
-                // Intentar abrir la imagen generada
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = outputImagePath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"No se pudo abrir la imagen: {ex.Message}");
-                }
-            }
-            else
-            {
-                MostrarMensaje("Error", "No se pudo generar la imagen con Graphviz.");
-                UpdateStatus("Error al generar la imagen.");
-            }
+            UpdateStatus("Reporte de compatibilidad entre vehículos y repuestos generado correctamente");
+            MostrarMensaje("Éxito", "Reporte de compatibilidad entre vehículos y repuestos generado correctamente");
         }
         catch (Exception ex)
         {
-            MostrarMensaje("Error", $"Error al generar reporte: {ex.Message}");
             UpdateStatus($"Error: {ex.Message}");
+            MostrarMensaje("Error", $"Error al generar reporte: {ex.Message}");
         }
         finally
         {

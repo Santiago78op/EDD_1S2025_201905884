@@ -43,7 +43,7 @@ public class NodeMerkleTree
     {
         using (SHA256 sha256 = SHA256.Create())
         {
-            string data = id.ToString() + value.ToString();
+            string data = id + value.ToString();
             byte[] bytes = Encoding.UTF8.GetBytes(data);
             byte[] hash = sha256.ComputeHash(bytes);
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();

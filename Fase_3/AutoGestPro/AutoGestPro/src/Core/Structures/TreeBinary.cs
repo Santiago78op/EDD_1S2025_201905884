@@ -45,7 +45,7 @@ public class TreeBinary : ITreeBinary, IDisposable
     public void Insert(int key, object value)
     {
         ThrowIfDisposed();
-        
+
         if (value == null)
             throw new ArgumentNullException(nameof(value), "El valor a insertar no puede ser nulo");
 
@@ -78,7 +78,7 @@ public class TreeBinary : ITreeBinary, IDisposable
 
         // Actualizamos la altura del nodo actual
         node.UpdateHeight();
-        
+
         return node;
     }
 
@@ -89,10 +89,10 @@ public class TreeBinary : ITreeBinary, IDisposable
     public void Delete(int key)
     {
         ThrowIfDisposed();
-        
+
         bool found = Contains(key);
         _root = DeleteRecursive(_root, key);
-        
+
         if (found)
             _count--;
     }
@@ -115,29 +115,29 @@ public class TreeBinary : ITreeBinary, IDisposable
             // Caso 1: Nodo es una hoja (sin hijos)
             if (node.Left == null && node.Right == null)
                 return null;
-                
+
             // Caso 2: Nodo tiene solo un hijo
             if (node.Left == null)
                 return node.Right;
-                
+
             if (node.Right == null)
                 return node.Left;
-                
+
             // Caso 3: Nodo tiene dos hijos
             // Encontramos el sucesor inmediato (el más pequeño en el subárbol derecho)
             NodeTreeBinary successor = FindMinNode(node.Right);
-            
+
             // Copiamos los datos del sucesor al nodo actual
             node.Key = successor.Key;
             node.Value = successor.Value;
-            
+
             // Eliminamos el sucesor
             node.Right = DeleteRecursive(node.Right, successor.Key);
         }
 
         // Actualizamos la altura del nodo actual
         node.UpdateHeight();
-        
+
         return node;
     }
 
@@ -147,11 +147,11 @@ public class TreeBinary : ITreeBinary, IDisposable
     private NodeTreeBinary FindMinNode(NodeTreeBinary node)
     {
         NodeTreeBinary current = node;
-        
+
         // El nodo más a la izquierda tiene el valor mínimo
         while (current.Left != null)
             current = current.Left;
-            
+
         return current;
     }
 
@@ -173,12 +173,12 @@ public class TreeBinary : ITreeBinary, IDisposable
     {
         if (node == null)
             return null;
-            
+
         if (key == node.Key)
             return node.Value;
-            
-        return key < node.Key 
-            ? SearchRecursive(node.Left, key) 
+
+        return key < node.Key
+            ? SearchRecursive(node.Left, key)
             : SearchRecursive(node.Right, key);
     }
 
@@ -200,12 +200,12 @@ public class TreeBinary : ITreeBinary, IDisposable
     {
         if (node == null)
             return false;
-            
+
         if (key == node.Key)
             return true;
-            
-        return key < node.Key 
-            ? ContainsRecursive(node.Left, key) 
+
+        return key < node.Key
+            ? ContainsRecursive(node.Left, key)
             : ContainsRecursive(node.Right, key);
     }
 
@@ -255,19 +255,19 @@ public class TreeBinary : ITreeBinary, IDisposable
     private List<object> InOrderRecursive(NodeTreeBinary node)
     {
         var result = new List<object>();
-        
+
         if (node == null)
             return result;
-            
+
         // Primero visitamos el subárbol izquierdo
         result.AddRange(InOrderRecursive(node.Left));
-        
+
         // Luego visitamos la raíz
         result.Add(node.Value);
-        
+
         // Finalmente visitamos el subárbol derecho
         result.AddRange(InOrderRecursive(node.Right));
-        
+
         return result;
     }
 
@@ -287,19 +287,19 @@ public class TreeBinary : ITreeBinary, IDisposable
     private List<object> PreOrderRecursive(NodeTreeBinary node)
     {
         var result = new List<object>();
-        
+
         if (node == null)
             return result;
-            
+
         // Primero visitamos la raíz
         result.Add(node.Value);
-        
+
         // Luego visitamos el subárbol izquierdo
         result.AddRange(PreOrderRecursive(node.Left));
-        
+
         // Finalmente visitamos el subárbol derecho
         result.AddRange(PreOrderRecursive(node.Right));
-        
+
         return result;
     }
 
@@ -319,19 +319,19 @@ public class TreeBinary : ITreeBinary, IDisposable
     private List<object> PostOrderRecursive(NodeTreeBinary node)
     {
         var result = new List<object>();
-        
+
         if (node == null)
             return result;
-            
+
         // Primero visitamos el subárbol izquierdo
         result.AddRange(PostOrderRecursive(node.Left));
-        
+
         // Luego visitamos el subárbol derecho
         result.AddRange(PostOrderRecursive(node.Right));
-        
+
         // Finalmente visitamos la raíz
         result.Add(node.Value);
-        
+
         return result;
     }
 
@@ -345,48 +345,101 @@ public class TreeBinary : ITreeBinary, IDisposable
     }
 
     /// <summary>
-    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// Genera una representación visual del árbol binario en formato DOT para visualización con Graphviz,
+    /// mostrando el recorrido in-orden.
     /// </summary>
     /// <returns>String en formato DOT</returns>
     public string GenerarDotServicios()
     {
+        ThrowIfDisposed();
+
         StringBuilder dot = new StringBuilder();
-        dot.AppendLine("digraph Servicios {");
-        dot.AppendLine("node [shape=ellipse];");
+        dot.AppendLine("digraph ServiciosInOrden {");
+        dot.AppendLine("node [shape=ellipse, style=filled, fillcolor=lightblue];");
         dot.AppendLine("    subgraph cluster_0 {");
-        dot.AppendLine("        label=\"Binary Tree de Servicios\";");
+        dot.AppendLine("        label=\"Binary Tree de Servicios (Recorrido In-Orden)\";");
 
-        // Generar el DOT para el árbol
-        GenerateDot(_root, dot);
+        if (_root == null)
+        {
+            dot.AppendLine("        empty [label=\"Árbol Binario vacío\", shape=box];");
+        }
+        else
+        {
+            // Generar la representación DOT recorriendo el árbol en InOrden
+            List<NodeTreeBinary> nodosInOrden = new List<NodeTreeBinary>();
+            RecopilarNodosInOrden(_root, nodosInOrden);
 
+            // Generar los nodos
+            foreach (var nodo in nodosInOrden)
+            {
+                if (nodo.Value is Servicio s)
+                {
+                    dot.AppendLine(
+                        $"        S{s.Id} [label=\"ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo}\"];");
+                }
+            }
+
+            // Generar las conexiones estructurales del árbol
+            GenerarConexionesEstructurales(_root, dot);
+
+            // Agregar conexiones que muestran el orden de recorrido in-orden
+            dot.AppendLine("        // Conexiones de recorrido in-orden");
+            dot.AppendLine("        edge [color=red, style=dashed];");
+            for (int i = 0; i < nodosInOrden.Count - 1; i++)
+            {
+                if (nodosInOrden[i].Value is Servicio actual &&
+                    nodosInOrden[i + 1].Value is Servicio siguiente)
+                {
+                    dot.AppendLine($"        S{actual.Id} -> S{siguiente.Id} [label=\"{i + 1}\", color=red];");
+                }
+            }
+        }
+
+        dot.AppendLine("    }");
         dot.AppendLine("}");
         return dot.ToString();
     }
-    
+
     /// <summary>
-    /// Método recursivo para generar el DOT del árbol
+    /// Recopila los nodos del árbol en recorrido in-orden (izquierda, raíz, derecha).
     /// </summary>
-    public void GenerateDot(NodeTreeBinary node, StringBuilder dot)
+    /// <param name="node">Nodo actual</param>
+    /// <param name="lista">Lista donde se almacenarán los nodos</param>
+    private void RecopilarNodosInOrden(NodeTreeBinary node, List<NodeTreeBinary> lista)
     {
-        if (node == null)
-            return;
+        if (node != null)
+        {
+            RecopilarNodosInOrden(node.Left, lista);
+            lista.Add(node);
+            RecopilarNodosInOrden(node.Right, lista);
+        }
+    }
 
-        // Agregar el nodo actual
-        dot.AppendLine($"    {node.Key} [label=\"{node.Value}\"];");
-        Servicio s = (Servicio)node.Value;
-        dot.AppendLine($"{node.Key} [label=\"ID: {s.Id}\\nRepuesto: {s.IdRepuesto} | Vehículo: {s.IdVehiculo}\\n {s.Detalles}\\nCosto: Q{s.Costo} \"]");
+    /// <summary>
+    /// Genera las conexiones que muestran la estructura del árbol.
+    /// </summary>
+    /// <param name="node">Nodo actual</param>
+    /// <param name="dot">StringBuilder donde se construye el DOT</param>
+    private void GenerarConexionesEstructurales(NodeTreeBinary node, StringBuilder dot)
+    {
+        if (node != null)
+        {
+            if (node.Value is Servicio s)
+            {
+                if (node.Left != null && node.Left.Value is Servicio sLeft)
+                {
+                    dot.AppendLine($"        S{s.Id} -> S{sLeft.Id} [color=blue, label=\"L\"];");
+                }
 
-        // Agregar la relación con el hijo izquierdo
-        if (node.Left != null)
-            dot.AppendLine($"    {node.Key} -> {node.Left.Key};");
+                if (node.Right != null && node.Right.Value is Servicio sRight)
+                {
+                    dot.AppendLine($"        S{s.Id} -> S{sRight.Id} [color=green, label=\"R\"];");
+                }
+            }
 
-        // Agregar la relación con el hijo derecho
-        if (node.Right != null)
-            dot.AppendLine($"    {node.Key} -> {node.Right.Key};");
-
-        // Llamar recursivamente para los hijos
-        GenerateDot(node.Left, dot);
-        GenerateDot(node.Right, dot);
+            GenerarConexionesEstructurales(node.Left, dot);
+            GenerarConexionesEstructurales(node.Right, dot);
+        }
     }
 
     /// <summary>

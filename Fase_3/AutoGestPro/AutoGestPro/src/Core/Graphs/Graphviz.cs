@@ -10,7 +10,7 @@ namespace AutoGestPro.Core.Graphs;
 public class Graphviz
 {
 
-    private int _contUser, _contCar, _contRep;
+    private int _contUser, _contCar, _contRep, _contFac, _contSer, _contCvr;
     
     // Obtener la ruta absoluta de la carpeta raíz del proyecto
     private static string GetProjectRootPath()
@@ -78,9 +78,31 @@ public class Graphviz
     /// </summary>
     public void GeneraReporteServicio()
     {
-        string dotFilePath = $"{GetReportPath()}/servicios_{++_contRep}.dot";
-        string outputFilePath = $"{GetReportPath()}/servicios_{_contRep}.png";
+        string dotFilePath = $"{GetReportPath()}/servicios_{++_contSer}.dot";
+        string outputFilePath = $"{GetReportPath()}/servicios_{_contSer}.png";
         string dotContent = Estructuras.Servicios.GenerarDotServicios();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de facturas en formato .dot.
+    /// </summary>
+    public void GeneraReporteFactura()
+    {
+        string dotFilePath = $"{GetReportPath()}/facturas_{++_contFac}.dot";
+        string outputFilePath = $"{GetReportPath()}/facturas_{_contFac}.png";
+        string dotContent = Estructuras.Facturas.GenerarDotFacturas();
+        GenerarDotImg(dotFilePath, outputFilePath, dotContent);
+    }
+    
+    /// <summary>
+    /// Método para generar un reporte de compatibilidad entre vehículos y repuestos en formato .dot.
+    /// </summary>
+    public void GeneraReporteCompatibilidad()
+    {
+        string dotFilePath = $"{GetReportPath()}/compatibilidad_{++_contCvr}.dot";
+        string outputFilePath = $"{GetReportPath()}/compatibilidad_{_contCvr}.png";
+        string dotContent = Estructuras.Grafo.GenerarDot();
         GenerarDotImg(dotFilePath, outputFilePath, dotContent);
     }
     

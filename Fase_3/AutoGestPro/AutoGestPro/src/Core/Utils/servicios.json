@@ -7,6 +7,27 @@
     "Costo": 50.00
   },
   {
+    "ID": 8,
+    "IdRepuesto": 9,
+    "IdVehiculo": 12,
+    "Detalles": "Reparación de transmisión",
+    "Costo": 300.00
+  },
+  {
+    "ID": 3,
+    "IdRepuesto": 3,
+    "IdVehiculo": 6,
+    "Detalles": "Cambio de pastillas de freno",
+    "Costo": 50.00
+  },
+  {
+    "ID": 5,
+    "IdRepuesto": 15,
+    "IdVehiculo": 20,
+    "Detalles": "Reemplazo de llantas",
+    "Costo": 220.00
+  },
+  {
     "ID": 2,
     "IdRepuesto": 4,
     "IdVehiculo": 8,
@@ -28,11 +49,11 @@
     "Costo": 100.00
   },
   {
-    "ID": 5,
-    "IdRepuesto": 15,
+    "ID": 6,
+    "IdRepuesto": 18,
     "IdVehiculo": 20,
-    "Detalles": "Reemplazo de llantas",
-    "Costo": 220.00
+    "Detalles": "Cambio de aceite y filtro",
+    "Costo": 40.00
   },
   {
     "ID": 5,
@@ -41,13 +62,8 @@
     "Detalles": "Reemplazo de llantas",
     "Costo": 220.00
   },
-    {
-        "ID": 6,
-        "IdRepuesto": 18,
-        "IdVehiculo": 20,
-        "Detalles": "Cambio de aceite y filtro",
-        "Costo": 40.00
-    },
+
+    
     {
         "ID": 7,
         "IdRepuesto": 15,
@@ -55,11 +71,5 @@
         "Detalles": "Alineación y balanceo",
         "Costo": 60.00
     },
-    {
-        "ID": 8,
-        "IdRepuesto": 9,
-        "IdVehiculo": 12,
-        "Detalles": "Reparación de transmisión",
-        "Costo": 300.00
-    }
+    
 ]

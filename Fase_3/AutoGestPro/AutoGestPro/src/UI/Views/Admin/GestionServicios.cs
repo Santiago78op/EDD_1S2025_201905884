@@ -306,7 +306,7 @@ public class GestionServicios : Window
         container.PackStart(tableTitle, false, false, 0);
 
         _listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string),
-            typeof(string));
+            typeof(string), typeof(string));
 
         _treeViewServicios = new TreeView(_listStore)
         {
@@ -565,13 +565,16 @@ public class GestionServicios : Window
                     if (item != null)
                     {
                         Servicio servicio = (Servicio)item;
+                        // Buscar Factura
+                        Factura factura = Estructuras.Facturas.Search(servicio.Id) as Factura;
                         _listStore.AppendValues(
                             servicio.Id.ToString(),
                             servicio.IdUsuario.ToString(),
                             servicio.IdVehiculo.ToString(),
                             servicio.IdRepuesto.ToString(),
                             servicio.Detalles,
-                            servicio.Costo.ToString()
+                            servicio.Costo.ToString(),
+                            factura.MetodoPago.ToString()
                         );
                     }
                 }

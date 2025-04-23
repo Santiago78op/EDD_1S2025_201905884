@@ -544,19 +544,10 @@ public class TreeAvl<TValue> : ITreeAvl<TValue>
         }
         else
         {
-            // Generar la representación DOT recorriendo el árbol en InOrden
-            List<NodeTreeAvl<TValue>> nodosInOrden = new List<NodeTreeAvl<TValue>>();
-            RecopilarNodosInOrden(_root, nodosInOrden);
-        
-            // Generar los nodos
-            foreach (var nodo in nodosInOrden)
-            {
-                Repuesto r = nodo.Value as Repuesto;
-                dot.AppendLine($"R{r.Id} [label=\"{{<izq> | ID: {r.Id} | Nombre: {r.Repuesto1} | Detalles: {r.Detalles} |Costo: {r.Costo} | <der>}}\"]");
-            }
-        
-            // Generar las conexiones
-            GenerarConexionesDot(nodosInOrden, dot);
+            // Ordena el arbol AVL en inorden
+           
+            // Genera el grafo
+            GenerarDotAvl(_root,dot);
         }
         
         dot.AppendLine("    }");
@@ -564,37 +555,26 @@ public class TreeAvl<TValue> : ITreeAvl<TValue>
         return dot.ToString();
     }
     
-    // Método auxiliar para recopilar nodos en InOrden
-    private void RecopilarNodosInOrden(NodeTreeAvl<TValue> node, List<NodeTreeAvl<TValue>> lista)
+    /// <summary>
+    /// Genera una representación del grafo en formato DOT para visualización con Graphviz.
+    /// </summary>
+    public void GenerarDotAvl(NodeTreeAvl<TValue> repuesto,StringBuilder dot)
     {
-        if (node != null)
+        if (repuesto != null)
         {
-            RecopilarNodosInOrden(node.Left, lista);
-            lista.Add(node);
-            RecopilarNodosInOrden(node.Right, lista);
-        }
-    }
-
-    // Método para generar las conexiones entre nodos
-    private void GenerarConexionesDot(List<NodeTreeAvl<TValue>> nodosInOrden, StringBuilder dot)
-    {
-        if (nodosInOrden != null)
-        {
-            // Generar los nodos
-            foreach (var node in nodosInOrden)
+            Repuesto r = repuesto.Value as Repuesto;
+            dot.AppendLine($"R{r.Id} [label=\"{{<izq> | ID: {r.Id} | Nombre: {r.Repuesto1} | Detalles: {r.Detalles} |Costo: {r.Costo} | <der>}}\"]");
+            if (repuesto.Left != null)
             {
-                Repuesto r = node.Value as Repuesto;
-                if (node.Left != null)
-                {
-                    Repuesto rLeft = node.Left.Value as Repuesto;
-                    dot.AppendLine($"R{r.Id} -> R{rLeft.Id}");
-                }
-                
-                if (node.Right != null)
-                {
-                    Repuesto rRight = node.Right.Value as Repuesto;
-                    dot.AppendLine($"R{r.Id} -> R{rRight.Id}");
-                }
+                Repuesto rLeft = repuesto.Left.Value as Repuesto;
+                dot.AppendLine($"R{r.Id} -> R{rLeft.Id}");
+                GenerarDotAvl(repuesto.Left,dot);
+            }
+            if (repuesto.Right != null)
+            {
+                Repuesto rRight = repuesto.Right.Value as Repuesto;
+                dot.AppendLine($"R{r.Id} -> R{rRight.Id}");
+                GenerarDotAvl(repuesto.Right, dot);
             }
         }
     }
