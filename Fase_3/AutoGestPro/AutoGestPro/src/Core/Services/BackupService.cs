@@ -230,12 +230,33 @@ public class BackupService
             // Lista para almacenar los repuestos del árbol AVL
             List<Repuesto> repuestos = _servicioRepuestos.ToList();
             
+            // Verificar que tenemos repuestos para guardar
+            if(repuestos.Count == 0)
+            {
+                Console.WriteLine("No hay repuestos para guardar en el backup");
+                throw new InvalidOperationException("No hay repuestos válidos para backup");
+            }
+            
+            // Crear un objeto anónimo para serializar solo las propiedades necesarias
+            var repuestosData = repuestos.Select(r => new
+            {
+                Id = r.Id,             
+                Repuesto1 = r.Repuesto1, 
+                Detalles = r.Detalles,
+                Costo = r.Costo
+            }).ToList();
+            
             // Serializar la lista a JSON
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true
             };
-            string jsonData = JsonSerializer.Serialize(repuestos, options);
+            string jsonData = JsonSerializer.Serialize(repuestosData, options);
+            
+            // Guardar una copia del JSON original para debug si es necesario
+            string debugPath = Path.Combine(_backupPath,
+                $"Repuestos_debug_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.json");
+            File.WriteAllText(debugPath, jsonData);
 
             // Comprimir con Huffman
             HuffmanCompression huffman = new HuffmanCompression();

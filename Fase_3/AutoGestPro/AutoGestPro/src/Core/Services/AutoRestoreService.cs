@@ -370,23 +370,45 @@ public class AutoRestoreService
             // Descomprimir los datos
             HuffmanCompression huffman = new HuffmanCompression();
             string jsonData = huffman.Decompress(compressedData, huffmanTree, originalLength);
-
+            
             // Deserializar los repuestos
             var options = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+                ReadCommentHandling = JsonCommentHandling.Skip,
+                AllowTrailingCommas = true
             };
 
-            var repuestos = JsonSerializer.Deserialize<List<Repuesto>>(jsonData, options);
+            var repuestosTemp = JsonSerializer.Deserialize<List<JsonElement>>(jsonData, options);
             int initialCount = _repuestosCount;
-
-            // Restaurar los repuestos
-            foreach (var repuesto in repuestos)
+            
+            // Restaurar los repuestos manualmente
+            foreach (var item in repuestosTemp)
             {
-                // Verificar si el repuesto ya existe
-                if (!_servicioRepuestos.ContainsKey(repuesto.Id))
-                {
-                    _servicioRepuestos.Insert(repuesto.Id, repuesto);
+                try {
+                    int id = item.TryGetProperty("ID", out JsonElement idProp) 
+                        ? idProp.GetInt32() 
+                        : item.GetProperty("Id").GetInt32();
+                
+                    string nombre = item.TryGetProperty("Repuesto", out JsonElement nombreProp) 
+                        ? nombreProp.GetString() 
+                        : item.GetProperty("Repuesto1").GetString();
+                
+                    string detalles = item.GetProperty("Detalles").GetString();
+                    decimal costo = item.GetProperty("Costo").GetDecimal();
+
+                    // Crear el repuesto manualmente
+                    var repuesto = new Repuesto(id, nombre, detalles, costo);
+
+                    // Verificar si el repuesto ya existe
+                    if (!_servicioRepuestos.ContainsKey(repuesto.Id))
+                    {
+                        _servicioRepuestos.Insert(repuesto.Id, repuesto);
+                    }
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Error al procesar un repuesto: {ex.Message}");
                 }
             }
 
