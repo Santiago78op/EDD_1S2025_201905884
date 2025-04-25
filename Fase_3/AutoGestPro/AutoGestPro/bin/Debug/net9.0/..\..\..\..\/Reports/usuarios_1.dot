@@ -1,8 +1,0 @@
-digraph Blockchain {
-    node [shape=record];
-    graph [rankdir=LR];
-    subgraph cluster_0 {
-        label="Blockchain de Usuarios";
-        block0 [label="Bloque 0\nHash: 0000bc3c...\nPrevHash: 0\nNonce: 27436"];
-    }
-}
