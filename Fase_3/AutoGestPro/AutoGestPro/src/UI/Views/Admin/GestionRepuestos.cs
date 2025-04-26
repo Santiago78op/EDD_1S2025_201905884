@@ -10,13 +10,10 @@ namespace AutoGestPro.UI.Views.Admin;
 /// </summary>
 public class VisualizacionRepuestos : Window
 {
-    private const string CSS_FILE_PATH = "../../../src/UI/Assets/Styles/style.css";
-
     private TreeView _treeViewRepuestos;
     private ListStore _listStore;
     private ComboBoxText _comboOrden;
     private Button _btnActualizar;
-    private CssProvider _cssProvider;
     
     public VisualizacionRepuestos() : base("Visualización de Repuestos")
     {
@@ -24,35 +21,21 @@ public class VisualizacionRepuestos : Window
         SetPosition(WindowPosition.Center);
         DeleteEvent += (o, args) => Hide();
 
-        InitializeCSS();
+        ApplyStyles(); // Cambio aquí: usado el mismo nombre de método que en MainWindow
         CreateUI();
         ShowAll();
     }
     
     /// <summary>
-    /// Inicializa y aplica el archivo CSS para la ventana.
+    /// Aplica estilos CSS a la ventana.
     /// </summary>
-    private void InitializeCSS()
+    private void ApplyStyles()
     {
-        _cssProvider = new CssProvider();
-
-        try
-        {
-            var cssPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CSS_FILE_PATH);
-            if (System.IO.File.Exists(cssPath))
-            {
-                _cssProvider.LoadFromPath(cssPath);
-                StyleContext.AddProviderForScreen(Gdk.Screen.Default, _cssProvider, 800);
-            }
-            else
-            {
-                Console.WriteLine($"Archivo CSS no encontrado: {cssPath}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error al cargar CSS: {ex.Message}");
-        }
+        var cssProvider = new CssProvider();
+        string cssPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+            "../../../src/UI/Assets/Styles/style.css");
+        cssProvider.LoadFromPath(cssPath);
+        StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, 800);
     }
     
     /// <summary>

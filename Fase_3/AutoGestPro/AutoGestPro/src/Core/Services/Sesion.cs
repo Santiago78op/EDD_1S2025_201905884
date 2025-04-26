@@ -7,10 +7,36 @@ namespace AutoGestPro.Core.Services;
 /// </summary>
 public static class Sesion
 {
+    private static readonly LogService _logService = new LogService();
+
     /// <summary>
     /// Usuario autenticado en la sesión actual.
     /// </summary>
-    public static Usuario? UsuarioActual { get; set; }
+    private static Usuario? _usuarioActual;
+
+    /// <summary>
+    /// Usuario autenticado en la sesión actual.
+    /// </summary>
+    public static Usuario? UsuarioActual
+    {
+        get => _usuarioActual;
+        set
+        {
+            // Si hay un usuario actual diferente al nuevo, registrar su salida
+            if (_usuarioActual != null && _usuarioActual != value)
+            {
+                _logService.RegistrarSalida(_usuarioActual.Correo);
+            }
+
+            // Si se está asignando un nuevo usuario, registrar su entrada
+            if (value != null && _usuarioActual != value)
+            {
+                _logService.RegistrarEntrada(value.Correo);
+            }
+
+            _usuarioActual = value;
+        }
+    }
     
     /// <summary>
     /// Verifica si el usuario tiene permisos de administrador.
@@ -29,6 +55,20 @@ public static class Sesion
     /// </summary>
     public static void CerrarSesion()
     {
-        UsuarioActual = null;
+        if (UsuarioActual != null)
+        {
+            // Registrar la salida del usuario
+            _logService.RegistrarSalida(UsuarioActual.Correo);
+            _usuarioActual = null;
+        }
+    }
+
+    /// <summary>
+    /// Obtiene el servicio de logs para operaciones avanzadas.
+    /// </summary>
+    /// <returns>Instancia del servicio de logs.</returns>
+    public static LogService ObtenerServicioLogs()
+    {
+        return _logService;
     }
 }

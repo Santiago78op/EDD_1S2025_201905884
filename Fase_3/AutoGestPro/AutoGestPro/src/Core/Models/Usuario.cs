@@ -13,10 +13,14 @@ public class Usuario
     private string _apellidos; // Apellidos del cliente
     private string _correo; // Correo electrónico del cliente
     private int _edad; // Edad del cliente
+    private string _contrasenia; // Contraseña del cliente (en texto plano)
     
     // La contraseña no se almacena directamente, solo su hash
     private string _contraseniaHash;
     private string _salt;
+    
+    // Añadir una bandera para cuando estamos restaurando desde backup
+    private bool _isRestoredUser = false;
 
     public int Id
     {
@@ -48,33 +52,51 @@ public class Usuario
         set => _edad = value;
     }
 
+    public string Contrasenia
+    {
+        get => _contrasenia;
+        set => _contrasenia = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
     public string ContraseniaHash
     {
         get => _contraseniaHash;
         set => _contraseniaHash = value ?? throw new ArgumentNullException(nameof(value));
     }
+    
+    // Añadir getter/setter para la propiedad Salt
+    public string Salt
+    {
+        get => _salt;
+        set => _salt = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase Cliente con los datos proporcionados.
     /// </summary>
-    /// <param name="id">Identificador único del cliente.</param>
+    /// <param name="id">ID del cliente.</param>
     /// <param name="nombres">Nombres del cliente.</param>
     /// <param name="apellidos">Apellidos del cliente.</param>
     /// <param name="correo">Correo electrónico del cliente.</param>
     /// <param name="edad">Edad del cliente.</param>
-    /// <param name="contraseniaHash">Hash de la contraseña del cliente.</param>
-    public Usuario(int id, string nombres, string apellidos, string correo, int edad, string contraseniaHash)
+    /// <param name="contraseniaHash">Contraseña del cliente (en texto plano).</param>
+    /// <param name="salt">Salt para el hash de la contraseña.</param>
+    /// <param name="isRestoredUser">Indica si el usuario es restaurado desde un backup.</param>
+    public Usuario(int id, string nombres, string apellidos, string correo, int edad, string contrasenia, string salt = null, bool isRestoredUser = false)
     {
         _id = id;
         _nombres = nombres;
         _apellidos = apellidos;
         _correo = correo;
         _edad = edad;
-        _contraseniaHash = contraseniaHash;
+        _contrasenia = contrasenia;
+        _salt = salt == null ? GenerarSalt() : salt;
+        _isRestoredUser = isRestoredUser;
         
-        // Generar un salt aleatorio para el hash de la contraseña
-        _salt = GenerarSalt();
-        _contraseniaHash = HashContrasenia(contraseniaHash, _salt);
+        // Solo hashea la contraseña si es un nuevo usuario, no uno restaurado
+        if (!_isRestoredUser) {
+            _contraseniaHash = HashContrasenia(_contrasenia, _salt);
+        }
     }
     
     // Método para verificar contraseña

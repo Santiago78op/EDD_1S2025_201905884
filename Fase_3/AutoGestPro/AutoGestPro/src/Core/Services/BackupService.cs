@@ -96,7 +96,8 @@ public class BackupService
                 Apellidos = u.Apellidos,
                 Correo = u.Correo,
                 Edad = u.Edad,
-                Contrasenia = u.ContraseniaHash
+                Contrasenia = u.ContraseniaHash,
+                salt = u.Salt
                 // No incluimos la contraseña por seguridad
             }).ToList();
 

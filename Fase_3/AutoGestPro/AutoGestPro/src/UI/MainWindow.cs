@@ -48,6 +48,27 @@ public class MainWindow : Window
     /// </summary>
     private void OnLoginExitoso(object sender, EventArgs e)
     {
+        if (Sesion.UsuarioActual == null)
+        {
+            // Mostrar ventana emergente indicando que no hay usuarios
+            var dialog = new MessageDialog(
+                this,
+                DialogFlags.Modal,
+                MessageType.Warning,
+                ButtonsType.Ok,
+                "No se ha podido iniciar sesión. No hay un usuario válido.")
+            {
+                Title = "Error de Autenticación"
+            };
+        
+            dialog.Run();
+            dialog.Destroy();
+        
+            // No continuar con la construcción de la interfaz principal
+            return;
+        }
+    
+        // Continuar con la inicialización normal sólo si hay un usuario
         _mainVBox.Destroy();
         BuildUI();
     }
@@ -114,13 +135,14 @@ public class MainWindow : Window
 
                 // Tercera fila
                 grid.Attach(CreateActionButton("Cargar \nBackup", adminActions.OnGenerarBackup), 0, 2, 1, 1);
-                grid.Attach(CreateActionButton("Generar \nBackup", adminActions.OnCargarBackup), 1, 2, 1, 1);
+                grid.Attach(CreateActionButton("Generar \nLogs", adminActions.OnVisualizarLogs), 1, 2, 1, 1);
                 
                 
                 centeringBox.PackStart(grid, false, false, 0);
             }
             else
             {
+                
                 // Grid para botones de usuario normal
                 var grid = new Grid();
                 grid.RowSpacing = 15;
@@ -130,11 +152,11 @@ public class MainWindow : Window
                 var userActions = new MenuUsuario();
 
                 // Descomentar y modificar según necesites
-                /*
+                
                 grid.Attach(CreateActionButton("Mis\nVehículos", userActions.OnMisVehiculos), 0, 0, 1, 1);
                 grid.Attach(CreateActionButton("Mis\nServicios", userActions.OnMisServicios), 1, 0, 1, 1);
                 grid.Attach(CreateActionButton("Mis\nFacturas", userActions.OnMisFacturas), 0, 1, 1, 1);
-                */
+                
 
                 centeringBox.PackStart(grid, false, false, 0);
             }
@@ -182,7 +204,7 @@ public class MainWindow : Window
         button.Clicked += handler;
 
         // Diferente estilo según el rol
-        if (Sesion.UsuarioActual.EsAdmin())
+        if (Sesion.UsuarioActual.Correo == "admin@usac.com")
         {
             button.AddCssClass("boton-admin");
         }

@@ -74,7 +74,7 @@ public class RestoreService
                 var usuarioExistente = _servicioUsuarios.BuscarUsuarioPorId(id);
                 if (usuarioExistente == null)
                 {
-                    _servicioUsuarios.RegistrarUsuario(id, nombres, apellidos, correo, edad, contraseniaTemporal);
+                    _servicioUsuarios.RegistrarUsuario(usuarioExistente);
                     count++;
                 }
             }

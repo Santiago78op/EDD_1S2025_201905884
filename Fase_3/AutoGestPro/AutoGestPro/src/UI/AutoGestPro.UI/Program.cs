@@ -28,19 +28,7 @@ internal static class Program
         var restoreResult = autoRestore.RestoreAutomatically();
             
         // Si la restauración falló, mostrar mensaje de error
-        if (!restoreResult.Success)
-        {
-            var dialog = new MessageDialog(
-                mainWindow,
-                DialogFlags.Modal,
-                MessageType.Error,
-                ButtonsType.Ok,
-                $"Error en la restauración automática: {restoreResult.Message}");
-            dialog.Title = "Error de Restauración Automática";
-            dialog.Run();
-            dialog.Dispose();
-        }
-        else
+        if (restoreResult.Success)
         {
             // Opcional: Mostrar mensaje de éxito
             var dialog = new MessageDialog(

@@ -29,4 +29,24 @@ public class MenuUsuario
         var ventana = new MisFacturasView();
         ventana.ShowAll();
     }*/
+    public void OnMisVehiculos(object? sender, EventArgs e)
+    {
+        // Lógica para abrir la gestión de visualización de vehículos
+        var ventana = new VisualizacionVehiculos();
+        ventana.ShowAll();
+    }
+
+    public void OnMisServicios(object? sender, EventArgs e)
+    {
+        // Lógica para abrir la gestión de servicios
+        var ventana = new VisualizacionServicios();
+        ventana.ShowAll();
+    }
+
+    public void OnMisFacturas(object? sender, EventArgs e)
+    {
+        // Lógica para abrir la gestión de facturas
+        var ventana = new VisualizacionFacturas();
+        ventana.ShowAll();
+    }
 }

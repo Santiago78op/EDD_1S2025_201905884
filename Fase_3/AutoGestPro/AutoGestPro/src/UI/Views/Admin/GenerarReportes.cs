@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using AutoGestPro.Core.Global;
 using AutoGestPro.Core.Graphs;
+using AutoGestPro.UI.Extensions;
 using Gtk;
 
 namespace AutoGestPro.UI.Views.Admin;
@@ -28,6 +29,9 @@ public class GenerarReportes : Window
         SetPosition(WindowPosition.Center);
         DeleteEvent += (o, args) => Hide();
         
+        // Aplicar estilos CSS
+        ApplyStyles();
+        
         // Asegurarse de que la carpeta de reportes existe
         string reportPath = Graphviz.GetReportPath();
 
@@ -38,6 +42,7 @@ public class GenerarReportes : Window
         Label lblTitulo = new Label();
         lblTitulo.Markup = "<span size='large' weight='bold'>Seleccione el reporte a generar:</span>";
         lblTitulo.SetAlignment(0, 0.5f);
+        lblTitulo.AddCssClass("label-titulo");
         vbox.PackStart(lblTitulo, false, false, 10);
         
         // Crear botones con íconos
@@ -76,16 +81,30 @@ public class GenerarReportes : Window
         // Añadir etiqueta de estado
         _lblStatus = new Label("");
         _lblStatus.SetAlignment(0, 0.5f);
+        _lblStatus.AddCssClass("label-status");
         vbox.PackStart(_lblStatus, false, false, 5);
         
         Add(vbox);
         ShowAll();
     }
     
+    /// <summary>
+    /// Aplica estilos CSS a la ventana.
+    /// </summary>
+    private void ApplyStyles()
+    {
+        var cssProvider = new CssProvider();
+        string cssPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+            "../../../src/UI/Assets/Styles/style.css");
+        cssProvider.LoadFromPath(cssPath);
+        StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, 800);
+    }
+    
     private Button CreateStyledButton(string text)
     {
         var button = new Button(text);
         button.HeightRequest = 40;
+        button.AddCssClass("boton-quintuple");
         return button;
     }
 

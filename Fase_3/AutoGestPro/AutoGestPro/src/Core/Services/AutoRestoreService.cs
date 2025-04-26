@@ -212,20 +212,28 @@ public class AutoRestoreService
             foreach (var userData in usuariosData)
             {
                 // Extraer propiedades del elemento JSON
+                // Extraer propiedades del elemento JSON
                 int id = userData.GetProperty("Id").GetInt32();
                 string nombres = userData.GetProperty("Nombres").GetString();
                 string apellidos = userData.GetProperty("Apellidos").GetString();
                 string correo = userData.GetProperty("Correo").GetString();
                 int edad = userData.GetProperty("Edad").GetInt32();
+                string passwordHash = userData.GetProperty("Contrasenia").GetString();
+                
+                // Obtener el salt si existe o generar uno nuevo
+                string salt = userData.TryGetProperty("Salt", out JsonElement saltProp) 
+                    ? saltProp.GetString() 
+                    : null;
 
-                // Contraseña de restauración
-                string contraseniaTemporal = "Restore" + id;
-
-                // Registrar usuario en la blockchain
+                // Verificar si el usuario ya existe
                 var usuarioExistente = _servicioUsuarios.BuscarUsuarioPorId(id);
                 if (usuarioExistente == null)
                 {
-                    _servicioUsuarios.RegistrarUsuario(id, nombres, apellidos, correo, edad, contraseniaTemporal);
+                    // Crear un nuevo usuario con el hash y salt restaurados
+                    Usuario nuevoUsuario = new Usuario(id, nombres, apellidos, correo, edad, passwordHash, salt, false);
+                
+                    // Registrar el usuario en la blockchain
+                    _servicioUsuarios.RegistrarUsuarioRestaurado(nuevoUsuario);
                     count++;
                 }
             }

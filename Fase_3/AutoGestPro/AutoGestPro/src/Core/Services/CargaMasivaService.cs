@@ -65,7 +65,7 @@ public class CargaMasivaService
                 foreach (var usuario  in usuarios)
                 {
                     // Registrar usuario en el Blockchain
-                    var us = _servicio.RegistrarUsuario(usuario.Id, usuario.Nombres, usuario.Apellidos, usuario.Correo, usuario.Edad, usuario.ContraseniaHash);
+                    var us = _servicio.RegistrarUsuario(usuario);
 
                     if (us != null)
                     {

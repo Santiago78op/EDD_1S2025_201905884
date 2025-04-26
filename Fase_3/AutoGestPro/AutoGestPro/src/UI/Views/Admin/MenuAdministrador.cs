@@ -56,47 +56,19 @@ public class MenuAdministrador
         ventana.ShowAll();
     }
     
+    public void OnVisualizarLogs(object sender, EventArgs e)
+    {
+        // Lógica para abrir la visualización de logs de usuarios
+        var ventana = new VisualizacionLogs();
+        ventana.ShowAll();
+    }
+
+    /* Función comentada para cargar backups, se puede desarrollar a futuro
     public void OnCargarBackup(object sender, EventArgs e)
     {
         // Lógica para abrir la gestión de Cargas Masivas
         var ventana = new RestaurarBackups();
         ventana.ShowAll();
     }
-    
-    /*
-     *ntana = new GestionUsuarios();
-           ventana.ShowAll();
-       }
-       public void OnGestionVehiculos(object sender, EventArgs e)
-       {
-           var ventana = new GestionVehiculos();
-           ventana.ShowAll();
-       }
-       public void OnGestionRepuestos(object sender, EventArgs e)
-       {
-           var ventana = new GestionRepuestos();
-           ventana.ShowAll();
-       }
-       public void OnGestionServicios(object sender, EventArgs e)
-       {
-           var ventana = new GestionServicios();
-           ventana.ShowAll();
-       }
-       public void OnGestionFacturas(object sender, EventArgs e)
-       {
-           var ventana = new GestionFacturas();
-           ventana.ShowAll();
-       }
-       public void OnGenerarReportes(object sender, EventArgs e)
-       {
-           var ventana = new GeneradorReportes();
-           ventana.ShowAll();
-       }
-       public void OnMostrarBitacora(object sender, EventArgs e)
-       {
-           var ventana = new BitacoraView();
-           ventana.ShowAll();
-       }* /
-     * 
-     */
+    */
 }

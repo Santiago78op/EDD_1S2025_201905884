@@ -19,7 +19,7 @@ public class ServicioUsuarios
     }
     
     // Registra un nuevo usuario en el sistema
-    public Usuario RegistrarUsuario(int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
+    public Usuario RegistrarUsuario(Usuario usuario)
     {
         // Tabla de verdad - Validaciones: id y correo únicos
         /*
@@ -32,29 +32,26 @@ public class ServicioUsuarios
          *  -------------------------------------------
          */
         // Verifica si ya existe un usuario con ese ID
-        if (_usuariosPorCorreo.Values.Any(u => u.Id == id))
+        if (_usuariosPorCorreo.Values.Any(u => u.Id == usuario.Id))
         {
             Console.WriteLine("Ya existe un usuario con ese ID");
             return null;
         }
         
         // Verifica si ya existe un usuario con ese correo
-        if (_usuariosPorCorreo.ContainsKey(correo))
+        if (_usuariosPorCorreo.ContainsKey(usuario.Correo))
         {
             Console.WriteLine("Ya existe un usuario con ese correo");
             return null;
         }
-
-        // Crea el nuevo usuario
-        Usuario nuevoUsuario = new Usuario(id, nombres, apellidos, correo, edad, contrasenia);
-            
+        
         // Lo añade a la blockchain
-        _blockchain.AgregarUsuario(nuevoUsuario);
+        _blockchain.AgregarUsuario(usuario);
             
         // Lo añade al diccionario para búsquedas rápidas
-        _usuariosPorCorreo[correo] = nuevoUsuario;
+        _usuariosPorCorreo[usuario.Correo] = usuario;
             
-        return nuevoUsuario;
+        return usuario;
     }
     
     // Autentica un usuario
@@ -64,8 +61,15 @@ public class ServicioUsuarios
         {
             return null;  // Usuario no encontrado
         }
+        
+        // Verifica la contraseña
+        if (!usuario.VerificarContrasenia(contrasenia))
+        {
+            return null;  // Contraseña incorrecta
+        }
 
-        return usuario.VerificarContrasenia(contrasenia) ? usuario : null;
+        // Si la autenticación es exitosa, devuelve el usuario
+        return usuario;
     }
     
     // Busca un usuario por su ID
@@ -135,5 +139,31 @@ public class ServicioUsuarios
         dot.AppendLine("    }");
         dot.AppendLine("}");
         return dot.ToString();
+    }
+
+    // En ServicioUsuarios.cs - añadir este método
+    public Usuario RegistrarUsuarioRestaurado(Usuario usuario)
+    {
+        // Verificar si ya existe un usuario con ese ID
+        if (_usuariosPorCorreo.Values.Any(u => u.Id == usuario.Id))
+        {
+            Console.WriteLine("Ya existe un usuario con ese ID");
+            return null;
+        }
+    
+        // Verificar si ya existe un usuario con ese correo
+        if (_usuariosPorCorreo.ContainsKey(usuario.Correo))
+        {
+            Console.WriteLine("Ya existe un usuario con ese correo");
+            return null;
+        }
+
+        // Añadir a blockchain
+        _blockchain.AgregarUsuario(usuario);
+    
+        // Añadir al diccionario para búsquedas rápidas
+        _usuariosPorCorreo[usuario.Correo] = usuario;
+    
+        return usuario;
     }
 }

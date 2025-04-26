@@ -64,10 +64,10 @@ namespace AutoGestPro.UI.Views.Admin
         {
             SetDefaultSize(900, 600);
             SetPosition(WindowPosition.Center);
-            DeleteEvent += (o, args) => 
+            DeleteEvent += (o, args) =>
             {
                 args.RetVal = true; // Permite el cierre de la ventana
-                this.Destroy(); // Solo destruye esta ventana, no toda la aplicación
+                Destroy(); // Solo destruye esta ventana, no toda la aplicación
             };
         }
 
@@ -372,14 +372,7 @@ namespace AutoGestPro.UI.Views.Admin
                     _txtContrasenia.Text.Trim()
                 );
 
-                var usuarioRegistrado = _servicioUsuarios.RegistrarUsuario(
-                    usuario.Id,
-                    usuario.Nombres,
-                    usuario.Apellidos,
-                    usuario.Correo,
-                    usuario.Edad,
-                    usuario.ContraseniaHash
-                );
+                var usuarioRegistrado = _servicioUsuarios.RegistrarUsuario(usuario);
 
                 if (usuarioRegistrado != null)
                 {
