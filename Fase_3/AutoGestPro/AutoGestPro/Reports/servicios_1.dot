@@ -1,0 +1,33 @@
+digraph ServiciosInOrden {
+node [shape=ellipse, style=filled, fillcolor=lightblue];
+    subgraph cluster_0 {
+        label="Binary Tree de Servicios (Recorrido In-Orden)";
+        S1 [label="ID: 1\nRepuesto: 3 | Vehículo: 5\n Cambio de pastillas de freno\nCosto: Q50.00"];
+        S2 [label="ID: 2\nRepuesto: 4 | Vehículo: 8\n Reemplazo de batería\nCosto: Q120.00"];
+        S3 [label="ID: 3\nRepuesto: 3 | Vehículo: 6\n Cambio de pastillas de freno\nCosto: Q50.00"];
+        S4 [label="ID: 4\nRepuesto: 10 | Vehículo: 15\n Reparación de bomba de agua\nCosto: Q100.00"];
+        S5 [label="ID: 5\nRepuesto: 15 | Vehículo: 20\n Reemplazo de llantas\nCosto: Q220.00"];
+        S6 [label="ID: 6\nRepuesto: 18 | Vehículo: 20\n Cambio de aceite y filtro\nCosto: Q40.00"];
+        S7 [label="ID: 7\nRepuesto: 15 | Vehículo: 18\n Alineación y balanceo\nCosto: Q60.00"];
+        S8 [label="ID: 8\nRepuesto: 9 | Vehículo: 12\n Reparación de transmisión\nCosto: Q300.00"];
+        S9 [label="ID: 9\nRepuesto: 5 | Vehículo: 3\n Cambio llantas\nCosto: Q144.63"];
+        S1 -> S8 [color=green, label="R"];
+        S8 -> S3 [color=blue, label="L"];
+        S8 -> S9 [color=green, label="R"];
+        S3 -> S2 [color=blue, label="L"];
+        S3 -> S5 [color=green, label="R"];
+        S5 -> S4 [color=blue, label="L"];
+        S5 -> S6 [color=green, label="R"];
+        S6 -> S7 [color=green, label="R"];
+        // Conexiones de recorrido in-orden
+        edge [color=red, style=dashed];
+        S1 -> S2 [label="1", color=red];
+        S2 -> S3 [label="2", color=red];
+        S3 -> S4 [label="3", color=red];
+        S4 -> S5 [label="4", color=red];
+        S5 -> S6 [label="5", color=red];
+        S6 -> S7 [label="6", color=red];
+        S7 -> S8 [label="7", color=red];
+        S8 -> S9 [label="8", color=red];
+    }
+}

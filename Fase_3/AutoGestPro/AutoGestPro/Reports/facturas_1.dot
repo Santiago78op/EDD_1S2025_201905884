@@ -1,0 +1,24 @@
+digraph MerkleTree {
+  node [shape=record, style=filled, fillcolor=lightblue];
+  graph [rankdir=TB];
+  subgraph cluster_0 {
+    label="Árbol Merkle de Comprobantes";
+  node0 [label="Factura 1\nId Servicio: 1\nTotal: 95.00\nFecha: 27/4/2025 13:52:25\nMétodo Pago: TarjetaDeDebito\nHash: daae60c5...", fillcolor=lightgreen];
+  node0 -> node1 [color=green, label="R"];
+  node1 [label="Factura 8\nId Servicio: 8\nTotal: 320.30\nFecha: 27/4/2025 13:52:25\nMétodo Pago: TarjetaDeDebito\nHash: f67b028c...", fillcolor=lightgreen];
+  node1 -> node2 [color=blue, label="L"];
+  node2 [label="Factura 3\nId Servicio: 3\nTotal: 95.00\nFecha: 27/4/2025 13:52:25\nMétodo Pago: TarjetaDeDebito\nHash: da8d36e4...", fillcolor=lightgreen];
+  node2 -> node3 [color=blue, label="L"];
+  node3 [label="Factura 2\nId Servicio: 2\nTotal: 240.00\nFecha: 27/4/2025 13:52:25\nMétodo Pago: TarjetaDeCredito\nHash: 4d3aaff5...", fillcolor=lightgreen];
+  node2 -> node4 [color=green, label="R"];
+  node4 [label="Factura 5\nId Servicio: 5\nTotal: 330.00\nFecha: 27/4/2025 13:52:25\nMétodo Pago: Efectivo\nHash: bde3aa76...", fillcolor=lightgreen];
+  node4 -> node5 [color=blue, label="L"];
+  node5 [label="Factura 4\nId Servicio: 4\nTotal: 155.90\nFecha: 27/4/2025 13:52:25\nMétodo Pago: Efectivo\nHash: 1b59319c...", fillcolor=lightgreen];
+  node4 -> node6 [color=green, label="R"];
+  node6 [label="Factura 6\nId Servicio: 6\nTotal: 58.90\nFecha: 27/4/2025 13:52:25\nMétodo Pago: Efectivo\nHash: 5ae692c1...", fillcolor=lightgreen];
+  node6 -> node7 [color=green, label="R"];
+  node7 [label="Factura 7\nId Servicio: 7\nTotal: 170.00\nFecha: 27/4/2025 13:52:25\nMétodo Pago: Efectivo\nHash: 97c0db6e...", fillcolor=lightgreen];
+  node1 -> node8 [color=green, label="R"];
+  node8 [label="Factura 9\nId Servicio: 9\nTotal: 325.13\nFecha: 27/4/2025 13:54:47\nMétodo Pago: Efectivo\nHash: 5853ad02...", fillcolor=lightgreen];
+  }
+}
