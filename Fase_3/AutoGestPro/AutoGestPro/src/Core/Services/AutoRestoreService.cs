@@ -230,7 +230,7 @@ public class AutoRestoreService
                 if (usuarioExistente == null)
                 {
                     // Crear un nuevo usuario con el hash y salt restaurados
-                    Usuario nuevoUsuario = new Usuario(id, nombres, apellidos, correo, edad, passwordHash, salt, false);
+                    Usuario nuevoUsuario = new Usuario(id, nombres, apellidos, correo, edad, passwordHash, salt, true);
                 
                     // Registrar el usuario en la blockchain
                     _servicioUsuarios.RegistrarUsuarioRestaurado(nuevoUsuario);

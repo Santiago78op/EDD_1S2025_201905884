@@ -1,0 +1,22 @@
+[
+  {
+    "usuario": "admin@usac.com",
+    "entrada": "2025-05-02T20:25:12.8831707-06:00",
+    "salida": null
+  },
+  {
+    "usuario": "noe.eliseo@usac.com",
+    "entrada": "2025-05-02T20:25:01.6556771-06:00",
+    "salida": "2025-05-02T20:25:04.152261-06:00"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "entrada": "2025-05-02T20:24:05.408087-06:00",
+    "salida": "2025-05-02T20:24:48.3667053-06:00"
+  },
+  {
+    "usuario": "mayra.alejandra@usac.com",
+    "entrada": "2025-05-02T20:23:44.7713508-06:00",
+    "salida": "2025-05-02T20:23:47.1665965-06:00"
+  }
+]

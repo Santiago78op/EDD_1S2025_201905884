@@ -97,6 +97,10 @@ public class Usuario
         if (!_isRestoredUser) {
             _contraseniaHash = HashContrasenia(_contrasenia, _salt);
         }
+        else
+        {
+            _contraseniaHash = contrasenia;
+        }
     }
     
     // Método para verificar contraseña

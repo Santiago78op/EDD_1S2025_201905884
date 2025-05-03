@@ -1,0 +1,92 @@
+[
+  {
+    "Id": 1,
+    "Nombres": "Efra\u00EDn Josu\u00E9",
+    "Apellidos": "Cuxum P\u00E9rez",
+    "Correo": "efrain.josue@usac.com",
+    "Edad": 19,
+    "Contrasenia": "FKlP96oaUuSCGfa1VGB4t0Sz/dkef7NHCin\u002BRUgcRuQ=",
+    "Salt": "iPSFtmLIi6mjThUafrdh2xyvd3Ms9b/4CKh0dfR/zoY="
+  },
+  {
+    "Id": 2,
+    "Nombres": "Ximena Marisol",
+    "Apellidos": "Quixch\u00E1n Rojas",
+    "Correo": "ximena.marisol@usac.com",
+    "Edad": 21,
+    "Contrasenia": "2OtprnM3qH9OaviNlPUPAe4vtG\u002BgZfov3mna4ESnKiE=",
+    "Salt": "3/t11/4oEIUibdISdkoJVOrkCsUBHbmCRCaLmTw3Brc="
+  },
+  {
+    "Id": 3,
+    "Nombres": "Brayan Estuardo",
+    "Apellidos": "Tumax Garc\u00EDa",
+    "Correo": "brayan.estuardo@usac.com",
+    "Edad": 22,
+    "Contrasenia": "hQwBizHXGHDK3n4zjbYhUGgHyQ4MUo\u002BBaeeAnrJGiNI=",
+    "Salt": "vWhcaJVENpoIcjE1ue\u002BZV5teYTTbRDI6gkfy8ecxXIU="
+  },
+  {
+    "Id": 4,
+    "Nombres": "Karla Lisseth",
+    "Apellidos": "Chocoy M\u00E9ndez",
+    "Correo": "karla.lisseth@usac.com",
+    "Edad": 20,
+    "Contrasenia": "oXenTqSIzEqCoE6bSyE5kOx0TvN\u002BHidN1dWaGixCsrQ=",
+    "Salt": "nUVq9BQcDndgBTGByl4Sf6rHrPgG2q\u002B3XFCCGhEXhPk="
+  },
+  {
+    "Id": 5,
+    "Nombres": "Steven Facundo",
+    "Apellidos": "Mejia Xolop",
+    "Correo": "steven.mejia@usac.com",
+    "Edad": 23,
+    "Contrasenia": "aVvXqeaxYUA6Ha8x7LaYRJQ/jEBAdaCSxC8fZlCkTNc=",
+    "Salt": "VTsYuTq31pzYrkEEnovxXKlZdbD8oglB9DzzWdu\u002BUhc="
+  },
+  {
+    "Id": 6,
+    "Nombres": "Selvin Orlando",
+    "Apellidos": "Ajpacaj\u00E1 Ruiz",
+    "Correo": "selvin.orlando@usac.com",
+    "Edad": 18,
+    "Contrasenia": "RJmmlLamH8c/6rre9PvBuP9GpFeDhNGttbDyGKgvwnU=",
+    "Salt": "mCnBvVfRC7q5vkznaqjEs5jlS9X70znybdnAat24glM="
+  },
+  {
+    "Id": 7,
+    "Nombres": "Mayra Alejandra",
+    "Apellidos": "Cojul\u00FAn D\u00EDaz",
+    "Correo": "mayra.alejandra@usac.com",
+    "Edad": 21,
+    "Contrasenia": "F55Ui0\u002BnGwPaQSM071dB1XeDL1vlJsytXnk5be0osss=",
+    "Salt": "XlQJnmcGrAbMUBxbVJeutAb8sixs3514F8dm0igVW0o="
+  },
+  {
+    "Id": 8,
+    "Nombres": "No\u00E9 Eliseo",
+    "Apellidos": "Sactic V\u00E1squez",
+    "Correo": "noe.eliseo@usac.com",
+    "Edad": 19,
+    "Contrasenia": "XCxA\u002BRPwZPS5HU48DZTZSlnEOJBqGLr2NreppYa/4MM=",
+    "Salt": "aOJZxvtuMYMGimZ\u002B9DoJUijWuk9W7BKY6Oxuh9UCJ\u002Bk="
+  },
+  {
+    "Id": 9,
+    "Nombres": "Dulce Mar\u00EDa",
+    "Apellidos": "Xolop Castillo",
+    "Correo": "dulce.maria@usac.com",
+    "Edad": 20,
+    "Contrasenia": "kth2AoxPeMBDTRegU/2ernCQ18aJsFpqEZN17\u002B6JuD0=",
+    "Salt": "wKdsQhMjN14ShdhnKY2LXVowvh2IVw8XeqDoJoTBp3c="
+  },
+  {
+    "Id": 10,
+    "Nombres": "Jairo Vinicio",
+    "Apellidos": "Camey Ortiz",
+    "Correo": "jairo.vinicio@usac.com",
+    "Edad": 22,
+    "Contrasenia": "u/e7xkmVWJIgbm6Va/VN6aOATVBRpY8qyW06XWbn0zg=",
+    "Salt": "ZU1pCBq44M07B3ygQOb1oormjy0pY\u002BW2RgVmoPDrVwY="
+  }
+]
